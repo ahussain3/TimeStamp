@@ -1,0 +1,32 @@
+//
+//  GCCalendarEvent.m
+//  GCCalendar
+//
+//	GUI Cocoa Common Code Library
+//
+//  Created by Caleb Davenport on 1/23/10.
+//  Copyright GUI Cocoa Software 2010. All rights reserved.
+//
+
+#import "GCCalendarEvent.h"
+
+@implementation GCCalendarEvent
+
+@synthesize eventName;
+@synthesize eventDescription;
+@synthesize startDate;
+@synthesize endDate;
+@synthesize allDayEvent;
+@synthesize color;
+@synthesize userInfo;
+
+- (id)init {
+	if (self = [super init]) {
+        // Initialization code here
+	}
+	
+	return self;
+}
+
+
+@end

@@ -234,6 +234,14 @@
 - (CGPoint)contentOffset {
 	return scrollView.contentOffset;
 }
+- (void)addNewEvent {
+    GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
+    event.startDate = [NSDate date];
+    event.endDate = [NSDate dateWithTimeInterval:60*60 sinceDate:event.startDate];
+    event.eventName = @"New Event Created!";
+    event.color = [UIColor redColor];
+    [todayView addNewEvent:event];
+}
 
 #pragma mark touch handling
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {

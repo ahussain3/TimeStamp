@@ -45,11 +45,7 @@ static NSArray *timeStrings;
 		events = [a filteredArrayUsingPredicate:pred];
         
 		for (GCCalendarEvent *e in events) {
-			GCCalendarTile *tile = [[GCCalendarTile alloc] init];
-			tile.event = e;
-            tile.color = e.color;
-            //            tile.color = [UIColor redColor];
-			[self addSubview:tile];
+            [self addNewEvent:e];
 		}
         [self initialize];
 	}
@@ -80,6 +76,12 @@ static NSArray *timeStrings;
         NSLog(@"Displayed Date set to: %@", midnight);
         _date = midnight;
     }
+}
+- (void)addNewEvent:(GCCalendarEvent *)event {
+    GCCalendarTile *tile = [[GCCalendarTile alloc] init];
+    tile.event = event;
+    tile.color = event.color;
+    [self addSubview:tile];
 }
 - (void)layoutSubviews {
 	for (UIView *view in self.subviews) {
@@ -124,15 +126,6 @@ static NSArray *timeStrings;
             endPos += (endMinute / 60.0) * (kHalfHourDiff * 2.0);
             endPos = floor(endPos);
             
-//            // Diagnostics - why is it drawing so bad?
-//            NSLog(@"Current event: %@", tile.event.eventName);
-//            NSLog(@"Current event start time: %@", tile.event.startDate);
-//            NSLog(@"Current event end time: %@", tile.event.endDate);
-//            NSLog(@"Start hour:min (in current timezone: (%i:%i)", startHour, startMinute);
-//            NSLog(@"End hour:min (in current timezone: (%i:%i)", endHour, endMinute);
-//            NSLog(@"Current event y-start-pos: %f", startPos);
-//            NSLog(@"Current event y-end-pos: %f", endPos);
-            
             tile.frame = CGRectMake(kTileLeftSide,
                                     startPos,
                                     self.bounds.size.width - kTileLeftSide - kTileRightSide,
@@ -143,7 +136,6 @@ static NSArray *timeStrings;
     
     [self drawLineForCurrentTime];
 }
-
 - (void)drawRect:(CGRect)rect {
     // grab current graphics context
 	CGContextRef g = UIGraphicsGetCurrentContext();

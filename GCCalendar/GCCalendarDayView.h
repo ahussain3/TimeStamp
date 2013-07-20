@@ -48,6 +48,7 @@
 
 - (id)initWithCalendarView:(GCCalendarView *)view;
 - (void)reloadData;
--(void)selectTile:(GCCalendarTile *)t;
+- (void)selectTile:(GCCalendarTile *)t;
+- (void)addNewEvent;
 
 @end

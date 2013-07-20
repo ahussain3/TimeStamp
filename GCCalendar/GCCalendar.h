@@ -20,12 +20,6 @@ static NSString * const GCCalendarShouldReloadNotification = @"GCCalendarShouldR
 // private notifications
 static NSString * const __GCCalendarTileTouchNotification = @"__GCCalendarTileTouchNotification";
 
-/*
- GCCalendar provides several key utility methods, as well as a centralized
- calendar imports location.  The notable function of this class is the
- calendarEventsForDate: method which creates an array of GCCalendarEvent
- objects which will be displayed by the calendar interface.
- */
 @interface GCCalendar : NSObject {
 	
 }

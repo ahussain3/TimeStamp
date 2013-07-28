@@ -29,9 +29,6 @@
  @interface TSDayViewController : GCCalendarView <GCCalendarDelegate, GCCalendarDataSource> {
     // date the view will display
     NSDate *date;
-    
-    // date bar that runs across the top of screen
-    TableHeaderToolBar *dateBar;
      
     // control for changing the date
     GCDatePickerControl *dayPicker;

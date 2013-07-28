@@ -147,6 +147,7 @@
 								  self.frame.size.height - allDayView.frame.size.height);
 	scrollView.contentSize = CGSizeMake(self.frame.size.width, kTodayViewHeight*3);
 	scrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    scrollView.userInteractionEnabled = YES;
     [self setContentOffset:CGPointMake(0, kTodayViewHeight)];
     NSLog(@"scroll view offset: (%f, %f)", scrollView.contentOffset.x, scrollView.contentOffset.y);
 
@@ -159,7 +160,7 @@
     yesterdayView.scrollView = scrollView;
     yesterdayView.date = [date dateByAddingTimeInterval:-60*60*24];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOutside:)];
-    [yesterdayView addGestureRecognizer:tap];
+//    [yesterdayView addGestureRecognizer:tap];
     
 	// create today view
 	todayView = [[GCCalendarTodayView alloc] initWithEvents:events];
@@ -175,7 +176,7 @@
     tomorrowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     tomorrowView.scrollView = scrollView;
     tomorrowView.date = [date dateByAddingTimeInterval:60*60*24];
-    [tomorrowView addGestureRecognizer:tap];
+//    [tomorrowView addGestureRecognizer:tap];
     
     // Create a composite view combining the three we just created.
     UIView *compositeView = [[UIView alloc] init];
@@ -246,21 +247,22 @@
 #pragma mark touch handling
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {
 	// show touch-began state
-    
-    [super touchesBegan:touches withEvent:e];
+    [[self nextResponder] touchesBegan:touches withEvent:e];;
 }
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)e {
 	
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)e {
-	UITouch *touch = [touches anyObject];
-	
-	if ([self pointInside:[touch locationInView:self] withEvent:nil]) {
-		[self touchesCancelled:touches withEvent:e];
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:__GCCalendarTileTouchNotification
-															object:self];
-	}
+
+    
+//	UITouch *touch = [touches anyObject];
+//	
+//	if ([self pointInside:[touch locationInView:self] withEvent:nil]) {
+//		[self touchesCancelled:touches withEvent:e];
+//		
+//		[[NSNotificationCenter defaultCenter] postNotificationName:__GCCalendarTileTouchNotification
+//															object:self];
+//	}
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)e {
 	// show touch-end state

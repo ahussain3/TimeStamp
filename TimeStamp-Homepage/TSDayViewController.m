@@ -18,6 +18,7 @@
 #import "TSCalBoxesContainer.h"
 #import "HomePageCalObj.h"
 #import "TSMenuObjectStore.h"
+#import "TSCalBoxView.h"
 
 #define kAnimationDuration 0.3f
 
@@ -26,6 +27,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) GCCalendarDayView *dayView;
 @property (nonatomic, strong) EKEventStore *store;
+@property (nonatomic, strong) UIView *dummyView;
 
 - (void)reloadDayAnimated:(BOOL)animated context:(void *)context;
 @end
@@ -50,14 +52,17 @@
 	// Do any additional setup after loading the view.
     // Initialize MenuContainer
     self.menuBoxContainer = [[TSMenuBoxContainer alloc]initWithFrame:CGRectMake(0, 0, self.scrollView.bounds.size.width, [[TSMenuObjectStore defaultStore]calendars].count * BOX_HEIGHT)];
-    
     //addMenuContainer to scrollView
     [self.scrollView addSubview:self.menuBoxContainer];
-    
+        
     //Allow scrollView to scroll and set it's content size of that of the menuContainer
     self.scrollView.scrollEnabled = YES;
     self.scrollView.contentSize = self.menuBoxContainer.frame.size;
     self.scrollView.showsVerticalScrollIndicator = NO;
+    
+    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc
+                                    ] initWithTarget:self action:@selector(handleLongPress:)];
+    [self.view addGestureRecognizer:press];
     
     [self setup];
 }
@@ -68,13 +73,38 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)setup {
+- (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
+    CGPoint point = [[sender valueForKey:@"_startPointScreen"] CGPointValue];
+    UIView *view = [self.view hitTest:point withEvent:nil];
+    if ([view isKindOfClass:[TSCalBoxView class]]) {
+        CGPoint dummyOrigin = [[view superview] convertPoint:view.frame.origin toView:self.view];
+        CGRect dummyFrame = CGRectMake(dummyOrigin.x, dummyOrigin.y, view.frame.size.width, view.frame.size.height);
+        if (TRUE) {self.dummyView = [[UIView alloc] initWithFrame:dummyFrame];}
+        self.dummyView.backgroundColor = [UIColor blueColor];
+        [self.view addSubview:self.dummyView];
+    }
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)sender {
+    CGPoint point = [sender translationInView:self.view];
+    UIView *view = [self.view hitTest:point withEvent:nil];
+    if ([view isKindOfClass:[TSCalBoxView class]]) {
+        UIView *dummyView = [[UIView alloc] initWithFrame:view.frame];
+        dummyView.backgroundColor = [UIColor greenColor];
+        [self.view addSubview:dummyView];
+
+        CGPoint translation = [sender translationInView:dummyView];
+        dummyView.center = CGPointMake(dummyView.center.x + translation.x, dummyView.center.y + translation.y);
+        [sender setTranslation:CGPointMake(0, 0) inView:self.view];
+
+    }
+}
+
+- (void)setup {
 // create calendar view
     self.dataSource = self;
     self.delegate = self;
     
-    
-    dateBar.delegate = dayPicker;
     self.hasAddButton = NO;
     
     viewDirty = YES;
@@ -219,56 +249,7 @@
         [GCEventArray addObject:gce];
     }
     
-//    NSLog(@"\n\nPulling events for date: %@", self.date);
-//    for (GCCalendarEvent *e in GCEventArray) {
-//        NSLog(@"Events pulled from phone - name: %@", e.eventName);
-//        NSLog(@"Current event start time: %@", e.startDate);
-//        NSLog(@"Current event end time: %@", e.endDate);
-//    }
-    
     return GCEventArray;
-    
-//    NSMutableArray *events = [NSMutableArray array];
-//
-//    NSCalendar *cal = [NSCalendar currentCalendar];
-//    NSDate *now = [NSDate date];
-//    NSDateComponents *components = [cal components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit ) fromDate:now];
-//        
-//    [components setHour:0];
-//    [components setMinute:0];
-//        
-//    NSDate *midnight = [cal dateFromComponents:components];
-//    
-//    NSArray *durations = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5*60*60], [NSNumber numberWithInt:30*60], [NSNumber numberWithInt:30*60], [NSNumber numberWithInt:30*60], [NSNumber numberWithInt:60*60], [NSNumber numberWithInt:90*60], [NSNumber numberWithInt:4*60*60], [NSNumber numberWithInt:60*60], [NSNumber numberWithInt:4*60*60], [NSNumber numberWithInt:30*60], [NSNumber numberWithInt:90*60], [NSNumber numberWithInt:45*60], [NSNumber numberWithInt:30*60], [NSNumber numberWithInt:60*60], [NSNumber numberWithInt:45*60], [NSNumber numberWithInt:59*60], nil];
-//    NSArray *activities = [[NSArray alloc] initWithObjects:@"Sleep", @"Eat", @"TV", @"Travel", @"Fitness", @"Travel", @"Work", @"Eat", @"Work", @"Travel", @"Social", @"Eat", @"Sleep", @"Study", @"Web", @"Sleep", nil];
-//        
-//    GCCalendarEvent *oldEvent = [[GCCalendarEvent alloc] init];
-//        BOOL firstEvent = YES;
-//        
-//        for (int ii = 0; ii < activities.count; ii++) {
-//            GCCalendarEvent *newEvent = [[GCCalendarEvent alloc] init];
-//            
-//            if (firstEvent) {
-//                newEvent.startDate = midnight;
-//                firstEvent = NO;
-//            } else {
-//                newEvent.startDate = oldEvent.endDate;
-//            }
-//
-//            newEvent.endDate = [newEvent.startDate dateByAddingTimeInterval:[[durations objectAtIndex:ii] doubleValue]];
-//            newEvent.eventName = [activities objectAtIndex:ii];
-////            newEvent.color = ;
-//            [events addObject:newEvent];
-//            oldEvent = newEvent;
-//        }
-//    
-//    [events removeObjectAtIndex:2];
-//    [events removeObjectAtIndex:4];
-//    [events removeObjectAtIndex:5];
-//    [events removeObjectAtIndex:8];
-//    [events removeObjectAtIndex:10];
-//    
-//    return [events copy];
 }
 
 #pragma mark GCCalendarDelegate
@@ -462,6 +443,21 @@
 		
 	// reset pickers
 	dayPicker.userInteractionEnabled = YES;
+}
+
+#pragma mark touch handling
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {
+	// show touch-began state
+    [[self nextResponder] touchesBegan:touches withEvent:e];;
+}
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)e {
+	
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)e {
+    
+}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)e {
+
 }
 
 @end

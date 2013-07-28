@@ -13,5 +13,5 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#define BOX_HEIGHT 44.0
+#define BOX_HEIGHT 64.0
 #define DETAIL_BOX_HEIGHT 35.0

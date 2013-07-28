@@ -62,6 +62,22 @@
 		C8FC932916F4EBE9006A8E83 /* TSDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FC932816F4EBE9006A8E83 /* TSDayViewController.m */; };
 		C8FC933116F96074006A8E83 /* TableHeaderToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FC933016F96073006A8E83 /* TableHeaderToolBar.m */; };
 		C8FC933216F96074006A8E83 /* TableHeaderToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FC933016F96073006A8E83 /* TableHeaderToolBar.m */; };
+		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
+		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
+		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
+		C8FF165E17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
+		C8FF166117A5DCFC0064BA83 /* TSListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166017A5DCFC0064BA83 /* TSListTableViewCell.m */; };
+		C8FF166217A5DCFC0064BA83 /* TSListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166017A5DCFC0064BA83 /* TSListTableViewCell.m */; };
+		C8FF166917A5DD160064BA83 /* MyAlertViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */; };
+		C8FF166A17A5DD160064BA83 /* MyAlertViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */; };
+		C8FF166B17A5DD160064BA83 /* TSSlidableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166617A5DD160064BA83 /* TSSlidableCell.m */; };
+		C8FF166C17A5DD160064BA83 /* TSSlidableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166617A5DD160064BA83 /* TSSlidableCell.m */; };
+		C8FF166D17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */; };
+		C8FF166E17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */; };
+		C8FF167217A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */; };
+		C8FF167317A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */; };
+		C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
+		C8FF167917A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,8 +99,8 @@
 		C81972E016E1BC1400EE65D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C81972E216E1BC1400EE65D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeStamp-Homepage-Prefix.pch"; sourceTree = "<group>"; };
-		C81972E516E1BC1400EE65D2 /* TSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSAppDelegate.h; sourceTree = "<group>"; };
-		C81972E616E1BC1400EE65D2 /* TSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSAppDelegate.m; sourceTree = "<group>"; };
+		C81972E516E1BC1400EE65D2 /* TSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSAppDelegate.h; path = "TimeStamp-Homepage/TSAppDelegate.h"; sourceTree = "<group>"; };
+		C81972E616E1BC1400EE65D2 /* TSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TSAppDelegate.m; path = "TimeStamp-Homepage/TSAppDelegate.m"; sourceTree = "<group>"; };
 		C81972E816E1BC1400EE65D2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		C81972EA16E1BC1400EE65D2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -148,6 +164,22 @@
 		C8FC932816F4EBE9006A8E83 /* TSDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSDayViewController.m; path = "TimeStamp-Homepage/TSDayViewController.m"; sourceTree = "<group>"; };
 		C8FC932F16F96072006A8E83 /* TableHeaderToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableHeaderToolBar.h; sourceTree = "<group>"; };
 		C8FC933016F96073006A8E83 /* TableHeaderToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderToolBar.m; sourceTree = "<group>"; };
+		C8FF165717A5DA440064BA83 /* TSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategory.h; sourceTree = "<group>"; };
+		C8FF165817A5DA440064BA83 /* TSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategory.m; sourceTree = "<group>"; };
+		C8FF165917A5DA440064BA83 /* TSCategoryStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategoryStore.h; sourceTree = "<group>"; };
+		C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategoryStore.m; sourceTree = "<group>"; };
+		C8FF165F17A5DCFC0064BA83 /* TSListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSListTableViewCell.h; sourceTree = "<group>"; };
+		C8FF166017A5DCFC0064BA83 /* TSListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSListTableViewCell.m; sourceTree = "<group>"; };
+		C8FF166317A5DD160064BA83 /* MyAlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAlertViewDelegate.h; sourceTree = "<group>"; };
+		C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAlertViewDelegate.m; sourceTree = "<group>"; };
+		C8FF166517A5DD160064BA83 /* TSSlidableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSSlidableCell.h; sourceTree = "<group>"; };
+		C8FF166617A5DD160064BA83 /* TSSlidableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSlidableCell.m; sourceTree = "<group>"; };
+		C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSDragToReorderTableViewController.h; sourceTree = "<group>"; };
+		C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSDragToReorderTableViewController.m; sourceTree = "<group>"; };
+		C8FF167017A5DD530064BA83 /* UIColor+CalendarPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CalendarPalette.h"; sourceTree = "<group>"; };
+		C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CalendarPalette.m"; sourceTree = "<group>"; };
+		C8FF167617A5E0DF0064BA83 /* TSListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSListTableViewController.h; sourceTree = "<group>"; };
+		C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSListTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,13 +212,18 @@
 		C81972CA16E1BC1400EE65D2 = {
 			isa = PBXGroup;
 			children = (
-				C8FC932716F4EBE8006A8E83 /* TSDayViewController.h */,
-				C8FC932816F4EBE9006A8E83 /* TSDayViewController.m */,
-				C81DED06177E652F00317312 /* TSMainView.h */,
-				C81DED07177E652F00317312 /* TSMainView.m */,
+				C81972EE16E1BC1400EE65D2 /* MainStoryboard.storyboard */,
+				C8FF165117A5D8D30064BA83 /* App Delegate */,
+				C8FF166F17A5DD410064BA83 /* Categories */,
+				C8FF164D17A5D7030064BA83 /* Controllers */,
+				C8FF164E17A5D89D0064BA83 /* Models */,
+				C8FF164F17A5D8B50064BA83 /* Views */,
+				C8FF165017A5D8C30064BA83 /* Resources */,
+				C8FF165217A5D8DF0064BA83 /* Supporting Files */,
 				C88D652616FA52D400F356CE /* QuartzCore.framework */,
 				C8FC92F416F4EB09006A8E83 /* GCCalendar */,
-				C81972DC16E1BC1400EE65D2 /* TimeStamp-Homepage */,
+				C81972DC16E1BC1400EE65D2 /* TimeStampBoxes */,
+				C81972DD16E1BC1400EE65D2 /* Supporting Files */,
 				C819730016E1BC1400EE65D2 /* TimeStamp-HomepageTests */,
 				C81972D516E1BC1400EE65D2 /* Frameworks */,
 				C81972D416E1BC1400EE65D2 /* Products */,
@@ -215,14 +252,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C81972DC16E1BC1400EE65D2 /* TimeStamp-Homepage */ = {
+		C81972DC16E1BC1400EE65D2 /* TimeStampBoxes */ = {
 			isa = PBXGroup;
 			children = (
 				C8FC932F16F96072006A8E83 /* TableHeaderToolBar.h */,
 				C8FC933016F96073006A8E83 /* TableHeaderToolBar.m */,
-				C81972E516E1BC1400EE65D2 /* TSAppDelegate.h */,
-				C81972E616E1BC1400EE65D2 /* TSAppDelegate.m */,
-				C81972EE16E1BC1400EE65D2 /* MainStoryboard.storyboard */,
 				C88D651116FA4F7A00F356CE /* TSMenuObjectStore.h */,
 				C88D651216FA4F7A00F356CE /* TSMenuObjectStore.m */,
 				C88D651316FA4F7A00F356CE /* HomePageCalObj.h */,
@@ -235,8 +269,8 @@
 				C88D651C16FA4F7B00F356CE /* TSCalBoxView.m */,
 				C88D651D16FA4F7B00F356CE /* TSAddBoxView.h */,
 				C88D651E16FA4F7B00F356CE /* TSAddBoxView.m */,
-				C81972DD16E1BC1400EE65D2 /* Supporting Files */,
 			);
+			name = TimeStampBoxes;
 			path = "TimeStamp-Homepage";
 			sourceTree = "<group>";
 		};
@@ -254,6 +288,7 @@
 				C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */,
 			);
 			name = "Supporting Files";
+			path = "TimeStamp-Homepage";
 			sourceTree = "<group>";
 		};
 		C819730016E1BC1400EE65D2 /* TimeStamp-HomepageTests */ = {
@@ -309,6 +344,77 @@
 				C8FC931216F4EB09006A8E83 /* GCDatePickerControlRight.png */,
 			);
 			path = GCCalendar;
+			sourceTree = "<group>";
+		};
+		C8FF164D17A5D7030064BA83 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C8FC932716F4EBE8006A8E83 /* TSDayViewController.h */,
+				C8FC932816F4EBE9006A8E83 /* TSDayViewController.m */,
+				C8FF167617A5E0DF0064BA83 /* TSListTableViewController.h */,
+				C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C8FF164E17A5D89D0064BA83 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C8FF165717A5DA440064BA83 /* TSCategory.h */,
+				C8FF165817A5DA440064BA83 /* TSCategory.m */,
+				C8FF165917A5DA440064BA83 /* TSCategoryStore.h */,
+				C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		C8FF164F17A5D8B50064BA83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C81DED06177E652F00317312 /* TSMainView.h */,
+				C81DED07177E652F00317312 /* TSMainView.m */,
+				C8FF165F17A5DCFC0064BA83 /* TSListTableViewCell.h */,
+				C8FF166017A5DCFC0064BA83 /* TSListTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		C8FF165017A5D8C30064BA83 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C8FF165117A5D8D30064BA83 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				C81972E516E1BC1400EE65D2 /* TSAppDelegate.h */,
+				C81972E616E1BC1400EE65D2 /* TSAppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		C8FF165217A5D8DF0064BA83 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C8FF166317A5DD160064BA83 /* MyAlertViewDelegate.h */,
+				C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */,
+				C8FF166517A5DD160064BA83 /* TSSlidableCell.h */,
+				C8FF166617A5DD160064BA83 /* TSSlidableCell.m */,
+				C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */,
+				C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C8FF166F17A5DD410064BA83 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C8FF167017A5DD530064BA83 /* UIColor+CalendarPalette.h */,
+				C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,6 +562,14 @@
 				C828E640176D5CBB000DA3CA /* UIColor+CalendarPalette.m in Sources */,
 				C81DED08177E652F00317312 /* TSMainView.m in Sources */,
 				C8E1E6B61795B179007A6736 /* GCCalendarTodayView.m in Sources */,
+				C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */,
+				C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */,
+				C8FF166117A5DCFC0064BA83 /* TSListTableViewCell.m in Sources */,
+				C8FF166917A5DD160064BA83 /* MyAlertViewDelegate.m in Sources */,
+				C8FF166B17A5DD160064BA83 /* TSSlidableCell.m in Sources */,
+				C8FF166D17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */,
+				C8FF167217A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */,
+				C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +585,14 @@
 				C88D652316FA4F7B00F356CE /* TSCalBoxesContainer.m in Sources */,
 				C88D652416FA4F7B00F356CE /* TSCalBoxView.m in Sources */,
 				C88D652516FA4F7B00F356CE /* TSAddBoxView.m in Sources */,
+				C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */,
+				C8FF165E17A5DA440064BA83 /* TSCategoryStore.m in Sources */,
+				C8FF166217A5DCFC0064BA83 /* TSListTableViewCell.m in Sources */,
+				C8FF166A17A5DD160064BA83 /* MyAlertViewDelegate.m in Sources */,
+				C8FF166C17A5DD160064BA83 /* TSSlidableCell.m in Sources */,
+				C8FF166E17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */,
+				C8FF167317A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */,
+				C8FF167917A5E0DF0064BA83 /* TSListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +621,7 @@
 				C81972EF16E1BC1400EE65D2 /* en */,
 			);
 			name = MainStoryboard.storyboard;
+			path = "TimeStamp-Homepage";
 			sourceTree = "<group>";
 		};
 		C819730316E1BC1400EE65D2 /* InfoPlist.strings */ = {

@@ -149,7 +149,7 @@
 	scrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     scrollView.userInteractionEnabled = YES;
     [self setContentOffset:CGPointMake(0, kTodayViewHeight)];
-    NSLog(@"scroll view offset: (%f, %f)", scrollView.contentOffset.x, scrollView.contentOffset.y);
+//    NSLog(@"scroll view offset: (%f, %f)", scrollView.contentOffset.x, scrollView.contentOffset.y);
 
 	[self addSubview:scrollView];
     

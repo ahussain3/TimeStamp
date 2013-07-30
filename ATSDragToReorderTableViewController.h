@@ -142,6 +142,7 @@
 	CADisplayLink *timerToAutoscroll;
 	CGFloat distanceThresholdToAutoscroll;
 
+    CGFloat initialXOffsetOfDraggedCellCenter;
 	CGFloat initialYOffsetOfDraggedCellCenter;
 	CGPoint veryInitialTouchPoint;
 

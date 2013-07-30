@@ -200,7 +200,7 @@
     NSDate *startDate = [today dateByAddingTimeInterval:-60*60*24];
     NSDate *endDate = [today dateByAddingTimeInterval:60*60*24];
     
-    NSLog(@"Start date (should be midnight): %@", startDate);
+//    NSLog(@"Start date (should be midnight): %@", startDate);
     
     for (EKCalendar *calendar in calendars) {
         

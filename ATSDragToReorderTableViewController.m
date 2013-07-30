@@ -209,9 +209,10 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-	if ( self.reorderingEnabled )
+	if ( self.reorderingEnabled ) {
 		[self establishGestures];
-
+        self.view.clipsToBounds = NO;
+    }
 
 	/*
 	 *	If app resigns active while we're dragging, safely complete the drag.
@@ -486,6 +487,7 @@ typedef enum {
 	 *	Though it *does* give points, and we could consider translating them to [self.tableView superview] for absolute on screen position.
 	 *	(would need to save touchIndex for gesture's -locationOfTouch:inView:)
 	 */
+    initialXOffsetOfDraggedCellCenter = self.draggedCell.center.x -self.tableView.contentOffset.x;
 	initialYOffsetOfDraggedCellCenter = self.draggedCell.center.y - self.tableView.contentOffset.y;
 
 	/*
@@ -807,6 +809,7 @@ typedef enum {
 		Official drag control keeps the cell's center visible at all times.
  */
 - (void)updateFrameOfDraggedCellForTranlationPoint:(CGPoint)translation {
+    CGFloat newXCenter = initialXOffsetOfDraggedCellCenter + translation.x;
 	CGFloat newYCenter = initialYOffsetOfDraggedCellCenter + translation.y + self.tableView.contentOffset.y;
 
 	/*
@@ -817,7 +820,7 @@ typedef enum {
 	newYCenter = MIN(newYCenter, self.tableView.contentOffset.y + self.tableView.bounds.size.height);
 
 	CGPoint newDraggedCellCenter = {
-		.x = draggedCell.center.x,
+		.x = newXCenter,
 		.y = newYCenter
 	};
 

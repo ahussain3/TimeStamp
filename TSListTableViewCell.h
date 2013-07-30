@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TSSlidableCell.h"
 
-@interface TSListTableViewCell : TSSlidableCell
+@interface TSListTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIColor *color;
 

@@ -105,10 +105,10 @@
     TSCategory *category = [categoryArray objectAtIndex:indexPath.row];
     
     // Configure the cell...
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.superController action:@selector(respondToDragAcross:)];
-    [cell addGestureRecognizer:pan];
+//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.superController action:@selector(respondToDragAcross:)];
+//    [cell addGestureRecognizer:pan];
     
-    cell.delegate = self;
+//    cell.delegate = self;
     cell.textLabel.text = category.title;
     cell.contentView.backgroundColor = category.color;
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -124,13 +124,13 @@
     cell.selectedBackgroundView = purpleBackground;
     
     // Set the view that appears when the cell is slid out the way
-    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
-    orangeBackground.backgroundColor = [UIColor orangeColor];
-    cell.slideToLeftView = orangeBackground;
-    
-    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
-    redBackground.backgroundColor = [UIColor redColor];
-    cell.slideToLeftHighlightedView = redBackground;
+//    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
+//    orangeBackground.backgroundColor = [UIColor orangeColor];
+//    cell.slideToLeftView = orangeBackground;
+//    
+//    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
+//    redBackground.backgroundColor = [UIColor redColor];
+//    cell.slideToLeftHighlightedView = redBackground;
     
     return cell;
 }

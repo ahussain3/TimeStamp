@@ -74,10 +74,9 @@
 		C8FF166C17A5DD160064BA83 /* TSSlidableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166617A5DD160064BA83 /* TSSlidableCell.m */; };
 		C8FF166D17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */; };
 		C8FF166E17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */; };
-		C8FF167217A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */; };
-		C8FF167317A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */; };
 		C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
 		C8FF167917A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
+		C8FF167C17A617640064BA83 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,15 +94,15 @@
 		C81972D616E1BC1400EE65D2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C81972D816E1BC1400EE65D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C81972DA16E1BC1400EE65D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C81972DE16E1BC1400EE65D2 /* TimeStamp-Homepage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeStamp-Homepage-Info.plist"; sourceTree = "<group>"; };
+		C81972DE16E1BC1400EE65D2 /* TimeStamp-Homepage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TimeStamp-Homepage-Info.plist"; path = "TimeStamp-Homepage/TimeStamp-Homepage-Info.plist"; sourceTree = "<group>"; };
 		C81972E016E1BC1400EE65D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C81972E216E1BC1400EE65D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeStamp-Homepage-Prefix.pch"; sourceTree = "<group>"; };
+		C81972E216E1BC1400EE65D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "TimeStamp-Homepage/main.m"; sourceTree = "<group>"; };
+		C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TimeStamp-Homepage-Prefix.pch"; path = "TimeStamp-Homepage/TimeStamp-Homepage-Prefix.pch"; sourceTree = "<group>"; };
 		C81972E516E1BC1400EE65D2 /* TSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSAppDelegate.h; path = "TimeStamp-Homepage/TSAppDelegate.h"; sourceTree = "<group>"; };
 		C81972E616E1BC1400EE65D2 /* TSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TSAppDelegate.m; path = "TimeStamp-Homepage/TSAppDelegate.m"; sourceTree = "<group>"; };
-		C81972E816E1BC1400EE65D2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		C81972EA16E1BC1400EE65D2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C81972E816E1BC1400EE65D2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "TimeStamp-Homepage/Default.png"; sourceTree = "<group>"; };
+		C81972EA16E1BC1400EE65D2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "TimeStamp-Homepage/Default@2x.png"; sourceTree = "<group>"; };
+		C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "TimeStamp-Homepage/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C81972EF16E1BC1400EE65D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C81972F916E1BC1400EE65D2 /* TimeStamp-HomepageTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TimeStamp-HomepageTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81972FA16E1BC1400EE65D2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -113,8 +112,8 @@
 		C819730716E1BC1400EE65D2 /* TimeStamp_HomepageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeStamp_HomepageTests.m; sourceTree = "<group>"; };
 		C81DED06177E652F00317312 /* TSMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSMainView.h; path = "TimeStamp-Homepage/TSMainView.h"; sourceTree = "<group>"; };
 		C81DED07177E652F00317312 /* TSMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSMainView.m; path = "TimeStamp-Homepage/TSMainView.m"; sourceTree = "<group>"; };
-		C828E63E176D5CBB000DA3CA /* UIColor+CalendarPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CalendarPalette.h"; sourceTree = "<group>"; };
-		C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CalendarPalette.m"; sourceTree = "<group>"; };
+		C828E63E176D5CBB000DA3CA /* UIColor+CalendarPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+CalendarPalette.h"; path = "TimeStamp-Homepage/UIColor+CalendarPalette.h"; sourceTree = "<group>"; };
+		C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+CalendarPalette.m"; path = "TimeStamp-Homepage/UIColor+CalendarPalette.m"; sourceTree = "<group>"; };
 		C85A785417792BF5004B088B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		C85A785617792BFC004B088B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		C88D651116FA4F7A00F356CE /* TSMenuObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMenuObjectStore.h; sourceTree = "<group>"; };
@@ -176,10 +175,10 @@
 		C8FF166617A5DD160064BA83 /* TSSlidableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSlidableCell.m; sourceTree = "<group>"; };
 		C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSDragToReorderTableViewController.h; sourceTree = "<group>"; };
 		C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSDragToReorderTableViewController.m; sourceTree = "<group>"; };
-		C8FF167017A5DD530064BA83 /* UIColor+CalendarPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CalendarPalette.h"; sourceTree = "<group>"; };
-		C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CalendarPalette.m"; sourceTree = "<group>"; };
 		C8FF167617A5E0DF0064BA83 /* TSListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSListTableViewController.h; sourceTree = "<group>"; };
 		C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSListTableViewController.m; sourceTree = "<group>"; };
+		C8FF167A17A617620064BA83 /* TSHomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSHomePageController.h; sourceTree = "<group>"; };
+		C8FF167B17A617630064BA83 /* TSHomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSHomePageController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,10 +219,8 @@
 				C8FF164F17A5D8B50064BA83 /* Views */,
 				C8FF165017A5D8C30064BA83 /* Resources */,
 				C8FF165217A5D8DF0064BA83 /* Supporting Files */,
-				C88D652616FA52D400F356CE /* QuartzCore.framework */,
 				C8FC92F416F4EB09006A8E83 /* GCCalendar */,
 				C81972DC16E1BC1400EE65D2 /* TimeStampBoxes */,
-				C81972DD16E1BC1400EE65D2 /* Supporting Files */,
 				C819730016E1BC1400EE65D2 /* TimeStamp-HomepageTests */,
 				C81972D516E1BC1400EE65D2 /* Frameworks */,
 				C81972D416E1BC1400EE65D2 /* Products */,
@@ -242,6 +239,7 @@
 		C81972D516E1BC1400EE65D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C88D652616FA52D400F356CE /* QuartzCore.framework */,
 				C85A785617792BFC004B088B /* EventKitUI.framework */,
 				C85A785417792BF5004B088B /* EventKit.framework */,
 				C81972D616E1BC1400EE65D2 /* UIKit.framework */,
@@ -271,23 +269,6 @@
 				C88D651E16FA4F7B00F356CE /* TSAddBoxView.m */,
 			);
 			name = TimeStampBoxes;
-			path = "TimeStamp-Homepage";
-			sourceTree = "<group>";
-		};
-		C81972DD16E1BC1400EE65D2 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C81972DE16E1BC1400EE65D2 /* TimeStamp-Homepage-Info.plist */,
-				C81972DF16E1BC1400EE65D2 /* InfoPlist.strings */,
-				C81972E216E1BC1400EE65D2 /* main.m */,
-				C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */,
-				C81972E816E1BC1400EE65D2 /* Default.png */,
-				C81972EA16E1BC1400EE65D2 /* Default@2x.png */,
-				C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */,
-				C828E63E176D5CBB000DA3CA /* UIColor+CalendarPalette.h */,
-				C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */,
-			);
-			name = "Supporting Files";
 			path = "TimeStamp-Homepage";
 			sourceTree = "<group>";
 		};
@@ -349,6 +330,8 @@
 		C8FF164D17A5D7030064BA83 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C8FF167A17A617620064BA83 /* TSHomePageController.h */,
+				C8FF167B17A617630064BA83 /* TSHomePageController.m */,
 				C8FC932716F4EBE8006A8E83 /* TSDayViewController.h */,
 				C8FC932816F4EBE9006A8E83 /* TSDayViewController.m */,
 				C8FF167617A5E0DF0064BA83 /* TSListTableViewController.h */,
@@ -382,6 +365,9 @@
 		C8FF165017A5D8C30064BA83 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C81972E816E1BC1400EE65D2 /* Default.png */,
+				C81972EA16E1BC1400EE65D2 /* Default@2x.png */,
+				C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -404,6 +390,10 @@
 				C8FF166617A5DD160064BA83 /* TSSlidableCell.m */,
 				C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */,
 				C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */,
+				C81972DE16E1BC1400EE65D2 /* TimeStamp-Homepage-Info.plist */,
+				C81972DF16E1BC1400EE65D2 /* InfoPlist.strings */,
+				C81972E216E1BC1400EE65D2 /* main.m */,
+				C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -411,8 +401,8 @@
 		C8FF166F17A5DD410064BA83 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				C8FF167017A5DD530064BA83 /* UIColor+CalendarPalette.h */,
-				C8FF167117A5DD530064BA83 /* UIColor+CalendarPalette.m */,
+				C828E63E176D5CBB000DA3CA /* UIColor+CalendarPalette.h */,
+				C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -568,8 +558,8 @@
 				C8FF166917A5DD160064BA83 /* MyAlertViewDelegate.m in Sources */,
 				C8FF166B17A5DD160064BA83 /* TSSlidableCell.m in Sources */,
 				C8FF166D17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */,
-				C8FF167217A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */,
 				C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */,
+				C8FF167C17A617640064BA83 /* TSHomePageController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,7 +581,6 @@
 				C8FF166A17A5DD160064BA83 /* MyAlertViewDelegate.m in Sources */,
 				C8FF166C17A5DD160064BA83 /* TSSlidableCell.m in Sources */,
 				C8FF166E17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */,
-				C8FF167317A5DD530064BA83 /* UIColor+CalendarPalette.m in Sources */,
 				C8FF167917A5E0DF0064BA83 /* TSListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +602,7 @@
 				C81972E016E1BC1400EE65D2 /* en */,
 			);
 			name = InfoPlist.strings;
+			path = "TimeStamp-Homepage";
 			sourceTree = "<group>";
 		};
 		C81972EE16E1BC1400EE65D2 /* MainStoryboard.storyboard */ = {

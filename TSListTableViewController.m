@@ -32,7 +32,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    self.tableView.frame = CGRectMake(95, 0, 130, self.view.frame.size.height);
+//    self.tableView.frame = CGRectMake(0, 0, 120, self.view.frame.size.height);
 //    NSLog(@"Table View frame: (%f,%f,%f,%f)", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 }
 
@@ -105,6 +105,9 @@
     TSCategory *category = [categoryArray objectAtIndex:indexPath.row];
     
     // Configure the cell...
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.superController action:@selector(respondToDragAcross:)];
+    [cell addGestureRecognizer:pan];
+    
     cell.delegate = self;
     cell.textLabel.text = category.title;
     cell.contentView.backgroundColor = category.color;

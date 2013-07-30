@@ -16,5 +16,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *view;
+@property (strong, nonatomic) UIViewController *superController;
 
 @end

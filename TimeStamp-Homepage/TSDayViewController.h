@@ -46,6 +46,8 @@
     BOOL hasAddButton;
 }
 
+-(void)createEventAtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 //This contains the entire lists of categories with elements

@@ -147,9 +147,7 @@ typedef enum {
 
 @end
 
-
 #pragma mark -
-
 
 @implementation ATSDragToReorderTableViewController
 @synthesize dragDelegate, indicatorDelegate;

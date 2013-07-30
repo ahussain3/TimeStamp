@@ -72,7 +72,6 @@ static NSArray *timeStrings;
         [components setSecond:0];
         
         NSDate *midnight = [[NSCalendar currentCalendar] dateFromComponents:components];
-        NSLog(@"Displayed Date set to: %@", midnight);
         _date = midnight;
     }
 }
@@ -102,9 +101,7 @@ static NSArray *timeStrings;
                                                          fromDate:tile.event.endDate];
             NSInteger endHour = [components hour];
             NSInteger endMinute = [components minute];
-            
-            NSLog(@"Date being displayed: %@", self.date);
-            
+                        
             if ([tile.event.startDate compare:self.date] == NSOrderedAscending) {
                 // the event bleeds in from the previous day
                 startHour = 0;
@@ -234,8 +231,6 @@ static NSArray *timeStrings;
 }
 - (void)drawLineForCurrentTime {
     // Draws the (currently blue) line across the screen which indicates the current time.
-    
-    NSLog(@"Updating now arrow...");
     NSDate *now = [NSDate date];
     NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:now];
     float hours = [nowComponents hour] + ((float)[nowComponents minute] / 60);
@@ -256,7 +251,7 @@ static NSArray *timeStrings;
     self.nowArrow.backgroundColor = [UIColor blueColor];
     self.nowArrow.frame = CGRectMake(0, yVal, self.bounds.size.width, 5);
     
-    [self performSelector:@selector(drawLineForCurrentTime) withObject:nil afterDelay:60];
+    [self performSelector:@selector(drawLineForCurrentTime) withObject:nil afterDelay:NOW_ARROW_TIME_PERIOD];
 }
 
 #pragma mark touch handling

@@ -15,10 +15,9 @@
 }
 
 - (id)initWithEvents:(NSArray *)a;
-- (void)addNewEvent:(GCCalendarEvent *)event;
+- (void)drawNewEvent:(GCCalendarEvent *)event;
 
 @property (nonatomic, strong) GCCalendarTile *selectedTile;
-@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSDate *date;
 
 @end

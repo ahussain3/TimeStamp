@@ -882,12 +882,12 @@ typedef enum {
 	[self updateFrameOfDraggedCellForTranlationPoint:translation];
     
     if (!CGRectContainsPoint(self.tableView.frame, draggedCell.center)) {
-        NSLog(@"Cell center is on the right");
+//        NSLog(@"Cell center is on the right");
         if ([self.dragDelegate respondsToSelector:@selector(dragTableViewController:draggedCellOutsideTableView:)]) {
             [self.dragDelegate dragTableViewController:self draggedCellOutsideTableView:draggedCell];
         }
     } else {
-        NSLog(@"Cell center is on the left");
+//        NSLog(@"Cell center is on the left");
     }
     
 	/*

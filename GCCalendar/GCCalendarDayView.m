@@ -157,16 +157,13 @@
     yesterdayView = [[GCCalendarTodayView alloc] initWithEvents:events_yesterday];
     yesterdayView.frame = CGRectMake(0, 0, self.frame.size.width, kTodayViewHeight);
     yesterdayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    yesterdayView.scrollView = scrollView;
     yesterdayView.date = [date dateByAddingTimeInterval:-60*60*24];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOutside:)];
-//    [yesterdayView addGestureRecognizer:tap];
     
 	// create today view
 	todayView = [[GCCalendarTodayView alloc] initWithEvents:events];
 	todayView.frame = CGRectMake(0, kTodayViewHeight, self.frame.size.width, kTodayViewHeight);
 	todayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    todayView.scrollView = scrollView;
     todayView.date = date;
     [todayView addGestureRecognizer:tap];
     
@@ -174,7 +171,6 @@
     tomorrowView = [[GCCalendarTodayView alloc] initWithEvents:events_tomorrow];
     tomorrowView.frame = CGRectMake(0, 0 + 2 * kTodayViewHeight, self.frame.size.width, kTodayViewHeight);
     tomorrowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    tomorrowView.scrollView = scrollView;
     tomorrowView.date = [date dateByAddingTimeInterval:60*60*24];
 //    [tomorrowView addGestureRecognizer:tap];
     
@@ -186,63 +182,59 @@
     
 	[scrollView addSubview:compositeView];
 }
--(void)selectTile:(GCCalendarTile *)t {
-    if (!t.selected) {
-        // This tile unselected, select it
-        [self deselectAllTiles];
-        t.selected = true;
-        todayView.selectedTile = t;
-        /* changing the order doesn't work yet - it will work once I configure it so that dragging events actually changes the start and end dates.
-        [todayView bringSubviewToFront:todayView.selectedTile]; */
-        scrollView.scrollEnabled = NO;
-    } else {
-        // This tile is already selected, deselect it
-        t.selected = false;
-        /* changing the order doesn't work yet - it will work once I configure it so that dragging events actually changes the start and end dates.
-        [todayView sendSub/Users/awaishussain/Developer/TimeStamp-Homepage/GCCalendar/GCCalendarTile.mviewToBack:todayView.selectedTile];*/
-        todayView.selectedTile = nil;
-        scrollView.scrollEnabled = YES;
-    }
-}
--(void)tapOutside:(UITapGestureRecognizer *)sender {
-    // NSLog(@"tapped view:%@", sender.view);
-    CGPoint point = [sender locationInView:sender.view];
-    UIView *subview = [sender.view hitTest:point withEvent:nil];
-    if ([subview isKindOfClass:[GCCalendarTile class]]) {
-        // Select the tile
-        [self selectTile:(GCCalendarTile *)subview];
-    } else if (0) {
-        
-    } else {
-        // deselect all tiles
-        [self deselectAllTiles];
-    }
-}
--(void)deselectAllTiles {
-    // NSLog(@"deselectAllTiles");
-    scrollView.scrollEnabled = YES;
-    for (UIView *view in todayView.subviews) {
-        if ([view respondsToSelector:@selector(setSelected:)]){
-            // get calendar tile
-            GCCalendarTile *tile = (GCCalendarTile *)view;
-            [tile setSelected:false];
-        }
-    }
-}
+
 - (void)setContentOffset:(CGPoint)p {
 	scrollView.contentOffset = p;
 }
+
 - (CGPoint)contentOffset {
 	return scrollView.contentOffset;
 }
+
+-(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
+    // Convert the point into the correct frame. Then turn it into a date - set the start date of the event. Then tell the today view to draw it.
+    
+    // Work out which view we're going to draw it in.
+    GCCalendarTodayView *activeView;
+    CGPoint newPoint = [self convertPoint:point toView:todayView];
+    CGFloat yValue = newPoint.y;
+    if (yValue >= -kTodayViewHeight && yValue < 0) {
+        yValue += kTodayViewHeight;
+        activeView = yesterdayView;
+    } else if (yValue >= 0 && yValue < kTodayViewHeight) {
+        activeView = todayView;
+    } else if (yValue >= kTodayViewHeight && yValue < 2 * kTodayViewHeight) {
+        activeView = tomorrowView;
+        yValue -= kTodayViewHeight;
+    } else {
+        // Should never be here - error.
+    }
+    
+    // Set the date of the created event.
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:activeView.date];
+    CGFloat time = [self timeForYValue:yValue];
+    [components setHour:floorf(time)];
+    [components setMinute:(time - floorf(time)) * 60];
+    NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    event.startDate = startDate;
+    event.endDate = [NSDate dateWithTimeInterval:seconds sinceDate:startDate];
+    
+    [activeView drawNewEvent:event];
+}
+
+- (CGFloat)timeForYValue:(CGFloat)yValue {
+    // returns time in hours.
+    return ((yValue - kTopLineBuffer) / (2 * kHalfHourDiff));
+}
+
 - (void)addNewEvent {
-    NSLog(@"Added new event");
     GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
     event.startDate = [NSDate date];
     event.endDate = [NSDate dateWithTimeInterval:60*60 sinceDate:event.startDate];
     event.eventName = @"New Event Created!";
     event.color = [UIColor redColor];
-    [todayView addNewEvent:event];
+    [todayView drawNewEvent:event];
 }
 
 @end

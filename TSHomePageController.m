@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 Awais Hussain. All rights reserved.
 //
 
+#import <EventKit/EventKit.h>
 #import "TSHomePageController.h"
 #import "TSListTableViewController.h"
 #import "TSDayViewController.h"
+#import "GCCalendarEvent.h"
 
 @interface TSHomePageController ()
 
@@ -64,9 +66,13 @@
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell {
-    NSLog(@"Delegate method for drag across called.");
+    CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.scrollView];
     
-    [dayViewController createEventAtPoint:CGPointZero withDuration:60*60];
+    GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
+    event.eventName = cell.textLabel.text;
+    event.color = cell.contentView.backgroundColor;
+//    event.calender // need to set this once we have a list of calendars; Create a TSCalendarStore model object which contains this array.
+    [dayViewController createEvent:event AtPoint:center withDuration:60*60];
 }
 
 

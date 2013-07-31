@@ -157,8 +157,8 @@
     return gcevent;
 }
 
--(void)createEventAtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
-    [dayView addNewEvent];
+-(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
+    [dayView createEvent:event AtPoint:point withDuration:seconds];
 }
 
 #pragma mark GCCalendarDataSource
@@ -180,14 +180,6 @@
     [components setSecond:0];
 
     // The date period goes from the beginning of yesterday to the start of today. This ensures we don't miss events that started yesterday but ended today.
-//    NSDate *today = [[NSCalendar currentCalendar] dateFromComponents:components];
-//    NSDate *startDate = [today dateByAddingTimeInterval:-24*60*60];
-//    NSDate *endDate = [today dateByAddingTimeInterval:24*60*60];
-
-//    [components setDay:[components day] - 1];
-//    NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:components];
-//    [components setDay:[components day] + 2];
-//    NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:components];
 
     NSDate *today = [[NSCalendar currentCalendar] dateFromComponents:components];
     NSDate *startDate = [today dateByAddingTimeInterval:-60*60*24];
@@ -225,7 +217,6 @@
     [eventArray sortUsingSelector:@selector(compareStartDateWithEvent:)];
 
     // delete events that don't begin today.
-//    NSLog(@"Event array before deletions: %@", eventArray);
     NSMutableArray *remove = [[NSMutableArray alloc] init];
     for (EKEvent *e in eventArray) {
         if ([e.endDate compare:[today dateByAddingTimeInterval:1]] == NSOrderedAscending) {
@@ -233,7 +224,6 @@
         }
     }
     [eventArray removeObjectsInArray:remove];
-//    NSLog(@"Event array after deletions: %@", eventArray);
     
     // convert events from EKEvent to GCCalendarEvent
     NSMutableArray *GCEventArray = [[NSMutableArray alloc] init];
@@ -293,17 +283,6 @@
 	}
 }
 
-#pragma mark GCDatePickerControl actions
-- (void)datePickerDidChangeDate:(GCDatePickerControl *)picker {
-	NSTimeInterval interval = [date timeIntervalSinceDate:picker.date];
-	
-	self.date = picker.date;
-	
-	[[NSUserDefaults standardUserDefaults] setObject:date forKey:@"GCCalendarDate"];
-	
-	[self reloadDayAnimated:YES context:(__bridge void *)([NSNumber numberWithInt:interval])];
-}
-
 #pragma mark button actions
 - (void)today {
 	dayPicker.date = [NSDate date];
@@ -351,9 +330,7 @@
 							   self.calWrapperView.frame.size.width,
 							   self.calWrapperView.frame.size.height);
 	dayView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-//    self.calWrapperView.backgroundColor = [UIColor blackColor];
 	[self.calWrapperView addSubview:dayView];
-	
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -414,12 +391,10 @@
 		[UIView commitAnimations];
 	}
 	else {
+
+    dayView.date = date;
+    [dayView reloadData];
         
-//		CGPoint contentOffset = dayView.contentOffset;
-//      NSLog(@"Day view content offset: (%f,%f)", contentOffset.x, contentOffset.y);
-		dayView.date = date;
-		[dayView reloadData];
-//		dayView.contentOffset = contentOffset;
 	}
 }
 - (void)animationDidStop:(NSString *)animationID
@@ -436,21 +411,6 @@
 		
 	// reset pickers
 	dayPicker.userInteractionEnabled = YES;
-}
-
-#pragma mark touch handling
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {
-	// show touch-began state
-    [[self nextResponder] touchesBegan:touches withEvent:e];;
-}
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)e {
-	
-}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)e {
-    
-}
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)e {
-
 }
 
 @end

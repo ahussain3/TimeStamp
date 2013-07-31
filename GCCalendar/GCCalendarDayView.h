@@ -49,6 +49,6 @@
 - (id)initWithCalendarView:(GCCalendarView *)view;
 - (void)reloadData;
 - (void)selectTile:(GCCalendarTile *)t;
-- (void)addNewEvent;
+-(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
 
 @end

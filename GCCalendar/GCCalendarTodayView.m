@@ -44,7 +44,7 @@ static NSArray *timeStrings;
 		events = [a filteredArrayUsingPredicate:pred];
         
 		for (GCCalendarEvent *e in events) {
-            [self addNewEvent:e];
+            [self drawNewEvent:e];
 		}
         [self initialize];
 	}
@@ -75,7 +75,7 @@ static NSArray *timeStrings;
         _date = midnight;
     }
 }
-- (void)addNewEvent:(GCCalendarEvent *)event {
+- (void)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] init];
     tile.event = event;
     tile.color = event.color;
@@ -252,123 +252,6 @@ static NSArray *timeStrings;
     self.nowArrow.frame = CGRectMake(0, yVal, self.bounds.size.width, 5);
     
     [self performSelector:@selector(drawLineForCurrentTime) withObject:nil afterDelay:NOW_ARROW_TIME_PERIOD];
-}
-
-#pragma mark touch handling
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {
-
-    [[self nextResponder] touchesBegan:touches withEvent:e];
-    
-//	// show touch-began state
-//    UITouch *touch = [touches anyObject];
-//    CGPoint touchPoint = [touch locationInView:self];
-//    
-//    // Only move the tile if the touch was in the selected tile
-//    GCCalendarTile *tile = (GCCalendarTile *)touch.view;
-//    if (tile == self.selectedTile) {
-//        NSLog(@"Tile Touched");
-//        // temporarily disable the scroll view
-//        self.scrollView.scrollEnabled = NO;
-//        
-//        // Animate the first touch - could possibly do that
-//        tilePosition = [tile convertPoint:tile.bounds.origin toView:self];
-//        touchOffset = [self convertPoint:touchPoint toView:tile];
-//    }
-//    
-//    // Change the start and end times of the tile
-//    if (touch.view == self.selectedTile.endTimeDrag) {
-//        // Do something
-//        NSLog(@"End Time Drag touched");
-//        //        endTilePosition = [tile.endTimeDrag convertPoint:tile.endTimeDrag.bounds.origin toView:self];
-//        //        endTouchOffset = [self convertPoint:touchPoint toView:tile.endTimeDrag];
-//    }
-//    [super touchesBegan:touches withEvent:e];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-//    // Get single touch
-//	UITouch *touch = [touches anyObject];
-//    
-//    // Only move the tile if the touch was in the selected tile
-//    GCCalendarTile *tile = (GCCalendarTile *)touch.view;
-//    if (tile == self.selectedTile) {
-//        // Move the tile as the finger moves
-//        CGPoint touchPoint = [touch locationInView:self];
-//        CGFloat YPosition = touchPoint.y - touchOffset.y;
-//        
-//        // We could run into problems here - what if the imported event doesn't start on the hour.
-//        if (YPosition - tilePosition.y > (kHalfHourDiff / 2)){
-//            tilePosition.y += kHalfHourDiff / 2;
-//        } else if (YPosition - tilePosition.y < -(kHalfHourDiff / 2)) {
-//            tilePosition.y -= kHalfHourDiff / 2;
-//        }
-//        
-//        CGRect newTileFrame = CGRectMake(tilePosition.x, tilePosition.y, tile.bounds.size.width, tile.bounds.size.height);
-//        tile.frame = newTileFrame;
-//    }
-}
-
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	
-//	UITouch *touch = [touches anyObject];
-//    
-//    // re-enable the scroll view
-//    self.scrollView.scrollEnabled = YES;
-//    
-//    NSLog(@"touched view: %@", touch.view.description);
-//    NSLog(@"selected tile %@", self.selectedTile.description);
-//    
-//    // change the event details to match the new ones
-//    GCCalendarTile *tile = (GCCalendarTile *)touch.view;
-//    if (tile == self.selectedTile) {
-//        CGRect frame = tile.frame;
-//        // set start time
-//        double startHourMin = (frame.origin.y - kTopLineBuffer) / (2 * kHalfHourDiff);
-//        
-//        NSInteger startHour = floor(startHourMin);
-//        NSInteger startMins = (startHourMin - startHour) * 60;
-//        
-//        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:tile.event.startDate];
-//        [components setHour:startHour];
-//        [components setMinute:startMins];
-//        
-//        NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:components];
-//        
-//        // set end time
-//        double endHourMin = (frame.origin.y + frame.size.height - kTopLineBuffer - 2) / (2 * kHalfHourDiff);
-//        
-//        NSInteger endHour = floor(endHourMin);
-//        NSInteger endMins = (endHourMin - endHour) * 60;
-//        
-//        NSDateComponents *endComponents = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:tile.event.endDate];
-//        [endComponents setHour:endHour];
-//        [endComponents setMinute:endMins];
-//        
-//        NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
-//        
-//        // Update the actual event record.
-//        tile.event.startDate = startDate;
-//        tile.event.endDate = endDate;
-//        
-//        NSLog(@"New Start Date is: %@", tile.event.startDate.description);
-//        NSLog(@"New End Date: %@", tile.event.endDate.description);
-//    }
-}
-
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    //	// reenable the scroll view
-    //    self.scrollView.scrollEnabled = YES;
-    //
-    //    // reposition the tile back to it's original position
-    //    [self setNeedsDisplay];
-    
-    // It seems apple can't distinguish between cancelled events and complete events. We'll bypass this.
-}
-
-
-- (void)moveTile:(GCCalendarTile *)tile fromPoint:(CGPoint)touchPoint {
 }
 
 @end

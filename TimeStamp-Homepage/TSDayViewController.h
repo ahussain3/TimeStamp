@@ -46,7 +46,7 @@
     BOOL hasAddButton;
 }
 
--(void)createEventAtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
+-(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 

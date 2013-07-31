@@ -77,6 +77,7 @@
 		C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
 		C8FF167917A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
 		C8FF167C17A617640064BA83 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
+		C8FF167F17A93E310064BA83 /* TSCalendarStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167E17A93E310064BA83 /* TSCalendarStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,8 @@
 		C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSListTableViewController.m; sourceTree = "<group>"; };
 		C8FF167A17A617620064BA83 /* TSHomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSHomePageController.h; sourceTree = "<group>"; };
 		C8FF167B17A617630064BA83 /* TSHomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSHomePageController.m; sourceTree = "<group>"; };
+		C8FF167D17A93E310064BA83 /* TSCalendarStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCalendarStore.h; sourceTree = "<group>"; };
+		C8FF167E17A93E310064BA83 /* TSCalendarStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCalendarStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +350,8 @@
 				C8FF165817A5DA440064BA83 /* TSCategory.m */,
 				C8FF165917A5DA440064BA83 /* TSCategoryStore.h */,
 				C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */,
+				C8FF167D17A93E310064BA83 /* TSCalendarStore.h */,
+				C8FF167E17A93E310064BA83 /* TSCalendarStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				C8FF166D17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */,
 				C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */,
 				C8FF167C17A617640064BA83 /* TSHomePageController.m in Sources */,
+				C8FF167F17A93E310064BA83 /* TSCalendarStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

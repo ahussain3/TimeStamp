@@ -19,6 +19,7 @@
 #import "HomePageCalObj.h"
 #import "TSMenuObjectStore.h"
 #import "TSCalBoxView.h"
+#import "TSCalendarStore.h"
 
 #define kAnimationDuration 0.3f
 
@@ -26,7 +27,6 @@
 @interface TSDayViewController ()
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) GCCalendarDayView *dayView;
-@property (nonatomic, strong) EKEventStore *store;
 @property (nonatomic, strong) UIView *dummyView;
 
 - (void)reloadDayAnimated:(BOOL)animated context:(void *)context;
@@ -34,7 +34,7 @@
 
 @implementation TSDayViewController
 
-@synthesize date, dayView, hasAddButton, store;
+@synthesize date, dayView, hasAddButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,6 +73,30 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setup {
+    // create calendar view
+    // GCCalendarView delegate / datasource.
+    self.dataSource = self;
+    self.delegate = self;
+    
+    self.hasAddButton = NO;
+    
+    viewDirty = YES;
+    viewVisible = NO;
+    
+    self.title = @"TimeStamp";
+    self.tabBarItem.image = [UIImage imageNamed:@"Calendar.png"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(calendarTileTouch:)
+                                                 name:__GCCalendarTileTouchNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(calendarShouldReload:)
+                                                 name:GCCalendarShouldReloadNotification
+                                               object:nil];
+}
+
 - (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
     CGPoint point = [[sender valueForKey:@"_startPointScreen"] CGPointValue];
     UIView *view = [self.view hitTest:point withEvent:nil];
@@ -100,139 +124,22 @@
     }
 }
 
-- (void)setup {
-// create calendar view
-    self.dataSource = self;
-    self.delegate = self;
-    
-    self.hasAddButton = NO;
-    
-    viewDirty = YES;
-    viewVisible = NO;
-    
-    self.title = @"TimeStamp";
-    self.tabBarItem.image = [UIImage imageNamed:@"Calendar.png"];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(calendarTileTouch:)
-                                                 name:__GCCalendarTileTouchNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(calendarShouldReload:)
-                                                 name:GCCalendarShouldReloadNotification
-                                               object:nil];
-    
-    
-
-    store = [[EKEventStore alloc] init];
-    if([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
-        // iOS 6 and later
-        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-            
-            if (granted) {
-                //NSLog(@"Events calendar accessed");
-                //---- codes here when user allow your app to access theirs' calendar.
-            } else
-            {
-                //NSLog(@"Failed to access events calendar");
-                //----- codes here when user NOT allow your app to access the calendar.
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Calendar access failed" message:@"We can't do much if access to phone calendar is not granted - go to Settings to grant permission :)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-                [alert show];
-            }
-        }];
-        
-    }
-}
-
-- (GCCalendarEvent *)createFromEKEvent:(EKEvent *)ekevent {
-    GCCalendarEvent *gcevent = [[GCCalendarEvent alloc] init];
-    
-    gcevent.startDate = ekevent.startDate;
-    gcevent.endDate = ekevent.endDate;
-    gcevent.eventName = ekevent.title;
-    gcevent.eventDescription = ekevent.notes;
-    gcevent.allDayEvent = ekevent.allDay;
-    gcevent.color = [UIColor colorWithCGColor:ekevent.calendar.CGColor];
-
-    return gcevent;
-}
-
 -(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
     [dayView createEvent:event AtPoint:point withDuration:seconds];
 }
 
 #pragma mark GCCalendarDataSource
 - (NSArray *)calendarEventsForDate:(NSDate *)d {
-
-    // internet code ask user for permission
-    // retrieve all calendars
-    NSArray *calendars = [store calendarsForEntityType:EKEntityTypeEvent];
-    
-    // This array will store all the events from all calendars.
-    NSMutableArray *eventArray = [[NSMutableArray alloc] init];
-    
-    // Make sure you are at midnight on the current day
-    // Set startDay to today at midnight
-    NSDateComponents *components;
-    components = [[NSCalendar currentCalendar] components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:d];
-    [components setHour:0];
-    [components setMinute:0];
-    [components setSecond:0];
-
-    // The date period goes from the beginning of yesterday to the start of today. This ensures we don't miss events that started yesterday but ended today.
-
-    NSDate *today = [[NSCalendar currentCalendar] dateFromComponents:components];
-    NSDate *startDate = [today dateByAddingTimeInterval:-60*60*24];
-    NSDate *endDate = [today dateByAddingTimeInterval:60*60*24];
-    
-//    NSLog(@"Start date (should be midnight): %@", startDate);
-    
-    for (EKCalendar *calendar in calendars) {
-        
-        // Print calendar information
-        //NSLog(@"Calendar Title: %@", calendar.title);
-        
-        // Get events for calendar
-        NSArray *calendarArray = [NSArray arrayWithObject:calendar];
-        NSPredicate *searchPredicate = [store predicateForEventsWithStartDate:startDate endDate:endDate calendars:calendarArray];
-        
-        // create temporary array to store events for THIS calendar
-        NSMutableArray *eventsForCalendar = [[store eventsMatchingPredicate:searchPredicate]mutableCopy];
-        //NSLog(@"No. of events found for '%@' calendar: %i", calendar.title, [eventArray count]);
-        NSMutableArray * temp = [[NSMutableArray alloc]init];
-        
-        // remove 'all-day' events
-        for (EKEvent *event in eventsForCalendar) {
-            if (event.allDay) {
-                [temp addObject:event];
-            }
-        }
-        [eventsForCalendar removeObjectsInArray:temp];
-        
-        // merge with main storage array
-        [eventArray addObjectsFromArray:eventsForCalendar];
-    }
-    
-    // sort events in order of start date.
-    [eventArray sortUsingSelector:@selector(compareStartDateWithEvent:)];
-
-    // delete events that don't begin today.
-    NSMutableArray *remove = [[NSMutableArray alloc] init];
-    for (EKEvent *e in eventArray) {
-        if ([e.endDate compare:[today dateByAddingTimeInterval:1]] == NSOrderedAscending) {
-            [remove addObject:e];
-        }
-    }
-    [eventArray removeObjectsInArray:remove];
+    NSArray *EKArray = [[TSCalendarStore instance] allCalendarEventsForDate:d];
     
     // convert events from EKEvent to GCCalendarEvent
     NSMutableArray *GCEventArray = [[NSMutableArray alloc] init];
-    for (EKEvent *e in eventArray) {
-        GCCalendarEvent *gce = [self createFromEKEvent:e];
+    for (EKEvent *e in EKArray) {
+        GCCalendarEvent *gce = [self createGCEventFromEKEvent:e];
         [GCEventArray addObject:gce];
     }
-    
-    return GCEventArray;
+
+    return [GCEventArray copy];
 }
 
 #pragma mark GCCalendarDelegate
@@ -243,6 +150,20 @@
 }
 - (void)calendarViewAddButtonPressed:(GCCalendarView *)view {
 	NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
+#pragma mark Utility methods
+- (GCCalendarEvent *)createGCEventFromEKEvent:(EKEvent *)ekevent {
+    GCCalendarEvent *gcevent = [[GCCalendarEvent alloc] init];
+    
+    gcevent.startDate = ekevent.startDate;
+    gcevent.endDate = ekevent.endDate;
+    gcevent.eventName = ekevent.title;
+    gcevent.eventDescription = ekevent.notes;
+    gcevent.allDayEvent = ekevent.allDay;
+    gcevent.color = [UIColor colorWithCGColor:ekevent.calendar.CGColor];
+    
+    return gcevent;
 }
 
 // Replacing the GCCalPortraitView functionality
@@ -285,10 +206,6 @@
 
 #pragma mark button actions
 - (void)today {
-	dayPicker.date = [NSDate date];
-	
-	self.date = dayPicker.date;
-	
 	[[NSUserDefaults standardUserDefaults] setObject:date forKey:@"GCCalendarDate"];
 	
 	[self reloadDayAnimated:NO context:NULL];
@@ -408,9 +325,6 @@
 	
 	// reassign variables
 	self.dayView = nextDayView;
-		
-	// reset pickers
-	dayPicker.userInteractionEnabled = YES;
 }
 
 @end

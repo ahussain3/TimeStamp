@@ -16,92 +16,6 @@
 #import "GCCalendarTodayView.h"
 #import "GCGlobalSettings.h"
 
-@interface GCCalendarAllDayView : UIView {
-	NSArray *events;
-}
-
-- (id)initWithEvents:(NSArray *)a;
-- (BOOL)hasEvents;
-
-@end
-
-@implementation GCCalendarAllDayView
-- (id)initWithEvents:(NSArray *)a {
-	if (self = [super init]) {
-		NSPredicate *pred = [NSPredicate predicateWithFormat:@"allDayEvent == YES"];
-		events = [a filteredArrayUsingPredicate:pred];
-		
-		NSInteger eventCount = 0;
-		for (GCCalendarEvent *e in events) {
-			if (eventCount < 5) {
-				GCCalendarTile *tile = [[GCCalendarTile alloc] init];
-				tile.event = e;
-                tile.color = e.color;
-				[self addSubview:tile];
-				
-				eventCount++;
-			}
-		}
-	}
-	
-	return self;
-}
-- (void)dealloc {
-	events = nil;
-	
-}
-- (BOOL)hasEvents {
-	return ([events count] != 0);
-}
-- (CGSize)sizeThatFits:(CGSize)size {
-	CGSize toReturn = CGSizeMake(0, 0);
-	
-	if ([self hasEvents]) {
-		NSInteger eventsCount = ([events count] > 5) ? 5 : [events count];
-		toReturn.height = (5 * 2) + (27 * eventsCount) + (eventsCount - 1);
-	}
-	
-	return toReturn;
-}
-- (void)layoutSubviews {
-	CGFloat start_y = 5.0f;
-	CGFloat height = 27.0f;
-	
-	for (UIView *view in self.subviews) {
-		// get calendar tile and associated event
-		GCCalendarTile *tile = (GCCalendarTile *)view;
-		tile.frame = CGRectMake(kTileLeftSide,
-								start_y,
-								self.frame.size.width - kTileLeftSide - kTileRightSide,
-								height);
-		start_y += (height + 1);
-	}
-}
-
-- (void)drawRect:(CGRect)rect {
-	// grab current graphics context
-	CGContextRef g = UIGraphicsGetCurrentContext();
-	
-	// fill white background
-	CGContextSetRGBFillColor(g, 1.0, 1.0, 1.0, 1.0);
-	CGContextFillRect(g, self.frame);
-	
-	// draw border line
-	CGContextMoveToPoint(g, 0, self.frame.size.height);
-	CGContextAddLineToPoint(g, self.frame.size.width, self.frame.size.height);
-	
-	// draw all day text
-	UIFont *numberFont = [UIFont boldSystemFontOfSize:12.0];
-	[[UIColor blackColor] set];
-	NSString *text = [[NSBundle mainBundle] localizedStringForKey:@"ALL_DAY" value:@"" table:@"GCCalendar"];
-	CGRect textRect = CGRectMake(6, 10, 40, [text sizeWithFont:numberFont].height);
-	[text drawInRect:textRect withFont:numberFont];
-	
-	// stroke the path
-	CGContextStrokePath(g);
-}
-@end
-
 @interface GCCalendarDayView ()
 @end
 
@@ -132,14 +46,7 @@
     
 	// drop all subviews
 	[self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	
-	// create all day view
-	allDayView = [[GCCalendarAllDayView alloc] initWithEvents:events];
-	[allDayView sizeToFit];
-	allDayView.frame = CGRectMake(0, 0, self.frame.size.width, allDayView.frame.size.height);
-	allDayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	[self addSubview:(UIView *)allDayView];
-	
+		
 	// create scroll view
 	scrollView = [[UIScrollView alloc] init];
 	scrollView.backgroundColor = [UIColor colorWithRed:(242.0 / 255.0) green:(242.0 / 255.0) blue:(242.0 / 255.0) alpha:1.0];

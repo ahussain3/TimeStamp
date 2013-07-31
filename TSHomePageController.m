@@ -66,7 +66,7 @@
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell {
-    CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.scrollView];
+    CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.calWrapperView];
     
     GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
     event.eventName = cell.textLabel.text;

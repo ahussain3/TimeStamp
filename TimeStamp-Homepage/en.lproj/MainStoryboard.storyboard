@@ -97,12 +97,6 @@
                             <view multipleTouchEnabled="YES" contentMode="redraw" id="Ggo-YK-f8e" userLabel="CalendarDayView">
                                 <rect key="frame" x="0.0" y="0.0" width="201" height="505"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" id="KBJ-zh-KSR">
-                                        <rect key="frame" x="0.0" y="1" width="201" height="504"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </scrollView>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -111,7 +105,6 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="calWrapperView" destination="Ggo-YK-f8e" id="L9a-GB-Leg"/>
-                        <outlet property="scrollView" destination="KBJ-zh-KSR" id="nqX-rP-2l8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ov4-sd-StF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -119,6 +112,32 @@
             <point key="canvasLocation" x="1479" y="985"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="ATSDragToReorderTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSDragToReorderTableViewController.h"/>
+        </class>
+        <class className="GCCalendarView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCCalendarView.h"/>
+        </class>
+        <class className="TSCalBoxesContainer" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSCalBoxesContainer.h"/>
+        </class>
+        <class className="TSDayViewController" superclassName="GCCalendarView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSDayViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="calWrapperView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="TSHomePageController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
+        </class>
+        <class className="TSListTableViewController" superclassName="ATSDragToReorderTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSListTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="view" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

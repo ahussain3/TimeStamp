@@ -27,12 +27,6 @@
  event (currently unimplemnted)
  */
  @interface TSDayViewController : GCCalendarView <GCCalendarDelegate, GCCalendarDataSource> {
-    // date the view will display
-    NSDate *date;
-     
-    // control for changing the date
-    GCDatePickerControl *dayPicker;
-    
     // interface for displaying events
     GCCalendarDayView *dayView;
     
@@ -48,11 +42,10 @@
 
 -(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *calWrapperView;
+
 
 //This contains the entire lists of categories with elements
 @property (nonatomic) TSMenuBoxContainer * menuBoxContainer;
-@property (weak, nonatomic) IBOutlet UIView *calWrapperView;
-@property (nonatomic, assign) BOOL hasAddButton;
 
 @end

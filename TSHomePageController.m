@@ -8,6 +8,7 @@
 
 #import "TSHomePageController.h"
 #import "TSListTableViewController.h"
+#import "TSDayViewController.h"
 
 @interface TSHomePageController ()
 
@@ -28,6 +29,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    // Add a button to the nav bar to create new events
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEvent)];
+    button.width = 40.0;
+    self.navigationItem.rightBarButtonItem = button;
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,12 +43,19 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Initialization
     if ([[segue identifier] isEqualToString:@"listSegue"]) {
-        TSListTableViewController *controller = (TSListTableViewController *)segue.destinationViewController;
-        controller.superController = self;
-        controller.dragDelegate = self;
-//        controller.reorderingEnabled = NO;
+        listController = (TSListTableViewController *)segue.destinationViewController;
     }
+    if ([[segue identifier] isEqualToString:@"daySegue"]) {
+        dayViewController = (TSDayViewController *)segue.destinationViewController;
+    }
+    [self initializeControllers];
+}
+
+- (void)initializeControllers {
+    listController.superController = self;
+    listController.dragDelegate = self;
 }
 
 -(void)respondToDragAcross:(UIPanGestureRecognizer *)sender {
@@ -52,6 +65,8 @@
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell {
     NSLog(@"Delegate method for drag across called.");
+    
+    [dayViewController createEventAtPoint:CGPointZero withDuration:60*60];
 }
 
 

@@ -113,12 +113,6 @@
     self.title = @"TimeStamp";
     self.tabBarItem.image = [UIImage imageNamed:@"Calendar.png"];
     
-    // Add a button to the nav bar to create new events
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEvent)];
-    button.width = 40.0;
-    self.navigationItem.rightBarButtonItem = button;
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(calendarTileTouch:)
                                                  name:__GCCalendarTileTouchNotification
@@ -163,8 +157,7 @@
     return gcevent;
 }
 
-- (void)addEvent {
-    NSLog(@"Add Event button pushed");
+-(void)createEventAtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
     [dayView addNewEvent];
 }
 

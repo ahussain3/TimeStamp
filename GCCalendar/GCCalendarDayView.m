@@ -236,36 +236,13 @@
 	return scrollView.contentOffset;
 }
 - (void)addNewEvent {
+    NSLog(@"Added new event");
     GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
     event.startDate = [NSDate date];
     event.endDate = [NSDate dateWithTimeInterval:60*60 sinceDate:event.startDate];
     event.eventName = @"New Event Created!";
     event.color = [UIColor redColor];
     [todayView addNewEvent:event];
-}
-
-#pragma mark touch handling
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {
-	// show touch-began state
-    [[self nextResponder] touchesBegan:touches withEvent:e];;
-}
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)e {
-	
-}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)e {
-
-    
-//	UITouch *touch = [touches anyObject];
-//	
-//	if ([self pointInside:[touch locationInView:self] withEvent:nil]) {
-//		[self touchesCancelled:touches withEvent:e];
-//		
-//		[[NSNotificationCenter defaultCenter] postNotificationName:__GCCalendarTileTouchNotification
-//															object:self];
-//	}
-}
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)e {
-	// show touch-end state
 }
 
 @end

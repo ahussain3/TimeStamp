@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ATSDragToReorderTableViewController.h"
 
-@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIView *categoryListContainer;
+@class TSDayViewController;
+@class TSListTableViewController;
+
+@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate> {
+    TSListTableViewController *listController;
+    TSDayViewController *dayViewController;
+}
 
 @end

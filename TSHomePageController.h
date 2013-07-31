@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ATSDragToReorderTableViewController.h"
 
-@interface TSHomePageController : UIViewController
+@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *categoryListContainer;
 
 @end

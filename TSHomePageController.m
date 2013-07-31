@@ -40,6 +40,7 @@
     if ([[segue identifier] isEqualToString:@"listSegue"]) {
         TSListTableViewController *controller = (TSListTableViewController *)segue.destinationViewController;
         controller.superController = self;
+        controller.dragDelegate = self;
 //        controller.reorderingEnabled = NO;
     }
 }
@@ -47,5 +48,11 @@
 -(void)respondToDragAcross:(UIPanGestureRecognizer *)sender {
     NSLog(@"Dragging across screen");
 }
+
+#pragma mark - ATSDragToReorderTableViewControllerDelegate methods
+- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell {
+    NSLog(@"Delegate method for drag across called.");
+}
+
 
 @end

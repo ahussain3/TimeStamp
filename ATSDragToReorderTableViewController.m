@@ -809,7 +809,7 @@ typedef enum {
 		Official drag control keeps the cell's center visible at all times.
  */
 - (void)updateFrameOfDraggedCellForTranlationPoint:(CGPoint)translation {
-    CGFloat newXCenter = initialXOffsetOfDraggedCellCenter + translation.x;
+    CGFloat newXCenter = initialXOffsetOfDraggedCellCenter + translation.x + self.tableView.contentOffset.x;
 	CGFloat newYCenter = initialYOffsetOfDraggedCellCenter + translation.y + self.tableView.contentOffset.y;
 
 	/*
@@ -880,6 +880,16 @@ typedef enum {
 		Get final frame of cell.
 	 */
 	[self updateFrameOfDraggedCellForTranlationPoint:translation];
+    
+    if (!CGRectContainsPoint(self.tableView.frame, draggedCell.center)) {
+        NSLog(@"Cell center is on the right");
+        if ([self.dragDelegate respondsToSelector:@selector(dragTableViewController:draggedCellOutsideTableView:)]) {
+            [self.dragDelegate dragTableViewController:self draggedCellOutsideTableView:draggedCell];
+        }
+    } else {
+        NSLog(@"Cell center is on the left");
+    }
+    
 	/*
 		If the row changes at the last minute, update so we don't put it away in the wrong spot
 	 */
@@ -890,7 +900,6 @@ typedef enum {
 	 */
 	if ([self.dragDelegate respondsToSelector:@selector(dragTableViewController:willEndDraggingToRow:)])
 		[self.dragDelegate dragTableViewController:self willEndDraggingToRow:self.indexPathBelowDraggedCell];
-
 
 	/*
 		Save pointer to dragged cell so we can remove it from superview later. Same with blank item index path.

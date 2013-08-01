@@ -13,6 +13,7 @@
 @class GCCalendarDayView;
 @class TableHeaderToolBar;
 @class TSMenuBoxContainer;
+@class GCCalendarTodayView;
 
 /*
  GCCalendarPortraitView defines the top-level view controller containing
@@ -30,22 +31,21 @@
     // interface for displaying events
     GCCalendarDayView *dayView;
     
+    // scrollView wraps the today views
+    UIScrollView *scrollView;
+    GCCalendarTodayView *todayView;
+     GCCalendarTodayView *yesterdayView;
+     GCCalendarTodayView *tomorrowView;
+    
     // view has changed since last time on screen
     BOOL viewDirty;
     
     // view is on screen
     BOOL viewVisible;
-    
-    // add button
-    BOOL hasAddButton;
 }
 
 -(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
 
 @property (weak, nonatomic) IBOutlet UIView *calWrapperView;
-
-
-//This contains the entire lists of categories with elements
-@property (nonatomic) TSMenuBoxContainer * menuBoxContainer;
 
 @end

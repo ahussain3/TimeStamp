@@ -28,6 +28,10 @@
 	if(self == [GCCalendarDayView class]) {
 	}
 }
+- (void)setFrame:(CGRect)frame {
+    NSLog(@"DayView setFrame, frame: (%f,%f,%f,%f)", frame.origin.x, frame.origin.y, frame.size.width ,frame.size.height);
+    [super setFrame:frame];
+}
 - (id)initWithCalendarView:(GCCalendarView *)view {
 	if (self = [super init]) {
 //		dataSource = view.dataSource;
@@ -40,7 +44,7 @@
 }
 - (void)reloadData {
 	// get new events for date
-	events = [dataSource calendarEventsForDate:date];
+	events = [dataSource calendarEventsForDate:self.date];
     NSArray *events_yesterday = [dataSource calendarEventsForDate:[date dateByAddingTimeInterval:-60*60*24]];
 	NSArray *events_tomorrow = [dataSource calendarEventsForDate:[date dateByAddingTimeInterval:+60*60*24]];
     
@@ -65,27 +69,26 @@
     yesterdayView.frame = CGRectMake(0, 0, self.frame.size.width, kTodayViewHeight);
     yesterdayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     yesterdayView.date = [date dateByAddingTimeInterval:-60*60*24];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOutside:)];
     
 	// create today view
 	todayView = [[GCCalendarTodayView alloc] initWithEvents:events];
 	todayView.frame = CGRectMake(0, kTodayViewHeight, self.frame.size.width, kTodayViewHeight);
 	todayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     todayView.date = date;
-    [todayView addGestureRecognizer:tap];
     
     // create tomorrow view
     tomorrowView = [[GCCalendarTodayView alloc] initWithEvents:events_tomorrow];
     tomorrowView.frame = CGRectMake(0, 0 + 2 * kTodayViewHeight, self.frame.size.width, kTodayViewHeight);
     tomorrowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     tomorrowView.date = [date dateByAddingTimeInterval:60*60*24];
-//    [tomorrowView addGestureRecognizer:tap];
     
     // Create a composite view combining the three we just created.
     UIView *compositeView = [[UIView alloc] init];
     [compositeView addSubview:yesterdayView];
     [compositeView addSubview:todayView];
     [compositeView addSubview:tomorrowView];
+    
+    NSLog(@"dimensions of dayview in dayview: (%f,%f,%f,%f)", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
     
 	[scrollView addSubview:compositeView];
 }
@@ -133,15 +136,6 @@
 - (CGFloat)timeForYValue:(CGFloat)yValue {
     // returns time in hours.
     return ((yValue - kTopLineBuffer) / (2 * kHalfHourDiff));
-}
-
-- (void)addNewEvent {
-    GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
-    event.startDate = [NSDate date];
-    event.endDate = [NSDate dateWithTimeInterval:60*60 sinceDate:event.startDate];
-    event.eventName = @"New Event Created!";
-    event.color = [UIColor redColor];
-    [todayView drawNewEvent:event];
 }
 
 @end

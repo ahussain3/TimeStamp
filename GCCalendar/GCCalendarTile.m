@@ -136,29 +136,6 @@
 //    [self drawDraggableAreas];
 }
 
-#pragma mark touch handling
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e {
-	// show touch-began state
-    [[self nextResponder] touchesBegan:touches withEvent:e];
-}
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)e {
-	
-}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)e {
-    
-//	UITouch *touch = [touches anyObject];
-//	
-//	if ([self pointInside:[touch locationInView:self] withEvent:nil]) {
-//		[self touchesCancelled:touches withEvent:e];
-//		
-//		[[NSNotificationCenter defaultCenter] postNotificationName:__GCCalendarTileTouchNotification
-//															object:self];
-//	}
-}
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)e {
-	// show touch-end state
-}
-
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef contextRef = UIGraphicsGetCurrentContext();

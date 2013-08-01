@@ -89,18 +89,18 @@
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date {
     // retrieve all calendars
     NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
-
+    
     // This array will store all the events from all calendars.
     NSMutableArray *eventArray = [[NSMutableArray alloc] init];
-
+    
     // Make sure you are at midnight on the current day
     // Set startDay to today at midnight
     NSDate *today = [self getMidnightForDate:date];
-
+    
     // The date period goes from the beginning of yesterday to the start of today. This ensures we don't miss events that started yesterday but ended today. It's a hackish solution
     NSDate *startDate = [today dateByAddingTimeInterval:-60*60*24];
     NSDate *endDate = [today dateByAddingTimeInterval:60*60*24];
-
+    
     // Loop through calendars, pull events.
     for (EKCalendar *calendar in calendars) {
         // Get events for calendar
@@ -122,10 +122,10 @@
         // merge with main storage array
         [eventArray addObjectsFromArray:eventsForCalendar];
     }
-
+    
     // sort events in order of start date.
     [eventArray sortUsingSelector:@selector(compareStartDateWithEvent:)];
-
+    
     // delete events that don't begin today.
     NSMutableArray *remove = [[NSMutableArray alloc] init];
     for (EKEvent *e in eventArray) {
@@ -134,10 +134,9 @@
         }
     }
     [eventArray removeObjectsInArray:remove];
-
+    
     return eventArray;
 }
-
 
 # pragma mark Utility Methods
 -(NSDate *)getMidnightForDate:(NSDate *)date {

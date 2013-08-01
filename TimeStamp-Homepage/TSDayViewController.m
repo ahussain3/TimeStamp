@@ -9,7 +9,6 @@
 #import <EventKit/EventKit.h>
 #import "TSDayViewController.h"
 #import "GCCalendarEvent.h"
-#import "GCCalendarDayView.h"
 #import "GCCalendarTile.h"
 #import "GCDatePickerControl.h"
 #import "GCCalendar.h"
@@ -49,6 +48,16 @@
 	if(self = [super init]) {
         [self setupCalendar];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(calendarTileTouch:)
+                                                 name:__GCCalendarTileTouchNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(calendarShouldReload:)
+                                                 name:GCCalendarShouldReloadNotification
+                                               object:nil];
+    
     return self;
 }
 
@@ -95,25 +104,18 @@
     // Work out which view we're going to draw it in.
     GCCalendarTodayView *activeView;
     CGPoint newPoint = [self.view convertPoint:point toView:todayView];
-    if ([todayView pointInside:newPoint withEvent:nil]) {
-        NSLog(@"Point is in today view");
-        activeView = todayView;
-    } else {
-        NSLog(@"Error - should never be in this branch");
-    }
-    
     CGFloat yValue = newPoint.y;
-//    if (yValue >= -kTodayViewHeight && yValue < 0) {
-//        yValue += kTodayViewHeight;
-//        activeView = yesterdayView;
-//    } else if (yValue >= 0 && yValue < kTodayViewHeight) {
-//        activeView = todayView;
-//    } else if (yValue >= kTodayViewHeight && yValue < 2 * kTodayViewHeight) {
-//        activeView = tomorrowView;
-//        yValue -= kTodayViewHeight;
-//    } else {
-//        // Should never be here - error.
-//    }
+    if (yValue >= -kTodayViewHeight && yValue < 0) {
+        yValue += kTodayViewHeight;
+        activeView = yesterdayView;
+    } else if (yValue >= 0 && yValue < kTodayViewHeight) {
+        activeView = todayView;
+    } else if (yValue >= kTodayViewHeight && yValue < 2 * kTodayViewHeight) {
+        activeView = tomorrowView;
+        yValue -= kTodayViewHeight;
+    } else {
+        // Should never be here - error.
+    }
     
     // Set the date of the created event.
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:activeView.date];
@@ -171,7 +173,7 @@
 #pragma mark button actions
 - (void)today {
     self.date = [NSDate date];
-	[dayView reloadData];
+	[self reloadData];
 }
 - (void)add {
 	if (delegate != nil) {
@@ -183,25 +185,14 @@
 - (void)loadView {
 	[super loadView];
     [self reloadData];
-    
-	// setup initial day view
-//    dayView = [[GCCalendarDayView alloc] initWithCalendarView:self];
-//	dayView.frame = CGRectMake(0,
-//							   0,
-//							   self.calWrapperView.frame.size.width,
-//							   self.calWrapperView.frame.size.height);
-//	dayView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-//	[self.calWrapperView addSubview:dayView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
 	if (viewDirty) {
-		[dayView reloadData];
+		[self reloadData];
 		viewDirty = NO;
 	}
-    
     [self setCalendarBounds];
 	viewVisible = YES;
 }

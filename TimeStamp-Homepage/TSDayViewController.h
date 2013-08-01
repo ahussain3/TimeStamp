@@ -28,14 +28,12 @@
  event (currently unimplemnted)
  */
  @interface TSDayViewController : GCCalendarView <GCCalendarDelegate, GCCalendarDataSource> {
-    // interface for displaying events
-    GCCalendarDayView *dayView;
     
     // scrollView wraps the today views
     UIScrollView *scrollView;
     GCCalendarTodayView *todayView;
-     GCCalendarTodayView *yesterdayView;
-     GCCalendarTodayView *tomorrowView;
+    GCCalendarTodayView *yesterdayView;
+    GCCalendarTodayView *tomorrowView;
     
     // view has changed since last time on screen
     BOOL viewDirty;

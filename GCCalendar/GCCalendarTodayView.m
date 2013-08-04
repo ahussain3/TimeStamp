@@ -75,6 +75,8 @@ static NSArray *timeStrings;
 # pragma mark Drawing / Subview methods
 - (void)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
+    tile.delegate = self;
+    [self addGesturerecognizersForTile:tile];
     [self addSubview:tile];
 }
 - (void)layoutSubviews {
@@ -236,6 +238,50 @@ static NSArray *timeStrings;
     // Still to do: automatically scroll so that 'now' is in the middle of the screen.
     
     [self performSelector:@selector(drawLineForCurrentTime) withObject:nil afterDelay:NOW_ARROW_TIME_PERIOD];
+}
+
+#pragma mark GCCalendarTileDelegate methods
+
+- (void)deselectAllTiles {
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[GCCalendarTile class]]) {
+            GCCalendarTile *tile = (GCCalendarTile *)view;
+            tile.selected = NO;
+        }
+    }
+    self.selectedTile = nil;
+}
+
+- (void)setSelectedTile:(GCCalendarTile *)tile {
+    // This function is currently redundant.
+    if (_selectedTile != tile) {
+        _selectedTile = tile;
+    }
+}
+
+#pragma mark Dealing with Gestures
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([gestureRecognizer.view isKindOfClass:[GCCalendarTile class]]  && [(GCCalendarTile *)gestureRecognizer.view selected] == TRUE){
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+- (void)addGesturerecognizersForTile:(GCCalendarTile *)tile {
+    UIPanGestureRecognizer *drag = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDragEvent:)];
+    drag.delegate = self;
+    [drag setCancelsTouchesInView:NO];
+    [tile addGestureRecognizer:drag];
+}
+
+- (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
+    // Find reasons to return early
+    NSLog(@"touched view: %@", sender.view);
+    CGPoint translation = [sender translationInView:self];
+    sender.view.center = CGPointMake(sender.view.center.x,
+                                         sender.view.center.y + translation.y);
+    [sender setTranslation:CGPointMake(0, 0) inView:self];
 }
 
 @end

@@ -11,6 +11,15 @@
 #import <UIKit/UIKit.h>
 
 @class GCCalendarEvent;
+@class GCCalendarTile;
+
+@protocol GCCalendarTileDelegate <NSObject>
+
+- (void)deselectAllTiles;
+- (void)setSelectedTile:(GCCalendarTile *)tile;
+
+@end
+
 
 /*
  A GCCalendarTile draws itself using data in the event passed to it.
@@ -28,6 +37,8 @@
 
 @property (nonatomic, strong) GCCalendarEvent *event;
 @property (nonatomic) BOOL selected;
+
+@property (nonatomic, weak) id<GCCalendarTileDelegate> delegate;
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIView *selectedView;

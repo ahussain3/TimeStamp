@@ -129,12 +129,6 @@
     // delete events that don't begin today.
     NSMutableArray *remove = [[NSMutableArray alloc] init];
     for (EKEvent *e in eventArray) {
-        if ([e.title isEqualToString:@"Midnight"]) {
-            NSLog(@"Event title: %@", e.title);
-            NSLog(@"e.startDate: %@", e.startDate);
-            NSLog(@"e.endate: %@", e.endDate);
-            NSLog(@"today is: %@", today);
-        }
         if ([e.startDate compare:today] == NSOrderedAscending) {
             // Event starts yesterday
             if ([e.endDate compare:today] == NSOrderedAscending) {

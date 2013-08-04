@@ -195,10 +195,10 @@
     scrollView.clipsToBounds = YES;
         
     // Setup yesterday view
-    NSDate *yesterday = [NSDate dateWithTimeInterval:-24*60*60 sinceDate:self.date];
-    NSArray *events_yesterday = [self calendarEventsForDate:yesterday];
-    yesterdayView = [[GCCalendarTodayView alloc] initWithEvents:events_yesterday];
-    yesterdayView.date = yesterday;
+//    NSDate *yesterday = [NSDate dateWithTimeInterval:-24*60*60 sinceDate:self.date];
+//    NSArray *events_yesterday = [self calendarEventsForDate:yesterday];
+//    yesterdayView = [[GCCalendarTodayView alloc] initWithEvents:events_yesterday];
+//    yesterdayView.date = yesterday;
     
     // Setup today view
     NSArray *events_today = [self calendarEventsForDate:self.date];
@@ -206,10 +206,10 @@
     todayView.date = self.date;
     
     // Setup tomorrow view
-    NSDate *tomorrow = [NSDate dateWithTimeInterval:24*60*60 sinceDate:self.date];
-    NSArray *events_tomorrow = [self calendarEventsForDate:tomorrow];
-    tomorrowView = [[GCCalendarTodayView alloc] initWithEvents:events_tomorrow];
-    tomorrowView.date = tomorrow;
+//    NSDate *tomorrow = [NSDate dateWithTimeInterval:24*60*60 sinceDate:self.date];
+//    NSArray *events_tomorrow = [self calendarEventsForDate:tomorrow];
+//    tomorrowView = [[GCCalendarTodayView alloc] initWithEvents:events_tomorrow];
+//    tomorrowView.date = tomorrow;
     
     // Create a composite view combining the three we just created.
     compositeView = [[UIView alloc] init];

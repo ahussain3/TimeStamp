@@ -59,7 +59,7 @@
         
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapped:)];
-        [self.contentView addGestureRecognizer:tap];
+        [self addGestureRecognizer:tap];
 	}
 	
 	return self;
@@ -88,6 +88,9 @@
 - (void)layoutSubviews {
 	CGRect myBounds = self.bounds;
     self.selectedView.frame = self.bounds;
+    self.selectedView.layer.borderColor = self.event.color.CGColor;
+    self.selectedView.layer.borderWidth = 4.0;
+    
     self.contentView.frame = self.bounds;
     
 	CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font];
@@ -110,6 +113,13 @@
 #pragma mark Respond to gestures
 - (void)tileTapped:(UITapGestureRecognizer *)sender {
     NSLog(@"tap internal pressed");
+    if (!self.selected) {
+        [self.delegate deselectAllTiles];
+        [self.delegate setSelectedTile:self];
+        self.selected = TRUE;
+    } else {
+        self.selected = FALSE;
+    }
 }
 
 //- (void)drawRect:(CGRect)rect

@@ -11,6 +11,8 @@
 #import "GCCalendarTile.h"
 #import "GCCalendarEvent.h"
 #import "GCCalendar.h"
+#import "UIColor+CalendarPalette.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define tDragAreaHeight 50
 
@@ -21,32 +23,43 @@
 
 @implementation GCCalendarTile
 
-@synthesize event;
-@synthesize color = _color;
+@synthesize event = _event;
 @synthesize selected = _selected;
 
-- (id)init {
+- (id)initWithEvent:(GCCalendarEvent *)event {
 	if (self = [super init]) {
-		self.clipsToBounds = NO;
-		self.userInteractionEnabled = YES;
-		self.multipleTouchEnabled = NO;
-        self.contentMode = UIViewContentModeRedraw;
+        self.event = event;
         
-		titleLabel = [[UILabel alloc] init];
-		titleLabel.backgroundColor = [UIColor clearColor];
-		titleLabel.textColor = [UIColor whiteColor];
-		titleLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:12.0f];
-		
-		descriptionLabel = [[UILabel alloc] init];
-		descriptionLabel.backgroundColor = [UIColor clearColor];
-		descriptionLabel.textColor = [UIColor whiteColor];
-		descriptionLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
-		descriptionLabel.font = [UIFont fontWithName:@"Verdana" size:10.0f];
-		descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-		descriptionLabel.numberOfLines = 0;
-		
+        self.contentView = [[UIView alloc] init];
+        self.contentView.backgroundColor = event.color;
+        
+        self.selectedView = [[UIView alloc] init];
+        self.selectedView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
+
+        titleLabel = [[UILabel alloc] init];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.numberOfLines = 2;
+        titleLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:12.0f];
+        titleLabel.text = event.eventName;
+
+        descriptionLabel = [[UILabel alloc] init];
+        descriptionLabel.backgroundColor = [UIColor clearColor];
+        descriptionLabel.textColor = [UIColor whiteColor];
+        descriptionLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+        descriptionLabel.font = [UIFont fontWithName:@"Verdana" size:10.0f];
+        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        descriptionLabel.numberOfLines = 0;
+        descriptionLabel.text = event.eventDescription;
+
+        [self addSubview:self.selectedView];
+        [self addSubview:self.contentView];
 		[self addSubview:titleLabel];
 		[self addSubview:descriptionLabel];
+        
+        self.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapped:)];
+        [self.contentView addGestureRecognizer:tap];
 	}
 	
 	return self;
@@ -54,95 +67,57 @@
 - (void)dealloc {
 	self.event = nil;
 }
-- (void)setEvent:(GCCalendarEvent *)e {
-	event = e;
-	
-	// set title
-	titleLabel.text = event.eventName;
-	descriptionLabel.text = event.eventDescription;
-//    self.color = e.color;
-	
-	[self setNeedsDisplay];
-}
--(void)setColor:(UIColor *)c {
-    _color = c;
-    if (self.selected) {
-        self.backgroundColor = [_color colorWithAlphaComponent:0.8f];
-    } else {
-        self.backgroundColor = [_color colorWithAlphaComponent:0.5f];
-    }
-    [self setNeedsDisplay];
-}
--(void)setSelected:(BOOL)s {
-    if (s != _selected) {
-        _selected = s;
-        [self setColor:self.color];
-        _selected ? [self drawDraggableAreas] : [self removeDraggableAreas];
-        [self setNeedsDisplay];
-    }
-}
--(void)removeDraggableAreas {
-    if (!self.selected) {
-        // remove any left over drag regions
-        if (self.endTimeDrag) {
-            [self.endTimeDrag removeFromSuperview];
-            self.endTimeDrag = nil;
+-(void)setSelected:(BOOL)selected {
+    if (selected != _selected) {
+        _selected = selected;
+        
+        if (_selected) {
+            self.contentView.hidden = YES;
+            self.selectedView.hidden = NO;
+            titleLabel.textColor = self.event.color;
+            descriptionLabel.textColor = self.event.color;
+        } else {
+            self.contentView.hidden = NO;
+            self.selectedView.hidden = NO;
+            titleLabel.textColor = [UIColor colorFromHexString:@"#eeeeee"];
+            descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
         }
-//        CGRect newFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height - self.endTimeDrag.bounds.size.height);
-//        self.frame = newFrame;
-        NSLog(@"(remove) New tile height is: %f", self.bounds.size.height);
-    }
-}
--(void)drawDraggableAreas {
-    if (self.selected) {
-        // create the dragging UIViews
-//        CGRect startDrag = CGRectMake(self.bounds.origin.x, self.bounds.origin.y - tDragAreaHeight, self.bounds.size.width, tDragAreaHeight);
-//        UIView *dragArea = [[UIView alloc] initWithFrame:startDrag];
-//        dragArea.backgroundColor = [UIColor clearColor];
-//        self.startTimeDrag = dragArea;
-//        [self addSubview:self.startTimeDrag];
-        
-        CGRect endDrag = CGRectMake(self.bounds.origin.x, self.bounds.origin.y + self.bounds.size.height, self.bounds.size.width, tDragAreaHeight);
-        UIView *endDragArea = [[UIView alloc]initWithFrame:endDrag];
-        endDragArea.backgroundColor = [UIColor greenColor];
-        self.endTimeDrag = endDragArea;
-        [self addSubview:self.endTimeDrag];
-        
-        CGRect newFrame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, self.bounds.size.height + self.endTimeDrag.bounds.size.height);
-        self.frame = newFrame;
-        
-        NSLog(@"(draw) New tile height is: %f", self.bounds.size.height);
+        [self setNeedsDisplay];
     }
 }
 - (void)layoutSubviews {
 	CGRect myBounds = self.bounds;
-		
+    self.selectedView.frame = self.bounds;
+    self.contentView.frame = self.bounds;
+    
 	CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font];
-	titleLabel.frame = CGRectMake(6,
-								  4,
-								  myBounds.size.width - 12,
+	titleLabel.frame = CGRectMake(10,
+								  3,
+								  myBounds.size.width - 16,
 								  stringSize.height);
 	
-	if (event.allDayEvent) {
+	if (self.event.allDayEvent) {
 		descriptionLabel.frame = CGRectZero;
 	}
 	else {
-		descriptionLabel.frame = CGRectMake(10,
-											titleLabel.frame.size.height + 2,
+		descriptionLabel.frame = CGRectMake(14,
+											titleLabel.frame.size.height + 3,
 											myBounds.size.width - 20,
 											myBounds.size.height - 14 - titleLabel.frame.size.height);
 	}
-    
-//    [self drawDraggableAreas];
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(contextRef, 4);
-    CGContextSetStrokeColorWithColor(contextRef, [self.color CGColor]);
-    CGContextStrokeRect(contextRef, rect);
+#pragma mark Respond to gestures
+- (void)tileTapped:(UITapGestureRecognizer *)sender {
+    NSLog(@"tap internal pressed");
 }
 
+//- (void)drawRect:(CGRect)rect
+//{
+//    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+//    CGContextSetLineWidth(contextRef, 4);
+//    CGContextSetStrokeColorWithColor(contextRef, [self.event.color CGColor]);
+//    CGContextStrokeRect(contextRef, rect);
+//}
 
 @end

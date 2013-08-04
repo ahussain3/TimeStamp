@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "GCCalendarProtocols.h"
 @class GCCalendarTile;
+@class GCCalendarEvent;
 
 @interface GCCalendarTodayView : UIView {
 }

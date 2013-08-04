@@ -10,14 +10,7 @@
 #import "TSDayViewController.h"
 #import "GCCalendarEvent.h"
 #import "GCCalendarTile.h"
-#import "GCDatePickerControl.h"
 #import "GCCalendar.h"
-#import "TableHeaderToolBar.h"
-#import "TSMenuBoxContainer.h"
-#import "TSCalBoxesContainer.h"
-#import "HomePageCalObj.h"
-#import "TSMenuObjectStore.h"
-#import "TSCalBoxView.h"
 #import "TSCalendarStore.h"
 #import "GCCalendarTodayView.h"
 #import "GCGlobalSettings.h"
@@ -26,7 +19,7 @@
 
 @interface TSDayViewController ()
 @property (nonatomic, strong) NSDate *date;
-- (void)reloadDayAnimated:(BOOL)animated context:(void *)context;
+
 @end
 
 @implementation TSDayViewController
@@ -48,15 +41,6 @@
 	if(self = [super init]) {
         [self setupCalendar];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(calendarTileTouch:)
-                                                 name:__GCCalendarTileTouchNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(calendarShouldReload:)
-                                                 name:GCCalendarShouldReloadNotification
-                                               object:nil];
     
     return self;
 }
@@ -82,13 +66,13 @@
     // create calendar view
     // GCCalendarView delegate / datasource.
     self.dataSource = self;
-    self.delegate = self;
-        
+    
     viewDirty = YES;
     viewVisible = NO;
     
     self.title = @"TimeStamp";
     self.tabBarItem.image = [UIImage imageNamed:@"Calendar.png"];
+
 }
 
 #pragma mark setters and getters
@@ -132,7 +116,6 @@
 
 #pragma mark GCCalendarDataSource
 - (NSArray *)calendarEventsForDate:(NSDate *)date {
-    NSLog(@"date: %@", date);
     NSArray *EKArray = [[TSCalendarStore instance] allCalendarEventsForDate:date];
     
     // convert events from EKEvent to GCCalendarEvent
@@ -175,18 +158,8 @@
     self.date = [NSDate date];
 	[self reloadData];
 }
-- (void)add {
-	if (delegate != nil) {
-		[delegate calendarViewAddButtonPressed:self];
-	}
-}
 
 #pragma mark view notifications
-- (void)loadView {
-	[super loadView];
-    [self reloadData];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (viewDirty) {
@@ -196,6 +169,7 @@
     [self setCalendarBounds];
 	viewVisible = YES;
 }
+
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 	viewVisible = NO;
@@ -203,6 +177,7 @@
 - (void)setCalendarBounds {
     scrollView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, self.calWrapperView.frame.size.height);
     scrollView.contentSize = CGSizeMake(self.calWrapperView.frame.size.width, 3 * kTodayViewHeight);
+    compositeView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, 3 * kTodayViewHeight);
     yesterdayView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, kTodayViewHeight);
     todayView.frame = CGRectMake(0, kTodayViewHeight, self.calWrapperView.frame.size.width, kTodayViewHeight);
     tomorrowView.frame = CGRectMake(0, 2 * kTodayViewHeight, self.calWrapperView.frame.size.width, kTodayViewHeight);
@@ -237,10 +212,12 @@
     tomorrowView.date = tomorrow;
     
     // Create a composite view combining the three we just created.
-    UIView *compositeView = [[UIView alloc] init];
+    compositeView = [[UIView alloc] init];
+    NSLog(@"Composite View interaction enabled?: %i", compositeView.userInteractionEnabled);
     [compositeView addSubview:yesterdayView];
     [compositeView addSubview:todayView];
     [compositeView addSubview:tomorrowView];
+    compositeView.clipsToBounds = YES;
     
 	[scrollView addSubview:compositeView];
     [self.calWrapperView addSubview:scrollView];

@@ -13,11 +13,3 @@
 @required
 - (NSArray *)calendarEventsForDate:(NSDate *)date;
 @end
-
-@class GCCalendarEvent;
-@class GCCalendarView;
-@class GCCalendarTile;
-@protocol GCCalendarDelegate <NSObject>
-- (void)calendarTileTouchedInView:(GCCalendarView *)view withEvent:(GCCalendarEvent *)event andTile:(GCCalendarTile *)tile;
-- (void)calendarViewAddButtonPressed:(GCCalendarView *)view;
-@end

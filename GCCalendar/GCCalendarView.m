@@ -10,6 +10,6 @@
 
 @implementation GCCalendarView
 
-@synthesize delegate, dataSource;
+@synthesize dataSource;
 
 @end

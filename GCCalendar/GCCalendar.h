@@ -14,12 +14,6 @@
 #import "GCCalendarEvent.h"
 #import "GCCalendarProtocols.h"
 
-// calendar notificaions
-static NSString * const GCCalendarShouldReloadNotification = @"GCCalendarShouldReload";
-
-// private notifications
-static NSString * const __GCCalendarTileTouchNotification = @"__GCCalendarTileTouchNotification";
-
 @interface GCCalendar : NSObject {
 	
 }

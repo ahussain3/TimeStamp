@@ -12,12 +12,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" id="orA-py-Adz" customClass="TSCalBoxesContainer">
-                                <rect key="frame" x="130" y="0.0" width="130" height="504"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <containerView contentMode="scaleToFill" id="pbp-c4-Z6s">
+                            <containerView multipleTouchEnabled="YES" contentMode="scaleToFill" id="pbp-c4-Z6s">
                                 <rect key="frame" x="120" y="0.0" width="200" height="505"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

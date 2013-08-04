@@ -22,20 +22,14 @@
 	UILabel *titleLabel;
 	// event description label
 	UILabel *descriptionLabel;
-	
-	// event from which to draw tile
-	GCCalendarEvent *event;
-    
-    // color of tile
-    UIColor *color;
-    
-    // is the tile highlighted?
-    BOOL selected;
 }
 
+- (id)initWithEvent:(GCCalendarEvent *)event;
+
 @property (nonatomic, strong) GCCalendarEvent *event;
-@property (nonatomic, strong) UIColor *color;
 @property (nonatomic) BOOL selected;
-@property (nonatomic, strong) UIView *endTimeDrag;
+
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView *selectedView;
 
 @end

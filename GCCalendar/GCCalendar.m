@@ -16,6 +16,7 @@ static NSDateFormatter *timeFormatter = nil;
 @implementation GCCalendar
 
 #pragma mark date utilities
+// Returns yes if the day is today's date
 + (BOOL)dateIsToday:(NSDate *)date {
 	NSDateComponents *components = nil;
 	

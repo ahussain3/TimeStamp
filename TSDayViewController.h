@@ -27,10 +27,11 @@
  push a detailed view controller onto the stack with more information about the
  event (currently unimplemnted)
  */
- @interface TSDayViewController : GCCalendarView <GCCalendarDelegate, GCCalendarDataSource> {
+ @interface TSDayViewController : GCCalendarView <GCCalendarDataSource> {
     
     // scrollView wraps the today views
     UIScrollView *scrollView;
+    UIView *compositeView;
     GCCalendarTodayView *todayView;
     GCCalendarTodayView *yesterdayView;
     GCCalendarTodayView *tomorrowView;

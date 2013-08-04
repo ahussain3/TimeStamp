@@ -18,13 +18,6 @@ static NSArray *timeStrings;
 @interface GCCalendarTodayView () {
 	// Array of the event objects which will be shown for this day
     NSArray *events;
-    // The point within the tile where the touch was originally made.
-    CGPoint touchOffset;
-    // The position of the tile in the todayView frame.
-    CGPoint tilePosition;
-    // The point within the tile where the touch was originally made.
-    CGPoint endTouchOffset;
-    CGPoint endTilePosition;
 }
 
 - (id)initWithEvents:(NSArray *)a;
@@ -42,10 +35,10 @@ static NSArray *timeStrings;
 	if (self = [super init]) {
 		NSPredicate *pred = [NSPredicate predicateWithFormat:@"allDayEvent == NO"];
 		events = [a filteredArrayUsingPredicate:pred];
-        
 		for (GCCalendarEvent *e in events) {
             [self drawNewEvent:e];
 		}
+        
         [self initialize];
 	}
 	return self;
@@ -57,6 +50,9 @@ static NSArray *timeStrings;
 	events = nil;
 }
 - (void) initialize {
+    self.userInteractionEnabled = YES;
+    self.multipleTouchEnabled = YES;
+    
     timeStrings = [NSArray arrayWithObjects:@"12",
                    @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11",
                    @"12", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12", nil];
@@ -75,10 +71,10 @@ static NSArray *timeStrings;
         _date = midnight;
     }
 }
+
+# pragma mark Drawing / Subview methods
 - (void)drawNewEvent:(GCCalendarEvent *)event {
-    GCCalendarTile *tile = [[GCCalendarTile alloc] init];
-    tile.event = event;
-    tile.color = event.color;
+    GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
     [self addSubview:tile];
 }
 - (void)layoutSubviews {
@@ -88,17 +84,11 @@ static NSArray *timeStrings;
             GCCalendarTile *tile = (GCCalendarTile *)view;
             
             NSDateComponents *components;
-            components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit |
-                                                                   NSMinuteCalendarUnit |
-                                                                   NSDayCalendarUnit)
-                                                         fromDate:tile.event.startDate];
+            components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:tile.event.startDate];
             NSInteger startHour = [components hour];
             NSInteger startMinute = [components minute];
             
-            components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit |
-                                                                   NSMinuteCalendarUnit |
-                                                                   NSDayCalendarUnit)
-                                                         fromDate:tile.event.endDate];
+            components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:tile.event.endDate];
             NSInteger endHour = [components hour];
             NSInteger endMinute = [components minute];
                         
@@ -118,7 +108,7 @@ static NSArray *timeStrings;
             startPos += (startMinute / 60.0) * (kHalfHourDiff * 2.0);
             startPos = floor(startPos);
             
-            CGFloat endPos = kTopLineBuffer + endHour * 2 * kHalfHourDiff + 2;
+            CGFloat endPos = kTopLineBuffer + endHour * 2 * kHalfHourDiff;
             endPos += (endMinute / 60.0) * (kHalfHourDiff * 2.0);
             endPos = floor(endPos);
             
@@ -129,9 +119,9 @@ static NSArray *timeStrings;
             
         }
 	}
-    
     [self drawLineForCurrentTime];
 }
+
 - (void)drawRect:(CGRect)rect {
     // grab current graphics context
 	CGContextRef g = UIGraphicsGetCurrentContext();
@@ -184,15 +174,6 @@ static NSArray *timeStrings;
 		CGFloat yVal = [GCCalendarTodayView yValueForTime:(CGFloat)i];
 		NSString *number = [timeStrings objectAtIndex:i];
 		CGSize numberSize = [number sizeWithFont:numberFont];
-        //		if(i == 12) {
-        //			[number drawInRect:CGRectMake(kSideLineBuffer - 7 - numberSize.width,
-        //										  yVal - floor(numberSize.height / 2) - 1,
-        //										  numberSize.width,
-        //										  numberSize.height)
-        //					  withFont:numberFont
-        //				 lineBreakMode:UILineBreakModeTailTruncation
-        //					 alignment:UITextAlignmentRight];
-        //		} else {
         [number drawInRect:CGRectMake(0,
                                       yVal - floor(numberSize.height / 2) - 1,
                                       kSideLineBuffer - 10 - 10,
@@ -200,7 +181,6 @@ static NSArray *timeStrings;
                   withFont:numberFont
              lineBreakMode:NSLineBreakByTruncatingTail
                  alignment:NSTextAlignmentRight];
-        //		}
 	}
 	
 	// draw am / pm text
@@ -226,9 +206,11 @@ static NSArray *timeStrings;
 		}
 	}
 }
+
 + (CGFloat)yValueForTime:(CGFloat)time {
 	return kTopLineBuffer + (kHalfHourDiff * 2 * time);;
 }
+
 - (void)drawLineForCurrentTime {
     // Draws the (currently blue) line across the screen which indicates the current time.
     NSDate *now = [NSDate date];
@@ -249,7 +231,9 @@ static NSArray *timeStrings;
     }
     
     self.nowArrow.backgroundColor = [UIColor blueColor];
-    self.nowArrow.frame = CGRectMake(0, yVal, self.bounds.size.width, 5);
+    self.nowArrow.frame = CGRectMake(0, yVal, self.bounds.size.width, 3);
+    
+    // Still to do: automatically scroll so that 'now' is in the middle of the screen.
     
     [self performSelector:@selector(drawLineForCurrentTime) withObject:nil afterDelay:NOW_ARROW_TIME_PERIOD];
 }

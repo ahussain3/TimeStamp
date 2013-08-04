@@ -60,10 +60,6 @@
     listController.dragDelegate = self;
 }
 
--(void)respondToDragAcross:(UIPanGestureRecognizer *)sender {
-    NSLog(@"Dragging across screen");
-}
-
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell {
     CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.calWrapperView];

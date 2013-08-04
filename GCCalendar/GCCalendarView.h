@@ -13,12 +13,8 @@
 @interface GCCalendarView : UIViewController {
 	// data source
 	id<GCCalendarDataSource> __weak dataSource;
-	
-	// delegate
-	id<GCCalendarDelegate> __weak delegate;
 }
 
 @property (nonatomic, weak) id<GCCalendarDataSource> dataSource;
-@property (nonatomic, weak) id<GCCalendarDelegate> delegate;
 
 @end

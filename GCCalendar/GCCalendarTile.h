@@ -31,9 +31,13 @@
 	UILabel *titleLabel;
 	// event description label
 	UILabel *descriptionLabel;
+    // frame for the actual event
+    CGRect contentFrame;
 }
 
 - (id)initWithEvent:(GCCalendarEvent *)event;
+
+@property (nonatomic) CGRect naturalFrame;
 
 @property (nonatomic, strong) GCCalendarEvent *event;
 @property (nonatomic) BOOL selected;

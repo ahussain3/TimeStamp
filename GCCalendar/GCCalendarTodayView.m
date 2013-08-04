@@ -97,7 +97,7 @@ static NSArray *timeStrings;
             if ([tile.event.startDate compare:self.date] == NSOrderedAscending) {
                 // the event bleeds in from the previous day
                 startHour = 0;
-                startMinute = -2;
+                startMinute = 0;
             }
             if ([tile.event.endDate compare:[self.date dateByAddingTimeInterval:60*60*24 - 1]] == NSOrderedDescending) {
                 // the event bleeds into the next day
@@ -114,7 +114,7 @@ static NSArray *timeStrings;
             endPos += (endMinute / 60.0) * (kHalfHourDiff * 2.0);
             endPos = floor(endPos);
             
-            tile.frame = CGRectMake(kTileLeftSide,
+            tile.naturalFrame = CGRectMake(kTileLeftSide,
                                     startPos,
                                     self.bounds.size.width - kTileLeftSide - kTileRightSide,
                                     endPos - startPos);
@@ -261,11 +261,19 @@ static NSArray *timeStrings;
 
 #pragma mark Dealing with Gestures
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if ([gestureRecognizer.view isKindOfClass:[GCCalendarTile class]]  && [(GCCalendarTile *)gestureRecognizer.view selected] == TRUE){
-        return TRUE;
-    } else {
-        return FALSE;
+//    if (gestureRecognizer.view.hidden == YES) {
+//        return FALSE;
+//    }
+    
+    if ([gestureRecognizer.view isKindOfClass:[GCCalendarTile class]]) {
+        if ([gestureRecognizer.view isKindOfClass:[GCCalendarTile class]]  && [(GCCalendarTile *)gestureRecognizer.view selected] == TRUE){
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
+    
+    return TRUE;
 }
 
 - (void)addGesturerecognizersForTile:(GCCalendarTile *)tile {
@@ -287,6 +295,10 @@ static NSArray *timeStrings;
     sender.view.center = CGPointMake(sender.view.center.x,
                                          sender.view.center.y + translation.y);
     [sender setTranslation:CGPointMake(0, 0) inView:self];
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        // Update model to reflect new start time
+    }
 }
 
 - (void)startTimeDragged:(UIPanGestureRecognizer *)sender {
@@ -294,7 +306,7 @@ static NSArray *timeStrings;
 }
 
 - (void)endTimeDragged:(UIPanGestureRecognizer *)sender {
-    NSLog(@"start time dragged: %@", sender.view);
+    NSLog(@"end time dragged: %@", sender.view);
 }
 
 @end

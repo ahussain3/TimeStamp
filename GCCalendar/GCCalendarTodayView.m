@@ -253,7 +253,9 @@ static NSArray *timeStrings;
 }
 
 - (void)setSelectedTile:(GCCalendarTile *)tile {
-    // This function is currently redundant.
+    // Bring tile to front. So you can touch both draggable areas.
+    [self bringSubviewToFront:tile];
+    
     if (_selectedTile != tile) {
         _selectedTile = tile;
     }

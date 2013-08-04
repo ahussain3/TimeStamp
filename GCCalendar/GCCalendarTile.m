@@ -37,13 +37,7 @@
         self.selectedView = [[UIView alloc] init];
         self.selectedView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
         
-        self.startTimeDragView = [[UIView alloc] init];
-        self.startTimeDragView.backgroundColor = [UIColor redColor];
-        self.startTimeDragView.hidden = YES;
-        
-        self.endTimeDragView = [[UIView alloc] init];
-        self.endTimeDragView.backgroundColor = [UIColor redColor];
-        self.endTimeDragView.hidden = YES;
+        [self configureDraggableAreas];
 
         titleLabel = [[UILabel alloc] init];
         titleLabel.backgroundColor = [UIColor clearColor];
@@ -63,14 +57,10 @@
 
         [self addSubview:self.selectedView];
         [self addSubview:self.contentView];
-        [self addSubview:self.startTimeDragView];
-        [self addSubview:self.endTimeDragView];
 		[self addSubview:titleLabel];
 		[self addSubview:descriptionLabel];
         
-        self.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapped:)];
-        [self addGestureRecognizer:tap];
+        [self addGestureRecognizers];
 	}
 	
 	return self;
@@ -78,14 +68,29 @@
 - (void)dealloc {
 	self.event = nil;
 }
-
+- (void)configureDraggableAreas {
+    self.startTimeDragView = [[UIView alloc] init];
+    self.startTimeDragView.backgroundColor = [UIColor redColor];
+    self.startTimeDragView.hidden = YES;
+    
+    self.endTimeDragView = [[UIView alloc] init];
+    self.endTimeDragView.backgroundColor = [UIColor redColor];
+    self.endTimeDragView.hidden = YES;
+    
+    [self addSubview:self.startTimeDragView];
+    [self addSubview:self.endTimeDragView];
+}
+- (void)addGestureRecognizers {
+    self.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapped:)];
+    [self addGestureRecognizer:tap];
+}
 #pragma mark Setters and Getters
 - (void)setNaturalFrame:(CGRect)naturalFrame {
     if (!CGRectEqualToRect(_naturalFrame, naturalFrame)) {
         _naturalFrame = naturalFrame;
         self.frame = _naturalFrame;
     }
-//    self.selected = NO;
 }
 - (CGRect)extendedFrame {
     CGRect frame = CGRectMake(self.naturalFrame.origin.x,
@@ -98,11 +103,6 @@
     if (selected != _selected) {
         // Guaranteed to be toggling between selected / unselected, so frame calculations are valid
         _selected = selected;
-        
-        NSLog(@"Set selected to: %i", _selected);
-        NSLog(@"self.frame (pre - sel): (%f,%f,%f,%f)", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-        NSLog(@"natural frame (sel): (%f,%f,%f,%f)", self.naturalFrame.origin.x, self.naturalFrame.origin.y, self.naturalFrame.size.width, self.naturalFrame.size.height);
-        NSLog(@"extended frame (sel): (%f,%f,%f,%f)", self.extendedFrame.origin.x, self.extendedFrame.origin.y, self.extendedFrame.size.width, self.extendedFrame.size.height);
         
         if (_selected) {
             self.frame = self.extendedFrame;
@@ -122,8 +122,6 @@
             descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
         }
         
-        NSLog(@"self.frame (post - sel): (%f,%f,%f,%f)", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-
         [self setNeedsDisplay];
     }
 }
@@ -142,10 +140,6 @@
     
     CGRect startRect = CGRectMake(0, 0, contentFrame.size.width, tDragAreaHeight);
     self.startTimeDragView.frame = startRect;
-    
-//    NSLog(@"Start drag frame (layout): (%f,%f,%f,%f)", self.startTimeDragView.frame.origin.x, self.startTimeDragView.frame.origin.y, self.startTimeDragView.frame.size.width, self.startTimeDragView.frame.size.height);
-//    NSLog(@"self.frame (layout): (%f,%f,%f,%f)", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-//    NSLog(@"self.bounds (layout): (%f,%f,%f,%f)", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     
     CGRect endRect = CGRectMake(0, contentFrame.origin.y + contentFrame.size.height, contentFrame.size.width, tDragAreaHeight);
     self.endTimeDragView.frame = endRect;

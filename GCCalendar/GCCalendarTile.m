@@ -35,6 +35,13 @@
         
         self.selectedView = [[UIView alloc] init];
         self.selectedView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
+        
+        self.startTimeDragView = [[UIView alloc] init];
+        self.startTimeDragView.backgroundColor = [UIColor redColor];
+        self.startTimeDragView.hidden = YES;
+        self.endTimeDragView = [[UIView alloc] init];
+        self.endTimeDragView.backgroundColor = [UIColor redColor];
+        self.endTimeDragView.hidden = YES;
 
         titleLabel = [[UILabel alloc] init];
         titleLabel.backgroundColor = [UIColor clearColor];
@@ -54,6 +61,8 @@
 
         [self addSubview:self.selectedView];
         [self addSubview:self.contentView];
+        [self addSubview:self.startTimeDragView];
+        [self addSubview:self.endTimeDragView];
 		[self addSubview:titleLabel];
 		[self addSubview:descriptionLabel];
         
@@ -69,18 +78,31 @@
 }
 -(void)setSelected:(BOOL)selected {
     if (selected != _selected) {
+        // Guaranteed to be toggling between selected / unselected, so frame calculations are valid
         _selected = selected;
         
         if (_selected) {
             self.contentView.hidden = YES;
             self.selectedView.hidden = NO;
+            self.startTimeDragView.hidden = NO;
+            self.endTimeDragView.hidden = NO;
             titleLabel.textColor = self.event.color;
             descriptionLabel.textColor = self.event.color;
+            self.frame = CGRectMake(self.frame.origin.x,
+                                    self.frame.origin.y - tDragAreaHeight,
+                                    self.frame.size.width,
+                                    self.frame.size.height + 2 * tDragAreaHeight);
         } else {
             self.contentView.hidden = NO;
             self.selectedView.hidden = NO;
+            self.startTimeDragView.hidden = YES;
+            self.endTimeDragView.hidden = YES;
             titleLabel.textColor = [UIColor colorFromHexString:@"#eeeeee"];
             descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
+            self.frame = CGRectMake(self.frame.origin.x,
+                                    self.frame.origin.y + tDragAreaHeight,
+                                    self.frame.size.width,
+                                    self.frame.size.height - 2 * tDragAreaHeight);
         }
         [self setNeedsDisplay];
     }
@@ -92,6 +114,12 @@
     self.selectedView.layer.borderWidth = 4.0;
     
     self.contentView.frame = self.bounds;
+    
+    CGRect startRect = CGRectMake(0, -tDragAreaHeight, self.bounds.size.width, tDragAreaHeight);
+    self.startTimeDragView.frame = startRect;
+    
+    CGRect endRect = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, tDragAreaHeight);
+    self.endTimeDragView.frame = endRect;
     
 	CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font];
 	titleLabel.frame = CGRectMake(10,

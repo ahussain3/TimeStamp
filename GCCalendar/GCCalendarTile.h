@@ -42,5 +42,7 @@
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIView *selectedView;
+@property (nonatomic, strong) UIView *startTimeDragView;
+@property (nonatomic, strong) UIView *endTimeDragView;
 
 @end

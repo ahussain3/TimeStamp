@@ -271,8 +271,13 @@ static NSArray *timeStrings;
 - (void)addGesturerecognizersForTile:(GCCalendarTile *)tile {
     UIPanGestureRecognizer *drag = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDragEvent:)];
     drag.delegate = self;
-    [drag setCancelsTouchesInView:NO];
     [tile addGestureRecognizer:drag];
+    
+    UIPanGestureRecognizer *startTimeGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(startTimeDragged:)];
+    [tile.startTimeDragView addGestureRecognizer:startTimeGR];
+
+    UIPanGestureRecognizer *endTimeGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(endTimeDragged:)];
+    [tile.endTimeDragView addGestureRecognizer:endTimeGR];
 }
 
 - (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
@@ -282,6 +287,14 @@ static NSArray *timeStrings;
     sender.view.center = CGPointMake(sender.view.center.x,
                                          sender.view.center.y + translation.y);
     [sender setTranslation:CGPointMake(0, 0) inView:self];
+}
+
+- (void)startTimeDragged:(UIPanGestureRecognizer *)sender {
+    NSLog(@"start time dragged: %@", sender.view);
+}
+
+- (void)endTimeDragged:(UIPanGestureRecognizer *)sender {
+    NSLog(@"start time dragged: %@", sender.view);
 }
 
 @end

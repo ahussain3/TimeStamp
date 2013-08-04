@@ -99,7 +99,7 @@
     
     // The date period goes from the beginning of yesterday to the start of today. This ensures we don't miss events that started yesterday but ended today. It's a hackish solution
     NSDate *startDate = [today dateByAddingTimeInterval:-60*60*24];
-    NSDate *endDate = [today dateByAddingTimeInterval:60*60*24];
+    NSDate *endDate = [today dateByAddingTimeInterval:60*60*24 - 1];
     
     // Loop through calendars, pull events.
     for (EKCalendar *calendar in calendars) {
@@ -129,10 +129,24 @@
     // delete events that don't begin today.
     NSMutableArray *remove = [[NSMutableArray alloc] init];
     for (EKEvent *e in eventArray) {
-        if ([e.endDate compare:[today dateByAddingTimeInterval:1]] == NSOrderedAscending) {
-            [remove addObject:e];
+        if ([e.title isEqualToString:@"Midnight"]) {
+            NSLog(@"Event title: %@", e.title);
+            NSLog(@"e.startDate: %@", e.startDate);
+            NSLog(@"e.endate: %@", e.endDate);
+            NSLog(@"today is: %@", today);
+        }
+        if ([e.startDate compare:today] == NSOrderedAscending) {
+            // Event starts yesterday
+            if ([e.endDate compare:today] == NSOrderedAscending) {
+                // Event ends yesterday, remove it
+                [remove addObject:e];
+            } else {
+                // Event spans two days, start it at midnight
+                e.startDate = today;
+            }
         }
     }
+    
     [eventArray removeObjectsInArray:remove];
     
     return eventArray;

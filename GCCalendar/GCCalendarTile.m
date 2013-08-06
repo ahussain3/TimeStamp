@@ -36,6 +36,8 @@
         
         self.selectedView = [[UIView alloc] init];
         self.selectedView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
+        self.selectedView.layer.borderColor = self.event.color.CGColor;
+        self.selectedView.layer.borderWidth = 4.0;
         
         [self configureDraggableAreas];
 
@@ -88,8 +90,9 @@
 #pragma mark Setters and Getters
 - (void)setNaturalFrame:(CGRect)naturalFrame {
     if (!CGRectEqualToRect(_naturalFrame, naturalFrame)) {
+        NSLog(@"Set natural frame called with height: %f", naturalFrame.size.height);
         _naturalFrame = naturalFrame;
-        self.frame = _naturalFrame;
+        [self layoutSubviews];
     }
 }
 - (CGRect)extendedFrame {
@@ -105,7 +108,6 @@
         _selected = selected;
         
         if (_selected) {
-            self.frame = self.extendedFrame;
             self.contentView.hidden = YES;
             self.selectedView.hidden = NO;
             self.startTimeDragView.hidden = NO;
@@ -113,7 +115,6 @@
             titleLabel.textColor = self.event.color;
             descriptionLabel.textColor = self.event.color;
         } else {
-            self.frame = self.naturalFrame;
             self.contentView.hidden = NO;
             self.selectedView.hidden = NO;
             self.startTimeDragView.hidden = YES;
@@ -122,20 +123,20 @@
             descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
         }
         
-        [self setNeedsDisplay];
+//        [self setNeedsDisplay];
+        [self setNeedsLayout];
     }
 }
 - (void)layoutSubviews {
     if (self.selected) {
+        self.frame = self.extendedFrame;
         contentFrame = CGRectMake(0, tDragAreaHeight, self.naturalFrame.size.width, self.naturalFrame.size.height);
     } else {
+        self.frame = self.naturalFrame;
         contentFrame = CGRectMake(0, 0, self.naturalFrame.size.width, self.naturalFrame.size.height);
     }
     
-    self.selectedView.frame = contentFrame;
-    self.selectedView.layer.borderColor = self.event.color.CGColor;
-    self.selectedView.layer.borderWidth = 4.0;
-    
+    self.selectedView.frame = contentFrame;    
     self.contentView.frame = contentFrame;
     
     CGRect startRect = CGRectMake(0, 0, contentFrame.size.width, tDragAreaHeight);

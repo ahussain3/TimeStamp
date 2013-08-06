@@ -14,6 +14,7 @@
 @class GCCalendarEvent;
 
 @interface GCCalendarTodayView : UIView <GCCalendarTileDelegate, UIGestureRecognizerDelegate> {
+    BOOL userIsDraggingTile;
 }
 
 - (id)initWithEvents:(NSArray *)a;

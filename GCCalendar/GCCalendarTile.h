@@ -20,7 +20,6 @@
 
 @end
 
-
 /*
  A GCCalendarTile draws itself using data in the event passed to it.
  

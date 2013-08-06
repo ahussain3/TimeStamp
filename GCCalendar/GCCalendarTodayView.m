@@ -71,7 +71,14 @@ static NSArray *timeStrings;
         _date = midnight;
     }
 }
-
+# pragma mark Utility methods
+- (CGFloat)snappedYValueForYValue:(CGFloat)yVal {
+    NSLog(@"Original yValue: %f", yVal);
+    float step = kHalfHourDiff / 2.0; // Grid step size.
+    CGFloat newYVal = step * floor((yVal / step) + 0.5);
+    NSLog(@"New yValue %f", newYVal);
+    return newYVal;
+}
 # pragma mark Drawing / Subview methods
 - (void)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
@@ -80,6 +87,7 @@ static NSArray *timeStrings;
     [self addSubview:tile];
 }
 - (void)layoutSubviews {
+    if (userIsDraggingTile) return;
 	for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[GCCalendarTile class]]) {
             // get calendar tile and associated event
@@ -263,10 +271,6 @@ static NSArray *timeStrings;
 
 #pragma mark Dealing with Gestures
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-//    if (gestureRecognizer.view.hidden == YES) {
-//        return FALSE;
-//    }
-    
     if ([gestureRecognizer.view isKindOfClass:[GCCalendarTile class]]) {
         if ([gestureRecognizer.view isKindOfClass:[GCCalendarTile class]]  && [(GCCalendarTile *)gestureRecognizer.view selected] == TRUE){
             return TRUE;
@@ -274,7 +278,6 @@ static NSArray *timeStrings;
             return FALSE;
         }
     }
-    
     return TRUE;
 }
 
@@ -292,7 +295,6 @@ static NSArray *timeStrings;
 
 - (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
     // Find reasons to return early
-    NSLog(@"touched view: %@", sender.view);
     CGPoint translation = [sender translationInView:self];
     sender.view.center = CGPointMake(sender.view.center.x,
                                          sender.view.center.y + translation.y);
@@ -304,11 +306,49 @@ static NSArray *timeStrings;
 }
 
 - (void)startTimeDragged:(UIPanGestureRecognizer *)sender {
-    NSLog(@"start time dragged: %@", sender.view);
+    if (sender.view == self.selectedTile.startTimeDragView) {
+        userIsDraggingTile = TRUE;
+        CGPoint translation = [sender translationInView:self];
+        sender.view.center = CGPointMake(sender.view.center.x,
+                                         sender.view.center.y + translation.y);
+        
+        self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
+                                                    self.selectedTile.naturalFrame.origin.y + translation.y,
+                                                    self.selectedTile.naturalFrame.size.width,
+                                                    self.selectedTile.naturalFrame.size.height - translation.y);
+        
+        [sender setTranslation:CGPointMake(0, 0) inView:self];
+        
+        if (sender.state == UIGestureRecognizerStateEnded) {
+            userIsDraggingTile = FALSE;
+            
+            // Update model to reflect new start time
+            NSLog(@"Gesture Ended");
+        }
+    }
 }
 
 - (void)endTimeDragged:(UIPanGestureRecognizer *)sender {
-    NSLog(@"end time dragged: %@", sender.view);
+    if (sender.view == self.selectedTile.endTimeDragView) {
+        userIsDraggingTile = TRUE;
+        CGPoint translation = [sender translationInView:self];
+        sender.view.center = CGPointMake(sender.view.center.x,
+                                         sender.view.center.y + translation.y);
+
+        self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
+                                             self.selectedTile.naturalFrame.origin.y,
+                                             self.selectedTile.naturalFrame.size.width,
+                                             self.selectedTile.naturalFrame.size.height + translation.y);
+                
+        [sender setTranslation:CGPointMake(0, 0) inView:self];
+        
+        if (sender.state == UIGestureRecognizerStateEnded) {
+            userIsDraggingTile = FALSE;
+            
+            // Update model to reflect new start time
+            NSLog(@"Gesture Ended");
+        }
+    }
 }
 
 @end

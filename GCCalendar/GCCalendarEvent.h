@@ -9,6 +9,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class EKEvent;
 
 /*
  GCCalendarEvent is the model object that GCCalendarTiles use to

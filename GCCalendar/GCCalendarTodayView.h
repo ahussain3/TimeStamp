@@ -13,6 +13,10 @@
 @class GCCalendarTile;
 @class GCCalendarEvent;
 
+@protocol GCCalendarTodayViewDelegate <NSObject>
+- (void)updateEventWithNewTimes:(GCCalendarEvent *)gcevent;
+@end
+
 @interface GCCalendarTodayView : UIView <GCCalendarTileDelegate, UIGestureRecognizerDelegate> {
     BOOL userIsDraggingTile;
 }
@@ -20,8 +24,8 @@
 - (id)initWithEvents:(NSArray *)a;
 - (void)drawNewEvent:(GCCalendarEvent *)event;
 
-// Unsure whether I need a 'selected tile' property - seems messy.
 @property (nonatomic, strong) GCCalendarTile *selectedTile;
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, weak) id<GCCalendarTodayViewDelegate> delegate;
 
 @end

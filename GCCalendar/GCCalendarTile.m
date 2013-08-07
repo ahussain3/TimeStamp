@@ -26,6 +26,7 @@
 
 @synthesize event = _event;
 @synthesize selected = _selected;
+@synthesize naturalFrame = _naturalFrame;
 
 - (id)initWithEvent:(GCCalendarEvent *)event {
 	if (self = [super init]) {
@@ -94,6 +95,14 @@
         [self layoutSubviews];
     }
 }
+//- (void)setFrame:(CGRect)frame {
+//    [super setFrame:frame];
+//    if (self.selected) {
+//        _naturalFrame = CGRectMake(frame.origin.x, frame.origin.y + tDragAreaHeight, frame.size.width, frame.size.height + 2 * tDragAreaHeight);
+//    } else {
+//        _naturalFrame = frame;
+//    }
+//}
 - (CGRect)extendedFrame {
     CGRect frame = CGRectMake(self.naturalFrame.origin.x,
                               self.naturalFrame.origin.y - tDragAreaHeight,

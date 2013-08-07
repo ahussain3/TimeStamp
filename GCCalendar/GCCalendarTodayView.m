@@ -22,7 +22,7 @@ static NSArray *timeStrings;
 
 - (id)initWithEvents:(NSArray *)a;
 - (BOOL)hasEvents;
-+ (CGFloat)yValueForTime:(CGFloat)time;
+- (CGFloat)yValueForTime:(CGFloat)time;
 
 @property (nonatomic, strong) UIView *nowArrow;
 
@@ -75,10 +75,31 @@ static NSArray *timeStrings;
 - (CGFloat)snappedYValueForYValue:(CGFloat)yVal {
     NSLog(@"Original yValue: %f", yVal);
     float step = kHalfHourDiff / 2.0; // Grid step size.
-    CGFloat newYVal = step * floor((yVal / step) + 0.5);
-    NSLog(@"New yValue %f", newYVal);
-    return newYVal;
+    
+    
+    
+//    NSLog(@"New yValue %f", newYVal);
+    return 0;
 }
+
+- (CGFloat)yValueForTime:(CGFloat)time {
+	return kTopLineBuffer + (kHalfHourDiff * 2 * time);;
+}
+
+- (NSDate *)timeForYValue:(CGFloat)yValue {
+    NSLog(@"self.date %@", self.date);
+    NSLog(@"Input yValueL %f", yValue);
+    NSDate *date = self.date;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:self.date];
+    CGFloat hours = (yValue - kTopLineBuffer) / (kHalfHourDiff * 2);
+    [components setHour:floorf(hours)];
+    [components setMinute:(hours - floorf(hours)) * 60.0f];
+    date = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    NSLog(@"final date: %@", date);
+    return date;
+}
+
 # pragma mark Drawing / Subview methods
 - (void)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
@@ -139,12 +160,12 @@ static NSArray *timeStrings;
 	CGContextSetRGBFillColor(g, (242.0 / 255.0), (242.0 / 255.0), (242.0 / 255.0), 1.0);
 	
 	// fill morning hours light grey
-	CGFloat morningHourMax = [GCCalendarTodayView yValueForTime:(CGFloat)8];
+	CGFloat morningHourMax = [self yValueForTime:(CGFloat)8];
 	CGRect morningHours = CGRectMake(0, 0, self.frame.size.width, morningHourMax - 1);
 	CGContextFillRect(g, morningHours);
     
 	// fill evening hours light grey
-	CGFloat eveningHourMax = [GCCalendarTodayView yValueForTime:(CGFloat)20];
+	CGFloat eveningHourMax = [self yValueForTime:(CGFloat)20];
 	CGRect eveningHours = CGRectMake(0, eveningHourMax - 1, self.frame.size.width, self.frame.size.height - eveningHourMax + 1);
 	CGContextFillRect(g, eveningHours);
 	
@@ -157,7 +178,7 @@ static NSArray *timeStrings;
 	CGContextSetShouldAntialias(g, NO);
 	CGContextSetRGBStrokeColor(g, 0.0, 0.0, 0.0, .3);
 	for (NSInteger i = 0; i < 25; i++) {
-		CGFloat yVal = [GCCalendarTodayView yValueForTime:(CGFloat)i];
+		CGFloat yVal = [self yValueForTime:(CGFloat)i];
 		CGContextMoveToPoint(g, kSideLineBuffer, yVal);
 		CGContextAddLineToPoint(g, self.frame.size.width, yVal);
 	}
@@ -170,7 +191,7 @@ static NSArray *timeStrings;
 	CGContextSetLineDash(g, 0, dashPattern, 2);
 	for (NSInteger i = 0; i < 24; i++) {
 		CGFloat time = (CGFloat)i + 0.5f;
-		CGFloat yVal = [GCCalendarTodayView yValueForTime:time];
+		CGFloat yVal = [self yValueForTime:time];
 		CGContextMoveToPoint(g, kSideLineBuffer, yVal);
 		CGContextAddLineToPoint(g, self.frame.size.width, yVal);
 	}
@@ -181,7 +202,7 @@ static NSArray *timeStrings;
 	[[UIColor blackColor] set];
 	UIFont *numberFont = [UIFont systemFontOfSize:12.0];
 	for (NSInteger i = 0; i < 25; i++) {
-		CGFloat yVal = [GCCalendarTodayView yValueForTime:(CGFloat)i];
+		CGFloat yVal = [self yValueForTime:(CGFloat)i];
 		NSString *number = [timeStrings objectAtIndex:i];
 		CGSize numberSize = [number sizeWithFont:numberFont];
         [number drawInRect:CGRectMake(0,
@@ -206,7 +227,7 @@ static NSArray *timeStrings;
 			text = @"pm";
 		}
 		if (true) {
-			CGFloat yVal = [GCCalendarTodayView yValueForTime:(CGFloat)i];
+			CGFloat yVal = [self yValueForTime:(CGFloat)i];
 			CGSize textSize = [text sizeWithFont:textFont];
 			[text drawInRect:CGRectMake(kSideLineBuffer - 2 - textSize.width,
 										yVal - (textSize.height / 2),
@@ -217,16 +238,12 @@ static NSArray *timeStrings;
 	}
 }
 
-+ (CGFloat)yValueForTime:(CGFloat)time {
-	return kTopLineBuffer + (kHalfHourDiff * 2 * time);;
-}
-
 - (void)drawLineForCurrentTime {
     // Draws the (currently blue) line across the screen which indicates the current time.
     NSDate *now = [NSDate date];
     NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:now];
     float hours = [nowComponents hour] + ((float)[nowComponents minute] / 60);
-    CGFloat yVal = [GCCalendarTodayView yValueForTime:hours];
+    CGFloat yVal = [self yValueForTime:hours];
     
     NSDateComponents *displayDateComponents = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:self.date];
     
@@ -294,14 +311,28 @@ static NSArray *timeStrings;
 }
 
 - (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
-    // Find reasons to return early
+    GCCalendarTile *tile;
     CGPoint translation = [sender translationInView:self];
-    sender.view.center = CGPointMake(sender.view.center.x,
-                                         sender.view.center.y + translation.y);
-    [sender setTranslation:CGPointMake(0, 0) inView:self];
+    if ([sender.view isKindOfClass:[GCCalendarTile class]]) {
+        tile = (GCCalendarTile *)sender.view;
+        CGRect newNatFrame = CGRectMake(tile.naturalFrame.origin.x,
+                                        tile.naturalFrame.origin.y + translation.y,
+                                        tile.naturalFrame.size.width,
+                                        tile.naturalFrame.size.height);
+        tile.naturalFrame = newNatFrame;
+        [sender setTranslation:CGPointMake(0, 0) inView:self];
+    }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"Drag gesture ended");
+        // Calculate new start times based on new location.
+        GCCalendarEvent *event = tile.event;
+        event.startDate = [self timeForYValue:tile.naturalFrame.origin.y];
+        event.endDate = [self timeForYValue:tile.naturalFrame.origin.y + tile.naturalFrame.size.height];
+        tile.event = event;
+        
         // Update model to reflect new start time
+        [self.delegate updateEventWithNewTimes:tile.event];
     }
 }
 
@@ -324,6 +355,7 @@ static NSArray *timeStrings;
             
             // Update model to reflect new start time
             NSLog(@"Gesture Ended");
+            
         }
     }
 }
@@ -335,7 +367,6 @@ static NSArray *timeStrings;
         sender.view.center = CGPointMake(sender.view.center.x,
                                          sender.view.center.y + translation.y);
 
-        CGFloat newHeight = [self snappedYValueForYValue:(self.selectedTile.naturalFrame.size.height + translation.y)];
         self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
                                              self.selectedTile.naturalFrame.origin.y,
                                              self.selectedTile.naturalFrame.size.width,
@@ -348,6 +379,7 @@ static NSArray *timeStrings;
             
             // Update model to reflect new start time
             NSLog(@"Gesture Ended");
+            
         }
     }
 }

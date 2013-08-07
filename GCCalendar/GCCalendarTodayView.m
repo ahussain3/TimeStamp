@@ -313,34 +313,26 @@ static NSArray *timeStrings;
 }
 
 - (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
-    GCCalendarTile *tile;
     CGPoint translation = [sender translationInView:self];
-    if ([sender.view isKindOfClass:[GCCalendarTile class]]) {
-        tile = (GCCalendarTile *)sender.view;
-        CGRect newNatFrame = CGRectMake(tile.naturalFrame.origin.x,
-                                        tile.naturalFrame.origin.y + translation.y,
-                                        tile.naturalFrame.size.width,
-                                        tile.naturalFrame.size.height);
-        tile.naturalFrame = newNatFrame;
+    if (sender.view == self.selectedTile) {
+        CGRect newNatFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
+                                        self.selectedTile.naturalFrame.origin.y + translation.y,
+                                        self.selectedTile.naturalFrame.size.width,
+                                        self.selectedTile.naturalFrame.size.height);
+        self.selectedTile.naturalFrame = newNatFrame;
         [sender setTranslation:CGPointMake(0, 0) inView:self];
     }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         NSLog(@"Drag gesture ended");
-        // Calculate new start times based on new location.
-        GCCalendarEvent *event = tile.event;
-        event.startDate = [self timeForYValue:tile.naturalFrame.origin.y];
-        event.endDate = [self timeForYValue:tile.naturalFrame.origin.y + tile.naturalFrame.size.height];
-        tile.event = event;
-        
-        // Update model to reflect new start time
-        [self.delegate updateEventWithNewTimes:tile.event];
+        [self updateTileToReflectNewPosition:self.selectedTile];
     }
 }
 
 - (void)startTimeDragged:(UIPanGestureRecognizer *)sender {
     if (sender.view == self.selectedTile.startTimeDragView) {
         userIsDraggingTile = TRUE;
+        
         CGPoint translation = [sender translationInView:self];
         sender.view.center = CGPointMake(sender.view.center.x,
                                          sender.view.center.y + translation.y);
@@ -357,7 +349,7 @@ static NSArray *timeStrings;
             
             // Update model to reflect new start time
             NSLog(@"Gesture Ended");
-            
+            [self updateTileToReflectNewPosition:self.selectedTile];
         }
     }
 }
@@ -381,9 +373,20 @@ static NSArray *timeStrings;
             
             // Update model to reflect new start time
             NSLog(@"Gesture Ended");
-            
+            [self updateTileToReflectNewPosition:self.selectedTile];
         }
     }
+}
+
+- (void)updateTileToReflectNewPosition:(GCCalendarTile *)tile {
+    // Calculate new start times based on new location.
+    GCCalendarEvent *event = tile.event;
+    event.startDate = [self timeForYValue:tile.naturalFrame.origin.y];
+    event.endDate = [self timeForYValue:tile.naturalFrame.origin.y + tile.naturalFrame.size.height];
+    tile.event = event;
+    
+    // Update model to reflect new start time
+    [self.delegate updateEventWithNewTimes:tile.event];
 }
 
 @end

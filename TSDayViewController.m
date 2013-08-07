@@ -111,10 +111,9 @@
     event.startDate = startDate;
     event.endDate = [NSDate dateWithTimeInterval:seconds sinceDate:startDate];
     
-    [activeView drawNewEvent:event];
-    
     // Update the model to reflect this new created event.
-    [[TSCalendarStore instance] createNewEvent:event];
+    event = [[TSCalendarStore instance] createNewEvent:event];
+    [activeView drawNewEvent:event];
 }
 
 #pragma mark GCCalendarDataSource

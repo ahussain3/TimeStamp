@@ -73,11 +73,13 @@
 }
 - (void)configureDraggableAreas {
     self.startTimeDragView = [[UIView alloc] init];
-    self.startTimeDragView.backgroundColor = [UIColor redColor];
+    self.startTimeDragView.backgroundColor = [UIColor grayColor];
+    self.startTimeDragView.alpha = 0.5f;
     self.startTimeDragView.hidden = YES;
     
     self.endTimeDragView = [[UIView alloc] init];
-    self.endTimeDragView.backgroundColor = [UIColor redColor];
+    self.endTimeDragView.backgroundColor = [UIColor grayColor];
+    self.endTimeDragView.alpha = 0.5f;
     self.endTimeDragView.hidden = YES;
     
     [self addSubview:self.startTimeDragView];

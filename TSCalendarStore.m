@@ -10,7 +10,9 @@
 #import <EventKit/EventKit.h>
 #import "GCCalendarEvent.h"
 
-@interface TSCalendarStore ()
+@interface TSCalendarStore () {
+    BOOL updateICalRecord;
+}
 
 @end
 
@@ -23,6 +25,7 @@
     {
         // Initialization code here.
         [self setup];
+        updateICalRecord = YES;
     }
     
     return self;
@@ -146,9 +149,7 @@
     return eventArray;
 }
 
-- (void)createNewEvent:(GCCalendarEvent *)gcEvent {
-    BOOL updateICalRecord = NO;
-    
+- (GCCalendarEvent *)createNewEvent:(GCCalendarEvent *)gcEvent {
     if (updateICalRecord) {
         EKEvent *ekEvent = [EKEvent eventWithEventStore:self.store];
         
@@ -165,12 +166,15 @@
         
         if (success == NO) {
             NSLog(@"Error creating new event: %@", err);
+        } else {
+            NSLog(@"Successfully created new event");
         }
+        return [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
     }
+    return nil;
 }
 
 - (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent {
-    BOOL updateICalRecord = YES;
     
     // Find matching EKEvent with identifier / calendar information.
     EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];

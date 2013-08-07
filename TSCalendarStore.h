@@ -22,7 +22,7 @@
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date;
 
 // CRUD methods
-- (void)createNewEvent:(GCCalendarEvent *)gcEvent;
+- (GCCalendarEvent *)createNewEvent:(GCCalendarEvent *)gcEvent;
 - (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent;
 
 @end

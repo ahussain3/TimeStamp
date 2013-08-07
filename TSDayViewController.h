@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GCCalendar.h"
+#import "GCCalendarTodayView.h"
 
 @class GCDatePickerControl;
 @class GCCalendarDayView;
@@ -27,7 +28,7 @@
  push a detailed view controller onto the stack with more information about the
  event (currently unimplemnted)
  */
- @interface TSDayViewController : GCCalendarView <GCCalendarDataSource> {
+ @interface TSDayViewController : GCCalendarView <GCCalendarDataSource, GCCalendarTodayViewDelegate> {
     
     // scrollView wraps the today views
     UIScrollView *scrollView;

@@ -112,6 +112,8 @@
     event.endDate = [NSDate dateWithTimeInterval:seconds sinceDate:startDate];
     
     [activeView drawNewEvent:event];
+    
+    // Update the model to reflect this new created event.
     [[TSCalendarStore instance] createNewEvent:event];
 }
 
@@ -192,6 +194,7 @@
     // Setup today view
     NSArray *events_today = [self calendarEventsForDate:self.date];
     todayView = [[GCCalendarTodayView alloc] initWithEvents:events_today];
+    todayView.delegate = self;
     todayView.date = self.date;
     
     // Setup tomorrow view
@@ -213,5 +216,12 @@
     
     if (viewVisible) {[self setCalendarBounds];}
 }
+
+#pragma mark GCCalendarTodayViewDelegate methods
+
+- (void)updateEventWithNewTimes:(GCCalendarEvent *)gcevent {
+    [[TSCalendarStore instance] updateGCCalendarEvent:gcevent];
+}
+
 
 @end

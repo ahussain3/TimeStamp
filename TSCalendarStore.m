@@ -170,12 +170,25 @@
 }
 
 - (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent {
+    BOOL updateICalRecord = YES;
+    
     // Find matching EKEvent with identifier / calendar information.
     EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
     
     // Change the event to match the new event.
     ekEvent.startDate = gcEvent.startDate;
     ekEvent.endDate = gcEvent.endDate;
+    
+    if (updateICalRecord) {
+        NSError *err;
+        BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+        
+        if (success == NO) {
+            NSLog(@"Error updating event start/end times: %@", err);
+        } else {
+            NSLog(@"Successfully updated event!");
+        }
+    }
     
     // Convert back to GC and return it.
     GCCalendarEvent *gc = [GCCalendarEvent createGCEventFromEKEvent:ekEvent];

@@ -87,8 +87,11 @@ static NSArray *timeStrings;
 }
 
 - (NSDate *)timeForYValue:(CGFloat)yValue {
-    NSLog(@"self.date %@", self.date);
-    NSLog(@"Input yValueL %f", yValue);
+    if (yValue > self.frame.size.height) {
+        NSLog(@"Warning: The event is a multiday event");
+        return nil;
+    }
+    
     NSDate *date = self.date;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:self.date];
     CGFloat hours = (yValue - kTopLineBuffer) / (kHalfHourDiff * 2);
@@ -96,7 +99,6 @@ static NSArray *timeStrings;
     [components setMinute:(hours - floorf(hours)) * 60.0f];
     date = [[NSCalendar currentCalendar] dateFromComponents:components];
     
-    NSLog(@"final date: %@", date);
     return date;
 }
 

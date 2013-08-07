@@ -23,6 +23,7 @@
 
 // CRUD methods
 - (void)createNewEvent:(GCCalendarEvent *)gcEvent;
+- (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent;
 
 @end
 

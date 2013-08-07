@@ -9,6 +9,7 @@
 //
 
 #import "GCCalendarEvent.h"
+#import <EventKit/EventKit.h>
 
 @implementation GCCalendarEvent
 
@@ -26,6 +27,20 @@
 	}
 	
 	return self;
+}
+
++ (GCCalendarEvent *)createGCEventFromEKEvent:(EKEvent *)ekevent {
+    GCCalendarEvent *gcevent = [[GCCalendarEvent alloc] init];
+    
+    gcevent.startDate = ekevent.startDate;
+    gcevent.endDate = ekevent.endDate;
+    gcevent.eventName = ekevent.title;
+    gcevent.eventDescription = ekevent.notes;
+    gcevent.allDayEvent = ekevent.allDay;
+    gcevent.color = [UIColor colorWithCGColor:ekevent.calendar.CGColor];
+    gcevent.calendarIdentifier = ekevent.calendar.calendarIdentifier;
+    gcevent.eventIdentifier = ekevent.eventIdentifier;
+    return gcevent;
 }
 
 

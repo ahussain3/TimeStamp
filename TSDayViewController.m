@@ -122,7 +122,7 @@
     // convert events from EKEvent to GCCalendarEvent
     NSMutableArray *GCEventArray = [[NSMutableArray alloc] init];
     for (EKEvent *e in EKArray) {
-        GCCalendarEvent *gce = [self createGCEventFromEKEvent:e];
+        GCCalendarEvent *gce = [GCCalendarEvent createGCEventFromEKEvent:e];
         [GCEventArray addObject:gce];
     }
 
@@ -130,18 +130,6 @@
 }
 
 #pragma mark Utility methods
-- (GCCalendarEvent *)createGCEventFromEKEvent:(EKEvent *)ekevent {
-    GCCalendarEvent *gcevent = [[GCCalendarEvent alloc] init];
-    
-    gcevent.startDate = ekevent.startDate;
-    gcevent.endDate = ekevent.endDate;
-    gcevent.eventName = ekevent.title;
-    gcevent.eventDescription = ekevent.notes;
-    gcevent.allDayEvent = ekevent.allDay;
-    gcevent.color = [UIColor colorWithCGColor:ekevent.calendar.CGColor];
-    gcevent.calendarIdentifier = ekevent.calendar.calendarIdentifier;
-    return gcevent;
-}
 
 - (CGFloat)timeForYValue:(CGFloat)yValue {
     // returns time in hours.

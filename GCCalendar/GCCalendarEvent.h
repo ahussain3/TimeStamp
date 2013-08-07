@@ -47,7 +47,10 @@
 @property (nonatomic, copy) NSDate *endDate;
 @property (nonatomic, copy) UIColor *color;
 @property (nonatomic, copy) NSString *calendarIdentifier;
+@property (nonatomic, strong) NSString *eventIdentifier;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic) BOOL allDayEvent;
+
++ (GCCalendarEvent *)createGCEventFromEKEvent:(EKEvent *)ekevent;
 
 @end

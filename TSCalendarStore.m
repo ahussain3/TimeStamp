@@ -147,43 +147,49 @@
 }
 
 - (void)createNewEvent:(GCCalendarEvent *)gcEvent {
-    EKEvent *ekEvent = [self createEKEventFromGCEvent:gcEvent];
+    BOOL updateICalRecord = NO;
     
-    NSError *err;
-    BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+    if (updateICalRecord) {
+        EKEvent *ekEvent = [EKEvent eventWithEventStore:self.store];
+        
+        ekEvent.startDate = gcEvent.startDate;
+        ekEvent.endDate = gcEvent.endDate;
+        ekEvent.title = gcEvent.eventName;
+        ekEvent.notes = gcEvent.eventDescription;
+        ekEvent.allDay = gcEvent.allDayEvent;
+        EKCalendar *calendar = [self.store calendarWithIdentifier:gcEvent.calendarIdentifier];
+        ekEvent.calendar = calendar;
     
-    if (success == NO) {
-        NSLog(@"Error creating new event: %@", err);
+        NSError *err;
+        BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+        
+        if (success == NO) {
+            NSLog(@"Error creating new event: %@", err);
+        }
     }
 }
 
+- (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent {
+    // Find matching EKEvent with identifier / calendar information.
+    EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
+    
+    // Change the event to match the new event.
+    ekEvent.startDate = gcEvent.startDate;
+    ekEvent.endDate = gcEvent.endDate;
+    
+    // Convert back to GC and return it.
+    GCCalendarEvent *gc = [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
+    return gc;
+}
+
 # pragma mark Utility Methods
--(NSDate *)getMidnightForDate:(NSDate *)date {
+- (NSDate *)getMidnightForDate:(NSDate *)date {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:date];
     [components setHour:0];
     [components setMinute:0];
     [components setSecond:0];
     
     return [[NSCalendar currentCalendar] dateFromComponents:components];
-}
-
-- (EKEvent *)createEKEventFromGCEvent:(GCCalendarEvent *)gcevent {
-    BOOL updateICalRecord = NO;
-
-    if (updateICalRecord) {
-        EKEvent *ekevent = [EKEvent eventWithEventStore:self.store];
-        
-        ekevent.startDate = gcevent.startDate;
-        ekevent.endDate = gcevent.endDate;
-        ekevent.title = gcevent.eventName;
-        ekevent.notes = gcevent.eventDescription;
-        ekevent.allDay = gcevent.allDayEvent;
-        EKCalendar *calendar = [self.store calendarWithIdentifier:gcevent.calendarIdentifier];
-        ekevent.calendar = calendar;
-        
-        return ekevent;
-    }
-    return nil;
 }
 
 @end

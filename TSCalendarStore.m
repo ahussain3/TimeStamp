@@ -199,6 +199,22 @@
     return gc;
 }
 
+- (void)removeGCCalendarEvent:(GCCalendarEvent *)gcEvent {
+    // Find matching EKEvent with identifier / calendar information.
+    EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
+    
+    if (updateICalRecord) {
+        NSError *err;
+        BOOL success = [self.store removeEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+        
+        if (success == NO) {
+            NSLog(@"Error deleting event: %@", err);
+        } else {
+            NSLog(@"Successfully deleted event!");
+        }
+    }
+}
+
 # pragma mark Utility Methods
 - (NSDate *)getMidnightForDate:(NSDate *)date {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:date];

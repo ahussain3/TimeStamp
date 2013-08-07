@@ -97,14 +97,6 @@
         [self layoutSubviews];
     }
 }
-//- (void)setFrame:(CGRect)frame {
-//    [super setFrame:frame];
-//    if (self.selected) {
-//        _naturalFrame = CGRectMake(frame.origin.x, frame.origin.y + tDragAreaHeight, frame.size.width, frame.size.height + 2 * tDragAreaHeight);
-//    } else {
-//        _naturalFrame = frame;
-//    }
-//}
 - (CGRect)extendedFrame {
     CGRect frame = CGRectMake(self.naturalFrame.origin.x,
                               self.naturalFrame.origin.y - tDragAreaHeight,
@@ -132,8 +124,6 @@
             titleLabel.textColor = [UIColor colorFromHexString:@"#eeeeee"];
             descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
         }
-        
-//        [self setNeedsDisplay];
         [self setNeedsLayout];
     }
 }

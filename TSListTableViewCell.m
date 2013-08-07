@@ -25,7 +25,7 @@
         // Initialization code
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.backgroundColor = [UIColor clearColor];
-        self.textLabel.font = [UIFont fontWithName:@"KannadaSangamMN-Bold" size:17.0];
+        self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
         self.textLabel.numberOfLines = 1;
         self.textLabel.adjustsFontSizeToFitWidth = YES;
         self.textLabel.minimumScaleFactor = 0.8f;

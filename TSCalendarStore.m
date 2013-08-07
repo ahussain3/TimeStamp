@@ -168,17 +168,21 @@
 }
 
 - (EKEvent *)createEKEventFromGCEvent:(GCCalendarEvent *)gcevent {
-//    EKEvent *ekevent = [EKEvent eventWithEventStore:self.store];
-//    
-//    ekevent.startDate = gcevent.startDate;
-//    ekevent.endDate = gcevent.endDate;
-//    ekevent.title = gcevent.eventName;
-//    ekevent.notes = gcevent.eventDescription;
-//    ekevent.allDay = gcevent.allDayEvent;
-//    EKCalendar *calendar = [self.store calendarWithIdentifier:gcevent.calendarIdentifier];
-//    ekevent.calendar = calendar;
-//    
-//    return ekevent;
+    BOOL updateICalRecord = NO;
+
+    if (updateICalRecord) {
+        EKEvent *ekevent = [EKEvent eventWithEventStore:self.store];
+        
+        ekevent.startDate = gcevent.startDate;
+        ekevent.endDate = gcevent.endDate;
+        ekevent.title = gcevent.eventName;
+        ekevent.notes = gcevent.eventDescription;
+        ekevent.allDay = gcevent.allDayEvent;
+        EKCalendar *calendar = [self.store calendarWithIdentifier:gcevent.calendarIdentifier];
+        ekevent.calendar = calendar;
+        
+        return ekevent;
+    }
     return nil;
 }
 

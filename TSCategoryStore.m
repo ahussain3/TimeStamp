@@ -94,12 +94,59 @@
             } else {
                 TSCategory *cat = [self TSCategoryWithEKCalendar:cal];
                 [_categoryArray addObject:cat];
+                cat.level = 0;
             }
         }
     }
     
     // Output the array.
     return _categoryArray;
+}
+
+- (NSArray *)data {
+    return self.categoryArray;
+}
+
+- (TSCategory *)addNewCategory:(TSCategory *)category {
+    // This should be changed to match user's preferences.
+    BOOL useICloudStorage = YES;
+    
+    // Find " source for new calendar
+    EKSource* localSource=nil;
+    for (EKSource* source in self.store.sources) {
+        if (useICloudStorage) {
+            if(source.sourceType == EKSourceTypeCalDAV && [source.title isEqualToString:@"iCloud"]) {
+                localSource = source;
+                break;
+            }
+        } else {
+            if (source.sourceType == EKSourceTypeLocal) {
+                localSource = source;
+                break;
+            }
+        }
+    }
+    
+    // Create new calendar
+    EKCalendar *calendar = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:self.store];
+    calendar.source = localSource;
+    calendar.title = category.title;
+    calendar.CGColor = category.color.CGColor;
+    
+    NSError *err;
+    BOOL success = [self.store saveCalendar:calendar commit:YES error:&err];
+    if (success == NO) {
+        NSLog(@"Error creating new calendar: %@", err);
+    }
+    
+    TSCategory *cat = [self TSCategoryWithEKCalendar:calendar];
+    cat.level = 0;
+    
+    return cat;
+}
+
+- (void)updateCategory:(TSCategory *)category {
+    // Only works if the category identifier is not changed.
 }
 
 #pragma mark Utility Methods
@@ -114,43 +161,7 @@
 }
 
 - (EKCalendar *)createEKCalendarWithTSCategory:(TSCategory *)category {
-    // Find "iCloud" source for new calendar
-    EKSource* localSource=nil;
-//    for (EKSource* source in store.sources) {
-//        if(source.sourceType == EKSourceTypeCalDAV && [source.title isEqualToString:@"iCloud"]) {
-//            localSource = source;
-//            break;
-//        }
-//    }
-    
-    // Create new calendar
-    EKCalendar *cal = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:self.store];
-    cal.source = localSource;
-    cal.title = category.title;
-    cal.CGColor = category.color.CGColor;
-    
-    NSError *err;
-    BOOL success = [self.store saveCalendar:cal commit:YES error:&err];
-    if (success == NO) {
-        NSLog(@"Error creating new calendar: %@", err);
-    }
-    
-    return cal;
+    return nil;
 }
-
-- (NSArray *)data {
-    return self.categoryArray;
-}
-
-- (void)addNewCategory:(TSCategory *)category {
-    // Create a new EKCalendar.
-    
-    // Convert it to a TSCategory.
-}
-
-- (void)updateCategory:(TSCategory *)category {
-    // Only works if the category identifier is not changed.
-}
-
 
 @end

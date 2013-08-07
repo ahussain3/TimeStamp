@@ -7,14 +7,16 @@
 //
 
 #import "TSCategoryStore.h"
+#import <EventKit/EventKit.h>
+#import "TSCalendarStore.h"
 #import "TSCategory.h"
 #import "UIColor+CalendarPalette.h"
 
 @interface TSCategoryStore () {
-    
 }
 
 @property (nonatomic, strong) NSMutableArray *categoryArray;
+@property (nonatomic, strong) EKEventStore *store;
 
 @end
 
@@ -30,6 +32,13 @@
     }
     
     return self;
+}
+
+- (EKEventStore *)store {
+    if (_store == nil) {
+        _store = [[TSCalendarStore instance] store];
+    }
+    return _store;
 }
 
 + (TSCategoryStore *) instance
@@ -72,48 +81,76 @@
 
 - (NSArray *) categoryArray {
     if (_categoryArray == nil) {
-        TSCategory *sleep = [[TSCategory alloc] init];
-        sleep.title = @"Sleep";
-        sleep.color = [UIColor colorFromHexString:@"9e9e9e"];
+        _categoryArray = [[NSMutableArray alloc] init];
         
-        TSCategory *work = [[TSCategory alloc] init];
-        work.title = @"Work";
-        work.color = [UIColor colorFromHexString:@"91565e"];
+        // retrieve all calendars
+        NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
         
-        TSCategory * school = [[TSCategory alloc]init];
-        school.title = @"School";
-        school.color = [UIColor colorFromHexString:@"C5B46f"];
-        
-        TSCategory *survival = [[TSCategory alloc]init];
-        survival.title = @"Survival";
-        survival.color = [UIColor colorFromHexString:@"A07B64"];
-        
-        TSCategory * sport = [[TSCategory alloc]init];
-        sport.title = @"Fitness";
-        sport.color = [UIColor colorFromHexString:@"6C9B5C"];
-        
-        TSCategory * procras = [[TSCategory alloc]init];
-        procras.title = @"Procrastination";
-        procras.color = [UIColor colorFromHexString:@"8F6A77"];
-        
-        _categoryArray = [NSArray arrayWithObjects:sleep,work,school,survival,sport,procras, nil];
+        // Convert EKCalendars to TSCatgories.
+        for (EKCalendar *cal in calendars) {
+            if (!cal.allowsContentModifications) {
+                // Remove calendars that do not allow editing
+                NSLog(@"Error, calendar: %@ cannot be modfied", cal);
+            } else {
+                TSCategory *cat = [self TSCategoryWithEKCalendar:cal];
+                [_categoryArray addObject:cat];
+            }
+        }
     }
+    
+    // Output the array.
     return _categoryArray;
+}
+
+#pragma mark Utility Methods
+- (TSCategory *)TSCategoryWithEKCalendar:(EKCalendar *)calendar {
+    TSCategory *category = [[TSCategory alloc] init];
+    
+    category.title = calendar.title;
+    category.color = [UIColor colorWithCGColor:calendar.CGColor];
+    category.calendar = calendar;
+    
+    return category;
+}
+
+- (EKCalendar *)createEKCalendarWithTSCategory:(TSCategory *)category {
+    // Find "iCloud" source for new calendar
+    EKSource* localSource=nil;
+//    for (EKSource* source in store.sources) {
+//        if(source.sourceType == EKSourceTypeCalDAV && [source.title isEqualToString:@"iCloud"]) {
+//            localSource = source;
+//            break;
+//        }
+//    }
+    
+    // Create new calendar
+    EKCalendar *cal = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:self.store];
+    cal.source = localSource;
+    cal.title = category.title;
+    cal.CGColor = category.color.CGColor;
+    
+    NSError *err;
+    BOOL success = [self.store saveCalendar:cal commit:YES error:&err];
+    if (success == NO) {
+        NSLog(@"Error creating new calendar: %@", err);
+    }
+    
+    return cal;
 }
 
 - (NSArray *)data {
     return self.categoryArray;
 }
 
-- (void)addNewCategory:(TSCategory *)category withPath:(NSString *)path {
-    NSArray *pathComponents = [path componentsSeparatedByString:@":"];
-    if (![[pathComponents objectAtIndex:0] isEqualToString:@"ROOT"]) {
-        return;
-    }
+- (void)addNewCategory:(TSCategory *)category {
+    // Create a new EKCalendar.
     
-//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"title == %@", [pathComponents objectAtIndex:1]];
-//    NSArray
-//    TSCategory
+    // Convert it to a TSCategory.
 }
+
+- (void)updateCategory:(TSCategory *)category {
+    // Only works if the category identifier is not changed.
+}
+
 
 @end

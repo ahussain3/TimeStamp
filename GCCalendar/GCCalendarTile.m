@@ -90,7 +90,6 @@
 #pragma mark Setters and Getters
 - (void)setNaturalFrame:(CGRect)naturalFrame {
     if (!CGRectEqualToRect(_naturalFrame, naturalFrame)) {
-        NSLog(@"Set natural frame called with height: %f", naturalFrame.size.height);
         _naturalFrame = naturalFrame;
         [self layoutSubviews];
     }

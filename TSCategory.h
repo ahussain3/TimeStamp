@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+@class EKCalendar;
 
 @interface TSCategory : NSObject
+
+// EKCalendar affiliated with this
+@property (nonatomic, strong) EKCalendar *calendar;
 
 // The title of the event / category.
 @property (nonatomic, strong) NSString *title;

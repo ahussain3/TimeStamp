@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TSSlidableCell.h"
+@class TSCategory;
 
 @interface TSListTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIColor *color;
+@property (nonatomic, strong) TSCategory *category;
 
 @end

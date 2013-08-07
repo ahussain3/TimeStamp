@@ -335,6 +335,7 @@ static NSArray *timeStrings;
         sender.view.center = CGPointMake(sender.view.center.x,
                                          sender.view.center.y + translation.y);
 
+        CGFloat newHeight = [self snappedYValueForYValue:(self.selectedTile.naturalFrame.size.height + translation.y)];
         self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
                                              self.selectedTile.naturalFrame.origin.y,
                                              self.selectedTile.naturalFrame.size.width,

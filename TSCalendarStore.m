@@ -8,9 +8,9 @@
 
 #import "TSCalendarStore.h"
 #import <EventKit/EventKit.h>
+#import "GCCalendarEvent.h"
 
 @interface TSCalendarStore ()
-@property (nonatomic, strong) EKEventStore *store;
 
 @end
 
@@ -146,6 +146,17 @@
     return eventArray;
 }
 
+- (void)createNewEvent:(GCCalendarEvent *)gcEvent {
+    EKEvent *ekEvent = [self createEKEventFromGCEvent:gcEvent];
+    
+    NSError *err;
+    BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+    
+    if (success == NO) {
+        NSLog(@"Error creating new event: %@", err);
+    }
+}
+
 # pragma mark Utility Methods
 -(NSDate *)getMidnightForDate:(NSDate *)date {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:date];
@@ -154,6 +165,21 @@
     [components setSecond:0];
     
     return [[NSCalendar currentCalendar] dateFromComponents:components];
+}
+
+- (EKEvent *)createEKEventFromGCEvent:(GCCalendarEvent *)gcevent {
+//    EKEvent *ekevent = [EKEvent eventWithEventStore:self.store];
+//    
+//    ekevent.startDate = gcevent.startDate;
+//    ekevent.endDate = gcevent.endDate;
+//    ekevent.title = gcevent.eventName;
+//    ekevent.notes = gcevent.eventDescription;
+//    ekevent.allDay = gcevent.allDayEvent;
+//    EKCalendar *calendar = [self.store calendarWithIdentifier:gcevent.calendarIdentifier];
+//    ekevent.calendar = calendar;
+//    
+//    return ekevent;
+    return nil;
 }
 
 @end

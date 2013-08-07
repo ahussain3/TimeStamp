@@ -10,6 +10,4 @@
 
 @implementation TSCategory
 
-@synthesize title = _title, location = _location, description = _description, level = _level, subCategories = _subCategories;
-
 @end

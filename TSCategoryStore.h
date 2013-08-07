@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 @class TSCategory;
 
-@interface TSCategoryStore : NSObject
+@interface TSCategoryStore : NSObject {
+    
+}
 
 + (TSCategoryStore *) instance;
 
@@ -18,6 +20,6 @@
 
 // CRUD functions
 // Path should colon separated, for example "ROOT:Sleep:Nap:"
-- (void)addNewCategory:(TSCategory *)category withPath:(NSString *)path;
+
 
 @end

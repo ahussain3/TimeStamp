@@ -105,14 +105,12 @@
     TSCategory *category = [categoryArray objectAtIndex:indexPath.row];
     
     // Configure the cell...
-//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.superController action:@selector(respondToDragAcross:)];
-//    [cell addGestureRecognizer:pan];
-    
-//    cell.delegate = self;
+
     cell.textLabel.text = category.title;
     cell.contentView.backgroundColor = category.color;
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.category = category;
     
 //    UIView *background = [[UIView alloc] initWithFrame:cellFrame];
 //    background.backgroundColor = [UIColor greenColor];

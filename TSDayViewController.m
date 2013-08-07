@@ -112,6 +112,7 @@
     event.endDate = [NSDate dateWithTimeInterval:seconds sinceDate:startDate];
     
     [activeView drawNewEvent:event];
+    [[TSCalendarStore instance] createNewEvent:event];
 }
 
 #pragma mark GCCalendarDataSource
@@ -138,7 +139,7 @@
     gcevent.eventDescription = ekevent.notes;
     gcevent.allDayEvent = ekevent.allDay;
     gcevent.color = [UIColor colorWithCGColor:ekevent.calendar.CGColor];
-    
+    gcevent.calendarIdentifier = ekevent.calendar.calendarIdentifier;
     return gcevent;
 }
 

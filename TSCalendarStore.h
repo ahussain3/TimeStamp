@@ -7,14 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+@class EKEventStore;
+@class GCCalendarEvent;
 
 @interface TSCalendarStore : NSObject
 
+// Event store
+@property (nonatomic, strong) EKEventStore *store;
+
 // Singleton methods
-- (id)initSingleton;
 + (TSCalendarStore *)instance;
 
 // data methods
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date;
 
+// CRUD methods
+- (void)createNewEvent:(GCCalendarEvent *)gcEvent;
+
 @end
+

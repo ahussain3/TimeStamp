@@ -11,6 +11,7 @@
 #import "TSListTableViewController.h"
 #import "TSDayViewController.h"
 #import "GCCalendarEvent.h"
+#import "TSCategory.h"
 
 @interface TSHomePageController ()
 
@@ -61,12 +62,17 @@
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
-- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell {
+- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(TSListTableViewCell *)cell {
+    
     CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.calWrapperView];
+    
+    // Question: Which calendar are new events assigned to? The cell needs to know what it's own calendar identifier is.
     
     GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
     event.eventName = cell.textLabel.text;
     event.color = cell.contentView.backgroundColor;
+    event.calendarIdentifier = cell.category.calendar.calendarIdentifier;
+    
 //    event.calender // need to set this once we have a list of calendars; Create a TSCalendarStore model object which contains this array.
     [dayViewController createEvent:event AtPoint:center withDuration:60*60];
 }

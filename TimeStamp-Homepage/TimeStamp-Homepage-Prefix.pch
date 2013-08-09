@@ -13,7 +13,7 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#define BOX_HEIGHT 60
+#define BOX_HEIGHT 120
 #define DETAIL_BOX_HEIGHT 35.0
 #define NOW_ARROW_TIME_PERIOD 300
 #define TILE_CORNER_RADIUS 10.0

@@ -18,6 +18,8 @@ static NSArray *timeStrings;
 @interface GCCalendarTodayView () {
 	// Array of the event objects which will be shown for this day
     NSArray *events;
+    
+    CGFloat yOffset;
 }
 
 - (id)initWithEvents:(NSArray *)a;
@@ -72,14 +74,11 @@ static NSArray *timeStrings;
     }
 }
 # pragma mark Utility methods
-- (CGFloat)snappedYValueForYValue:(CGFloat)yVal {
-    NSLog(@"Original yValue: %f", yVal);
+- (CGFloat)snappedYValueForYValue:(CGFloat)yValue {
     float step = kHalfHourDiff / 2.0; // Grid step size.
+    CGFloat newYValue = step * floor((yValue / step) + 0.5);
     
-    
-    
-//    NSLog(@"New yValue %f", newYVal);
-    return 0;
+    return newYValue;
 }
 
 - (CGFloat)yValueForTime:(CGFloat)time {
@@ -313,10 +312,17 @@ static NSArray *timeStrings;
 }
 
 - (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
-    CGPoint translation = [sender translationInView:self];
     if (sender.view == self.selectedTile) {
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            yOffset = [sender locationInView:self].y - self.selectedTile.naturalFrame.origin.y;
+            return;
+        }
+
+        CGFloat newY = [sender locationInView:self].y - yOffset;
+        CGFloat snappedY = [self snappedYValueForYValue:newY];
+        
         CGRect newNatFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
-                                        self.selectedTile.naturalFrame.origin.y + translation.y,
+                                        snappedY,
                                         self.selectedTile.naturalFrame.size.width,
                                         self.selectedTile.naturalFrame.size.height);
         self.selectedTile.naturalFrame = newNatFrame;
@@ -326,6 +332,7 @@ static NSArray *timeStrings;
     if (sender.state == UIGestureRecognizerStateEnded) {
         NSLog(@"Drag gesture ended");
         [self updateTileToReflectNewPosition:self.selectedTile];
+        return;
     }
 }
 
@@ -357,15 +364,26 @@ static NSArray *timeStrings;
 - (void)endTimeDragged:(UIPanGestureRecognizer *)sender {
     if (sender.view == self.selectedTile.endTimeDragView) {
         userIsDraggingTile = TRUE;
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            yOffset = [sender locationInView:self].y - [self convertPoint:sender.view.frame.origin fromView:sender.view].y;
+            return;
+        }
+        
         CGPoint translation = [sender translationInView:self];
-        sender.view.center = CGPointMake(sender.view.center.x,
-                                         sender.view.center.y + translation.y);
-
-        self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
-                                             self.selectedTile.naturalFrame.origin.y,
-                                             self.selectedTile.naturalFrame.size.width,
-                                             self.selectedTile.naturalFrame.size.height + translation.y);
-                
+        
+        CGFloat newY = [sender locationInView:self].y - yOffset;
+        CGFloat snappedY = [self snappedYValueForYValue:newY];
+        sender.view.frame = CGRectMake(sender.view.frame.origin.x,
+                                        snappedY,
+                                        sender.view.frame.size.width,
+                                        sender.view.frame.size.height);
+        
+        CGFloat newHeight = snappedY - self.selectedTile.naturalFrame.origin.y;
+//        self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
+//                                             self.selectedTile.naturalFrame.origin.y,
+//                                             self.selectedTile.naturalFrame.size.width,
+//                                             self.selectedTile.naturalFrame.size.height + translation.y);
+//                
         [sender setTranslation:CGPointMake(0, 0) inView:self];
         
         if (sender.state == UIGestureRecognizerStateEnded) {

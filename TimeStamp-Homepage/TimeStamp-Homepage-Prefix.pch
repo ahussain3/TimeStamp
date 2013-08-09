@@ -13,6 +13,7 @@
     #import <Foundation/Foundation.h>
 #endif
 
+#define tDragAreaHeight 50
 #define BOX_HEIGHT 120
 #define DETAIL_BOX_HEIGHT 35.0
 #define NOW_ARROW_TIME_PERIOD 300

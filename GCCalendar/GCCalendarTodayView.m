@@ -339,15 +339,18 @@ static NSArray *timeStrings;
 - (void)startTimeDragged:(UIPanGestureRecognizer *)sender {
     if (sender.view == self.selectedTile.startTimeDragView) {
         userIsDraggingTile = TRUE;
-        
-        CGPoint translation = [sender translationInView:self];
-        sender.view.center = CGPointMake(sender.view.center.x,
-                                         sender.view.center.y + translation.y);
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            yOffset = [sender locationInView:self.selectedTile].y - sender.view.frame.origin.y;
+        }
+
+        CGFloat startYPosition = [sender locationInView:self].y - yOffset + tDragAreaHeight;
+        startYPosition = [self snappedYValueForYValue:startYPosition];
+        CGFloat height = (self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height) - startYPosition;
         
         self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
-                                                    self.selectedTile.naturalFrame.origin.y + translation.y,
+                                                    startYPosition,
                                                     self.selectedTile.naturalFrame.size.width,
-                                                    self.selectedTile.naturalFrame.size.height - translation.y);
+                                                    height);
         
         [sender setTranslation:CGPointMake(0, 0) inView:self];
         

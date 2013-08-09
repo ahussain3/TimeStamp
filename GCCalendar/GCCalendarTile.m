@@ -14,8 +14,6 @@
 #import "UIColor+CalendarPalette.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define tDragAreaHeight 50
-
 @interface GCCalendarTile () {
 }
 @property (nonatomic) CGRect extendedFrame;

@@ -34,7 +34,7 @@
 	// Do any additional setup after loading the view.
     
     // Add a button to the nav bar to create new events
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEvent)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
     button.width = 40.0;
     self.navigationItem.rightBarButtonItem = button;
 }

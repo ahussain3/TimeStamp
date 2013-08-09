@@ -75,8 +75,9 @@ static NSArray *timeStrings;
 }
 # pragma mark Utility methods
 - (CGFloat)snappedYValueForYValue:(CGFloat)yValue {
-    float step = kHalfHourDiff / 2.0; // Grid step size.
-    CGFloat newYValue = step * floor((yValue / step) + 0.5);
+    ;
+    float step = (kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT); // Grid step size.
+    CGFloat newYValue = (step - kTopLineBuffer) * floor((yValue / step) + 0.5) + kTopLineBuffer;
     
     return newYValue;
 }

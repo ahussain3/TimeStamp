@@ -105,7 +105,10 @@
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:activeView.date];
     CGFloat time = [self timeForYValue:yValue];
     [components setHour:floorf(time)];
-    [components setMinute:(time - floorf(time)) * 60];
+    NSInteger minutes = (time - floorf(time)) * 60;
+    minutes = SNAP_TO_MINUTE_INCREMENT * (int)(minutes / SNAP_TO_MINUTE_INCREMENT + 0.5);
+    [components setMinute:minutes];
+    
     NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     
     event.startDate = startDate;

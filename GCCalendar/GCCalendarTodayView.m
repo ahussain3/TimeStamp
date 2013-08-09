@@ -364,14 +364,23 @@ static NSArray *timeStrings;
 - (void)endTimeDragged:(UIPanGestureRecognizer *)sender {
     if (sender.view == self.selectedTile.endTimeDragView) {
         userIsDraggingTile = TRUE;
-        CGPoint translation = [sender translationInView:self];
-        sender.view.center = CGPointMake(sender.view.center.x,
-                                         sender.view.center.y + translation.y);
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            // calculate y offset
+            yOffset = [sender locationInView:self.selectedTile].y - sender.view.frame.origin.y;
+            return;
+        }
+        
+        // work out the y position of the top of the end drag time.
+        CGFloat endYPosition = [sender locationInView:self].y - yOffset;
+        endYPosition = [self snappedYValueForYValue:endYPosition];
+        
+        // set the height of natural frame to be y pos - origin.
+        CGFloat newTileHeight = endYPosition - self.selectedTile.naturalFrame.origin.y;
         
         self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
                                                     self.selectedTile.naturalFrame.origin.y,
                                                     self.selectedTile.naturalFrame.size.width,
-                                                    self.selectedTile.naturalFrame.size.height + translation.y);
+                                                    newTileHeight);
         
         [sender setTranslation:CGPointMake(0, 0) inView:self];
         

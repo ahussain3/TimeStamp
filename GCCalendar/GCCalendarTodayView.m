@@ -364,26 +364,15 @@ static NSArray *timeStrings;
 - (void)endTimeDragged:(UIPanGestureRecognizer *)sender {
     if (sender.view == self.selectedTile.endTimeDragView) {
         userIsDraggingTile = TRUE;
-        if (sender.state == UIGestureRecognizerStateBegan) {
-            yOffset = [sender locationInView:self].y - [self convertPoint:sender.view.frame.origin fromView:sender.view].y;
-            return;
-        }
-        
         CGPoint translation = [sender translationInView:self];
+        sender.view.center = CGPointMake(sender.view.center.x,
+                                         sender.view.center.y + translation.y);
         
-        CGFloat newY = [sender locationInView:self].y - yOffset;
-        CGFloat snappedY = [self snappedYValueForYValue:newY];
-        sender.view.frame = CGRectMake(sender.view.frame.origin.x,
-                                        snappedY,
-                                        sender.view.frame.size.width,
-                                        sender.view.frame.size.height);
+        self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
+                                                    self.selectedTile.naturalFrame.origin.y,
+                                                    self.selectedTile.naturalFrame.size.width,
+                                                    self.selectedTile.naturalFrame.size.height + translation.y);
         
-        CGFloat newHeight = snappedY - self.selectedTile.naturalFrame.origin.y;
-//        self.selectedTile.naturalFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
-//                                             self.selectedTile.naturalFrame.origin.y,
-//                                             self.selectedTile.naturalFrame.size.width,
-//                                             self.selectedTile.naturalFrame.size.height + translation.y);
-//                
         [sender setTranslation:CGPointMake(0, 0) inView:self];
         
         if (sender.state == UIGestureRecognizerStateEnded) {

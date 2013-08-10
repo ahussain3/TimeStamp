@@ -162,7 +162,7 @@
 
 #pragma mark Respond to gestures
 - (void)tileTapped:(UITapGestureRecognizer *)sender {
-    NSLog(@"tap internal pressed");
+//    NSLog(@"tap internal pressed");
     if (!self.selected) {
         [self.delegate deselectAllTiles];
         [self.delegate setSelectedTile:self];

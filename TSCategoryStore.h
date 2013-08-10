@@ -21,7 +21,7 @@
 // CRUD functions
 // Path should colon separated, for example "ROOT:Sleep:Nap:"
 
-- (TSCategory *)addNewCategory:(TSCategory *)category;
+- (TSCategory *)addNewCalendar:(TSCategory *)category;
 
 
 @end

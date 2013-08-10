@@ -26,11 +26,17 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
+    BOOL loadCategoryArrayFromCoder = YES;
+    
     if ((self = [super init]))
     {
         // Initialization code here.
+        if (loadCategoryArrayFromCoder) {
+            [self loadData];
+        } else {
+            [self initCategoryArray];
+        }
     }
-    
     return self;
 }
 
@@ -77,11 +83,10 @@
     return _default;
 }
 
-#pragma mark - database methods
-
-- (NSArray *) categoryArray {
-    if (_categoryArray == nil) {
-        _categoryArray = [[NSMutableArray alloc] init];
+#pragma mark setters and getters
+- (void)initCategoryArray {
+    if (self.categoryArray == nil) {
+        self.categoryArray = [[NSMutableArray alloc] init];
         
         // retrieve all calendars
         NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
@@ -97,17 +102,17 @@
                 cat.level = 0;
             }
         }
+        
+        [self saveData];
     }
-    
-    // Output the array.
-    return _categoryArray;
 }
+
+#pragma mark - database methods
 
 - (NSArray *)data {
-    return self.categoryArray;
+    return [self.categoryArray copy];
 }
-
-- (TSCategory *)addNewCategory:(TSCategory *)category {
+- (TSCategory *)addNewCalendar:(TSCategory *)category {
     // This should be changed to match user's preferences.
     BOOL useICloudStorage = YES;
     
@@ -137,17 +142,62 @@
     BOOL success = [self.store saveCalendar:calendar commit:YES error:&err];
     if (success == NO) {
         NSLog(@"Error creating new calendar: %@", err);
+    } else {
+        NSLog(@"Successfully created new calendar:%@", calendar);
     }
     
+    // Update level of calendar.
     TSCategory *cat = [self TSCategoryWithEKCalendar:calendar];
     cat.level = 0;
     
+    // Let the database know.
+    [self.categoryArray addObject:cat];
+    [self saveData];
+    
     return cat;
 }
-
 - (void)updateCategory:(TSCategory *)category {
     // Only works if the category identifier is not changed.
 }
+- (void)switchCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
+
+}
+- (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
+        
+}
+
+#pragma mark Persistence Methods
+-(void)saveData
+{
+    NSLog(@"Save data method called");
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSMutableData *saveData = [[NSMutableData alloc] init];
+    
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
+    [archiver encodeObject:self.categoryArray forKey:@"categoryData"];
+    [archiver finishEncoding];
+    
+    [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
+}
+
+-(void)loadData
+{
+    NSLog(@"Load data method called");
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:savePath])
+    {
+        NSData *data = [fileManager contentsAtPath:savePath];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        self.categoryArray = [unarchiver decodeObjectForKey:@"categoryData"];
+    }
+}
+
 
 #pragma mark Utility Methods
 - (TSCategory *)TSCategoryWithEKCalendar:(EKCalendar *)calendar {
@@ -158,10 +208,6 @@
     category.calendar = calendar;
     
     return category;
-}
-
-- (EKCalendar *)createEKCalendarWithTSCategory:(TSCategory *)category {
-    return nil;
 }
 
 @end

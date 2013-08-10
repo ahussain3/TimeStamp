@@ -331,7 +331,7 @@ static NSArray *timeStrings;
     }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"Drag gesture ended");
+//        NSLog(@"Drag gesture ended");
         [self updateTileToReflectNewPosition:self.selectedTile];
         return;
     }
@@ -359,7 +359,7 @@ static NSArray *timeStrings;
             userIsDraggingTile = FALSE;
             
             // Update model to reflect new start time
-            NSLog(@"Gesture Ended");
+//            NSLog(@"Gesture Ended");
             [self updateTileToReflectNewPosition:self.selectedTile];
         }
     }
@@ -392,7 +392,7 @@ static NSArray *timeStrings;
             userIsDraggingTile = FALSE;
             
             // Update model to reflect new start time
-            NSLog(@"Gesture Ended");
+//            NSLog(@"Gesture Ended");
             [self updateTileToReflectNewPosition:self.selectedTile];
         }
     }

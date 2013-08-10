@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class EKCalendar;
 
-@interface TSCategory : NSObject
+@interface TSCategory : NSObject <NSCoding>
 
 // EKCalendar affiliated with this
 @property (nonatomic, strong) EKCalendar *calendar;

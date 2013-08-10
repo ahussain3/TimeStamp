@@ -777,8 +777,7 @@ typedef enum {
 		 */
 		return;
 	}
-
-
+    
 	/*
 		Prevent it from going off the bottom.
 		Make a content rect which is a frame of the entire content.

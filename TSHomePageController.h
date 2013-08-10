@@ -15,6 +15,7 @@
 @interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate> {
     TSListTableViewController *listController;
     TSDayViewController *dayViewController;
+    UINavigationController *listNavController;
 }
 
 @end

@@ -23,7 +23,7 @@
         self.calendar = [[TSCalendarStore instance].store calendarWithIdentifier:calIdentifier];
         self.title = [decoder decodeObjectForKey:@"title"];
         self.location = [decoder decodeObjectForKey:@"location"];
-        self.description = [decoder decodeObjectForKey:@"description"];
+        self.path = [decoder decodeObjectForKey:@"path"];
         self.level = [decoder decodeIntegerForKey:@"level"];
         self.color = [decoder decodeObjectForKey:@"color"];
         self.subCategories = [decoder decodeObjectForKey:@"subCategories"];
@@ -37,11 +37,10 @@
     [encoder encodeObject:self.calendar.calendarIdentifier forKey:@"calendar"];
     [encoder encodeObject:self.title forKey:@"title"];
     [encoder encodeObject:self.location forKey:@"location"];
-    [encoder encodeObject:self.description forKey:@"description"];
+    [encoder encodeObject:self.path forKey:@"path"];
     [encoder encodeInt:self.level forKey:@"level"];
     [encoder encodeObject:self.color forKey:@"color"];
     [encoder encodeObject:self.subCategories forKey:@"subCategories"];
-
 }
 
 @end

@@ -25,7 +25,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="zEi-cO-3gd" kind="embed" identifier="listSegue" id="obD-oM-5RS"/>
+                                    <segue destination="kGr-Gl-f3f" kind="embed" identifier="listSegue" id="obD-oM-5RS"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -58,13 +58,13 @@
         <!--List Table View Controller-->
         <scene sceneID="hdr-nv-lrh">
             <objects>
-                <viewController id="zEi-cO-3gd" customClass="TSListTableViewController" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" id="zEi-cO-3gd" customClass="TSListTableViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LT7-NW-LNd">
-                        <rect key="frame" x="0.0" y="0.0" width="120" height="505"/>
+                        <rect key="frame" x="0.0" y="64" width="120" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jow-As-jo1">
-                                <rect key="frame" x="0.0" y="0.0" width="120" height="505"/>
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="441"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -72,6 +72,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Bfi-rP-pFH"/>
                     <connections>
                         <outlet property="tableView" destination="Jow-As-jo1" id="SMC-rr-cOd"/>
                         <outlet property="view" destination="Jow-As-jo1" id="ox6-9t-PC5"/>
@@ -79,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzk-WG-E9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1509" y="373"/>
+            <point key="canvasLocation" x="1747" y="373"/>
         </scene>
         <!--Day View Controller-->
         <scene sceneID="dR0-cZ-JWd">
@@ -105,6 +106,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ov4-sd-StF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1479" y="985"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="w4E-Ao-wrp">
+            <objects>
+                <navigationController wantsFullScreenLayout="YES" id="kGr-Gl-f3f" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pv5-cU-FEo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zEi-cO-3gd" kind="relationship" relationship="rootViewController" id="Eqw-JW-cje"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VUT-BG-52B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1509" y="373"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -48,7 +48,9 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Initialization
     if ([[segue identifier] isEqualToString:@"listSegue"]) {
-        listController = (TSListTableViewController *)segue.destinationViewController;
+        listNavController = (UINavigationController *)segue.destinationViewController;
+        listNavController.navigationBarHidden = YES;
+        listController = (TSListTableViewController *)listNavController.topViewController;
     }
     if ([[segue identifier] isEqualToString:@"daySegue"]) {
         dayViewController = (TSDayViewController *)segue.destinationViewController;

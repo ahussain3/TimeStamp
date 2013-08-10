@@ -20,8 +20,8 @@
 // May possibly in future want to include a location.
 @property (nonatomic, strong) NSString *location;
 
-// Not sure if this property will ever be used.
-@property (nonatomic, strong) NSString *description;
+// Of the format Classes:Physics:Reading:Griffiths: (always end in a colon).
+@property (nonatomic, strong) NSString *path;
 
 // Hierarchical level. 0 is top level.
 @property (nonatomic) NSInteger level;

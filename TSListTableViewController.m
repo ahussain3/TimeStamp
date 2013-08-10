@@ -39,13 +39,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	/*
-     Populate array.
-	 */
-	if (categoryArray == nil) {
-		categoryArray = [[[TSCategoryStore instance] data] mutableCopy];
-	}
+    
+    // Populate local array
+	model = [TSCategoryStore instance];
+    [self reloadData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -58,6 +55,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)reloadData {
+    // Populate local array.
+    categoryArray = [[model data] mutableCopy];
 }
 
 #pragma mark - Table view data source
@@ -179,10 +181,8 @@
  */
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	
-	NSString *itemToMove = [categoryArray objectAtIndex:fromIndexPath.row];
-	[categoryArray removeObjectAtIndex:fromIndexPath.row];
-	[categoryArray insertObject:itemToMove atIndex:toIndexPath.row];
-    
+	[model switchCategoryAtIndex:fromIndexPath.row withIndex:toIndexPath.row forPath:nil];
+    [self reloadData];
 }
 
 #pragma mark - TSSlideToDeleteDelegate

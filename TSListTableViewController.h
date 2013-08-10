@@ -11,8 +11,13 @@
 #import "ATSDragToReorderTableViewController.h"
 #import "TSListTableViewCell.h"
 
+@class TSCategoryStore;
+
 @interface TSListTableViewController : ATSDragToReorderTableViewController <TSSlideToDeleteCellDelegate> {
+    // Local store of category data
     NSMutableArray *categoryArray;
+    
+    TSCategoryStore *model;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *view;

@@ -160,7 +160,9 @@
     // Only works if the category identifier is not changed.
 }
 - (void)switchCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
-
+    
+    [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+    [self saveData];
 }
 - (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
         

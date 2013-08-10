@@ -50,7 +50,10 @@
     if ([[segue identifier] isEqualToString:@"listSegue"]) {
         listNavController = (UINavigationController *)segue.destinationViewController;
         listNavController.navigationBarHidden = YES;
+        listNavController.view.clipsToBounds = NO;
+        
         listController = (TSListTableViewController *)listNavController.topViewController;
+        
     }
     if ([[segue identifier] isEqualToString:@"daySegue"]) {
         dayViewController = (TSDayViewController *)segue.destinationViewController;
@@ -61,14 +64,13 @@
 - (void)initializeControllers {
     listController.superController = self;
     listController.dragDelegate = self;
+    listController.view.clipsToBounds = NO;
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(TSListTableViewCell *)cell {
     
     CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.calWrapperView];
-    
-    // Question: Which calendar are new events assigned to? The cell needs to know what it's own calendar identifier is.
     
     GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
     event.eventName = cell.textLabel.text;

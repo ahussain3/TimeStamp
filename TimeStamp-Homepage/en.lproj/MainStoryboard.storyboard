@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <containerView multipleTouchEnabled="YES" contentMode="scaleToFill" id="pbp-c4-Z6s">
-                                <rect key="frame" x="120" y="0.0" width="200" height="505"/>
+                                <rect key="frame" x="145" y="0.0" width="175" height="505"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -58,13 +58,13 @@
         <!--List Table View Controller-->
         <scene sceneID="hdr-nv-lrh">
             <objects>
-                <viewController wantsFullScreenLayout="YES" id="zEi-cO-3gd" customClass="TSListTableViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListViewController" wantsFullScreenLayout="YES" id="zEi-cO-3gd" customClass="TSListTableViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LT7-NW-LNd">
-                        <rect key="frame" x="0.0" y="64" width="120" height="441"/>
+                        <rect key="frame" x="0.0" y="0.0" width="120" height="505"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jow-As-jo1">
-                                <rect key="frame" x="0.0" y="0.0" width="120" height="441"/>
+                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jow-As-jo1">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="505"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -87,11 +87,11 @@
             <objects>
                 <viewController id="rb3-w9-RmJ" customClass="TSDayViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Myr-15-Fvw">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="505"/>
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="505"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="redraw" id="Ggo-YK-f8e" userLabel="CalendarDayView">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="505"/>
+                                <rect key="frame" x="0.0" y="0.0" width="175" height="505"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -110,7 +110,7 @@
         <!--Navigation Controller-->
         <scene sceneID="w4E-Ao-wrp">
             <objects>
-                <navigationController wantsFullScreenLayout="YES" id="kGr-Gl-f3f" sceneMemberID="viewController">
+                <navigationController wantsFullScreenLayout="YES" navigationBarHidden="YES" id="kGr-Gl-f3f" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pv5-cU-FEo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -126,6 +126,30 @@
             <point key="canvasLocation" x="1509" y="373"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="ATSDragToReorderTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSDragToReorderTableViewController.h"/>
+        </class>
+        <class className="GCCalendarView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCCalendarView.h"/>
+        </class>
+        <class className="TSDayViewController" superclassName="GCCalendarView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSDayViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="calWrapperView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="TSHomePageController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
+        </class>
+        <class className="TSListTableViewController" superclassName="ATSDragToReorderTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSListTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addNewCategory:"/>
+                <relationship kind="outlet" name="view" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

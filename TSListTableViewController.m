@@ -114,10 +114,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.category = category;
     
-//    UIView *background = [[UIView alloc] initWithFrame:cellFrame];
-//    background.backgroundColor = [UIColor greenColor];
-//    cell.backgroundView = background;
-    
     // Set the background color for when cell is selected
     UIView *purpleBackground = [[UIView alloc] initWithFrame:cellFrame];
     purpleBackground.backgroundColor = [UIColor purpleColor];
@@ -164,12 +160,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    TSListTableViewController *nextController = [storyboard instantiateViewControllerWithIdentifier:@"ListViewController"];
+    
+    [self.navigationController pushViewController:nextController animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

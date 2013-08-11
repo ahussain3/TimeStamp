@@ -48,10 +48,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Initialization
     if ([[segue identifier] isEqualToString:@"listSegue"]) {
-        listNavController = (UINavigationController *)segue.destinationViewController;
-        listNavController.navigationBarHidden = YES;
-        listNavController.view.clipsToBounds = NO;
-        
+        listNavController = (UINavigationController *)segue.destinationViewController;        
         listController = (TSListTableViewController *)listNavController.topViewController;
         
     }
@@ -62,9 +59,9 @@
 }
 
 - (void)initializeControllers {
-    listController.superController = self;
+    listNavController.navigationBarHidden = YES;    
     listController.dragDelegate = self;
-    listController.view.clipsToBounds = NO;
+    listController.path = ROOT_CATEGORY_PATH;
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods

@@ -40,9 +40,13 @@
 {
     [super viewDidLoad];
     
+    self.view.clipsToBounds = NO;
+
     // Populate local array
 	model = [TSCategoryStore instance];
     [self reloadData];
+    
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -59,7 +63,7 @@
 
 - (void)reloadData {
     // Populate local array.
-    categoryArray = [[model data] mutableCopy];
+    categoryArray = [[model dataForPath:self.path] mutableCopy];
 }
 
 #pragma mark - Table view data source
@@ -162,6 +166,9 @@
     // Navigation logic may go here. Create and push another view controller.
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     TSListTableViewController *nextController = [storyboard instantiateViewControllerWithIdentifier:@"ListViewController"];
+    
+    TSCategory *selectedCategory = [categoryArray objectAtIndex:indexPath.row];
+    nextController.path = [self.path stringByAppendingFormat:@":%@",selectedCategory.title];
     
     [self.navigationController pushViewController:nextController animated:YES];
 }

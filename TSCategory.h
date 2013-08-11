@@ -30,6 +30,8 @@
 @property (nonatomic, strong) UIColor *color;
 
 // Array of TSCategoryBox views. These are the next level of the hierarchy.
-@property (nonatomic, strong) NSArray *subCategories;
+@property (nonatomic, strong) NSMutableArray *subCategories;
+
+- (void)addSubcategory:(NSString *)name;
 
 @end

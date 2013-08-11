@@ -13,6 +13,8 @@
     #import <Foundation/Foundation.h>
 #endif
 
+
+#define ROOT_CATEGORY_PATH @"$ROOT"
 #define SNAP_TO_MINUTE_INCREMENT 15
 #define tDragAreaHeight 50
 #define BOX_HEIGHT 120

@@ -16,7 +16,7 @@
 + (TSCategoryStore *) instance;
 
 // returns an array of TSCategoryBox objects. This is the top level.
-- (NSArray *)data;
+- (NSArray *)dataForPath:(NSString *)path;
 
 // CRUD functions
 // Path should colon separated, for example "ROOT:Sleep:Nap:"

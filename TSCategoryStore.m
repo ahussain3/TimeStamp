@@ -26,16 +26,21 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    BOOL loadCategoryArrayFromCoder = YES;
+    int loadDataFrom = 2;
     
     if ((self = [super init]))
     {
         // Initialization code here.
-        if (loadCategoryArrayFromCoder) {
+        if (loadDataFrom == 0) {
+            // Load from calendar
+            self.categoryArray = [self loadCalendarData];
+        } else if (loadDataFrom == 1) {
+            // Load from encoder (saved data)
             [self loadData];
         } else {
-            [self initCategoryArray];
+            self.categoryArray = [self loadCustomData];
         }
+        [self saveData];
     }
     return self;
 }
@@ -84,34 +89,116 @@
 }
 
 #pragma mark setters and getters
-- (void)initCategoryArray {
-    if (self.categoryArray == nil) {
-        self.categoryArray = [[NSMutableArray alloc] init];
-        
-        // retrieve all calendars
-        NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
-        
-        // Convert EKCalendars to TSCatgories.
-        for (EKCalendar *cal in calendars) {
-            if (!cal.allowsContentModifications) {
-                // Remove calendars that do not allow editing
-                NSLog(@"Error, calendar: %@ cannot be modfied", cal);
-            } else {
-                TSCategory *cat = [self TSCategoryWithEKCalendar:cal];
-                [_categoryArray addObject:cat];
-                cat.level = 0;
-            }
+- (NSMutableArray *)loadCalendarData {
+    NSMutableArray *catArray = [[NSMutableArray alloc] init];
+    
+    // retrieve all calendars
+    NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+    
+    // Convert EKCalendars to TSCatgories.
+    for (EKCalendar *cal in calendars) {
+        if (!cal.allowsContentModifications) {
+            // Remove calendars that do not allow editing
+            NSLog(@"Error, calendar: %@ cannot be modfied", cal);
+        } else {
+            TSCategory *cat = [self TSCategoryWithEKCalendar:cal];
+            [catArray addObject:cat];
+            cat.level = 0;
+            cat.path = ROOT_CATEGORY_PATH;
         }
-        
-        [self saveData];
     }
+    
+    return catArray;
+}
+
+- (NSMutableArray *)loadCustomData {
+    NSMutableArray *catArray = [[NSMutableArray alloc] init];
+    
+    TSCategory *sleep = [[TSCategory alloc] init];
+    sleep.title = @"Sleep";
+    sleep.color = [UIColor colorFromHexString:@"9e9e9e"];
+    [sleep addSubcategory:@"Sleep"];
+    [sleep addSubcategory:@"Nap"];
+    
+    TSCategory *work = [[TSCategory alloc] init];
+    work.title = @"Work";
+    work.color = [UIColor colorFromHexString:@"91565e"];
+    
+    TSCategory * school = [[TSCategory alloc]init];
+    school.title = @"School";
+    school.color = [UIColor colorFromHexString:@"C5B46f"];
+    [school addSubcategory:@"Class"];
+    [school addSubcategory:@"Studying"];
+    [school addSubcategory:@"Extra Curriculars"];
+    
+    TSCategory *social = [[TSCategory alloc] init];
+    social.title = @"Social";
+    social.color = [UIColor colorFromHexString:@"BE8260"];
+    [social addSubcategory:@"Friends"];
+    [social addSubcategory:@"Co-workers"];
+    
+    TSCategory *food = [[TSCategory alloc] init];
+    food.title = @"Food";
+    food.color = [UIColor colorFromHexString:@"254540"];
+    [food addSubcategory:@"Breakfast"];
+    [food addSubcategory:@"Lunch"];
+    [food addSubcategory:@"Dinner"];
+    [food addSubcategory:@"Snacks"];
+    
+    TSCategory *travel = [[TSCategory alloc] init];
+    travel.title = @"Travel";
+    travel.color = [UIColor colorFromHexString:@"052F3B"];
+    [travel addSubcategory:@"Commute"];
+    [travel addSubcategory:@"Driving"];
+    [travel addSubcategory:@"Bus"];
+    [travel addSubcategory:@"Cycling"];
+    
+    TSCategory * sport = [[TSCategory alloc]init];
+    sport.title = @"Fitness";
+    sport.color = [UIColor colorFromHexString:@"6C9B5C"];
+    [sport addSubcategory:@"Gym"];
+    [sport addSubcategory:@"Sports"];
+    [sport addSubcategory:@"Running"];
+    
+    TSCategory * procras = [[TSCategory alloc]init];
+    procras.title = @"Wasted Time";
+    procras.color = [UIColor colorFromHexString:@"8F6A77"];
+    [procras addSubcategory:@"Internet"];
+    [procras addSubcategory:@"Fatigue"];
+    
+    TSCategory *misc = [[TSCategory alloc] init];
+    misc.title = @"Miscellaneous";
+    misc.color = [UIColor colorFromHexString:@"517795"];
+    
+    catArray = [NSArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, nil];
+    
+    return catArray;
 }
 
 #pragma mark - database methods
 
-- (NSArray *)data {
-    return [self.categoryArray copy];
+- (NSArray *)dataForPath:(NSString *)path {
+    return [self goToPath:path inArray:self.categoryArray];
 }
+
+- (NSArray *)goToPath:(NSString *)path inArray:(NSArray *)array {
+    NSMutableArray *elements = [[path componentsSeparatedByString:@":"] mutableCopy];
+    [elements removeObjectAtIndex:0];
+    NSString *newPath = [elements componentsJoinedByString:@":"];
+    if ([newPath length] == 0) {
+        return array;
+    }
+    
+    NSString *element = [elements objectAtIndex:0];
+    for (TSCategory *cat in array) {
+        if ([cat.title isEqualToString:element]) {
+            return [self goToPath:newPath inArray:cat.subCategories];
+        }
+    }
+    NSLog(@"Error: The path (%@) specified doesn't exist", path);
+    return nil;
+}
+
 - (TSCategory *)addNewCalendar:(TSCategory *)category {
     // This should be changed to match user's preferences.
     BOOL useICloudStorage = YES;
@@ -149,6 +236,7 @@
     // Update level of calendar.
     TSCategory *cat = [self TSCategoryWithEKCalendar:calendar];
     cat.level = 0;
+    cat.path = ROOT_CATEGORY_PATH;
     
     // Let the database know.
     [self.categoryArray addObject:cat];
@@ -156,18 +244,16 @@
     
     return cat;
 }
-- (void)updateCategory:(TSCategory *)category {
-    // Only works if the category identifier is not changed.
-}
+
 - (void)switchCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
     
     [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
     [self saveData];
 }
+
 - (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
         
 }
-
 #pragma mark Persistence Methods
 -(void)saveData
 {

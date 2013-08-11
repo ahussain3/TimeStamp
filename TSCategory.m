@@ -43,4 +43,19 @@
     [encoder encodeObject:self.subCategories forKey:@"subCategories"];
 }
 
+- (void)addSubcategory:(NSString *)name {
+    if (self.subCategories == nil) {
+        self.subCategories = [[NSMutableArray alloc] init];
+    }
+    
+    TSCategory *subCategory = [[TSCategory alloc] init];
+    subCategory.title = name;
+    subCategory.calendar = self.calendar;
+    subCategory.level = self.level + 1;
+    subCategory.color = self.color;
+    subCategory.path = [self.path stringByAppendingFormat:@":%@", self.title];
+    
+    [self.subCategories addObject:subCategory];
+}
+
 @end

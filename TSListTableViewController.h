@@ -20,7 +20,8 @@
     TSCategoryStore *model;
 }
 
+// The Path property should be of format Sleep:Short:Nap:InTheRoom
+@property (strong, nonatomic) NSString *path;
 @property (weak, nonatomic) IBOutlet UITableView *view;
-@property (strong, nonatomic) UIViewController *superController;
 
 @end

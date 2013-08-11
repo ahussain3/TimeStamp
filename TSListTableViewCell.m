@@ -9,6 +9,7 @@
 #define PI 3.1415
 
 #import "TSListTableViewCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TSListTableViewCell () {
     CGFloat circleDiameter;
@@ -35,6 +36,7 @@
         } else {
             circleDiameter = self.bounds.size.height;
         }
+        self.contentView.layer.cornerRadius = BOX_HEIGHT / 2.0;
     }
     return self;
 }

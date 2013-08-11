@@ -118,9 +118,9 @@
     cell.category = category;
     
     // Set the background color for when cell is selected
-    UIView *purpleBackground = [[UIView alloc] initWithFrame:cellFrame];
-    purpleBackground.backgroundColor = [UIColor purpleColor];
-    cell.selectedBackgroundView = purpleBackground;
+//    UIView *purpleBackground = [[UIView alloc] initWithFrame:cellFrame];
+//    purpleBackground.backgroundColor = [UIColor purpleColor];
+//    cell.selectedBackgroundView = purpleBackground;
     
     // Set the view that appears when the cell is slid out the way
 //    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];

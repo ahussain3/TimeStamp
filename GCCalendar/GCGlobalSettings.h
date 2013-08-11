@@ -9,11 +9,11 @@
 #ifndef TimeStamp_Homepage_GCGlobalSettings_h
 #define TimeStamp_Homepage_GCGlobalSettings_h
 
-#define kTileLeftSide 45.0f
+#define kTileLeftSide 145.0f
 #define kTileRightSide 5.0f
 
 #define kTopLineBuffer 0
-#define kSideLineBuffer 40.0
+#define kSideLineBuffer 140.0
 #define kHalfHourDiff 22.0
 #define kTodayViewHeight 1056
 

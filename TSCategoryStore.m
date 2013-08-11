@@ -170,7 +170,7 @@
     misc.title = @"Miscellaneous";
     misc.color = [UIColor colorFromHexString:@"517795"];
     
-    catArray = [NSMutableArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, nil];
+    catArray = [NSMutableArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, misc, nil];
     
     return catArray;
 }

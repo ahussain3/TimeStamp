@@ -62,6 +62,9 @@
     listNavController.navigationBarHidden = YES;    
     listController.dragDelegate = self;
     listController.path = ROOT_CATEGORY_PATH;
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:listController action:@selector(goBack:)];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods

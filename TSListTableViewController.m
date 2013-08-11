@@ -25,6 +25,7 @@
     if (self) {
         // Custom initialization
         self.tableView.showsVerticalScrollIndicator = NO;
+        
     }
     return self;
 }
@@ -45,8 +46,6 @@
     // Populate local array
 	model = [TSCategoryStore instance];
     [self reloadData];
-    
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -209,6 +208,12 @@
 }
 
 - (IBAction)addNewCategory:(id)sender {
+}
+
+- (void)goBack:(id)sender {
+//    if (![self.path isEqualToString:ROOT_CATEGORY_PATH]) {
+        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 
 @end

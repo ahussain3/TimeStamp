@@ -211,6 +211,7 @@ typedef enum {
 
 	if ( self.reorderingEnabled ) {
 		[self establishGestures];
+        self.tableView.showsVerticalScrollIndicator = NO;
         self.view.clipsToBounds = NO;
     }
 

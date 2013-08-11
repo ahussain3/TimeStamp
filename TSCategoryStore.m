@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 3;
+    int loadDataFrom = 2;
     
     if ((self = [super init]))
     {
@@ -37,7 +37,11 @@
         } else if (loadDataFrom == 1) {
             // Load from encoder (saved data)
             [self loadData];
+        } else if (loadDataFrom == 2) {
+            // Load the data I personally re-ordered
+            [self loadColorCoded];
         } else {
+            // Load custom data (with subcategories)
             self.categoryArray = [self loadCustomData];
         }
         [self saveData];
@@ -265,7 +269,7 @@
     NSMutableData *saveData = [[NSMutableData alloc] init];
     
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
-    [archiver encodeObject:self.categoryArray forKey:@"categoryData"];
+    [archiver encodeObject:self.categoryArray forKey:@"colorCoded"];
     [archiver finishEncoding];
     
     [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
@@ -282,7 +286,21 @@
     {
         NSData *data = [fileManager contentsAtPath:savePath];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        self.categoryArray = [unarchiver decodeObjectForKey:@"categoryData"];
+        self.categoryArray = [unarchiver decodeObjectForKey:@"categories"];
+    }
+}
+-(void)loadColorCoded
+{
+    NSLog(@"Load color coded data method called");
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:savePath])
+    {
+        NSData *data = [fileManager contentsAtPath:savePath];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        self.categoryArray = [unarchiver decodeObjectForKey:@"colorCoded"];
     }
 }
 

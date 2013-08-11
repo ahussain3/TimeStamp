@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 2;
+    int loadDataFrom = 3;
     
     if ((self = [super init]))
     {
@@ -170,7 +170,7 @@
     misc.title = @"Miscellaneous";
     misc.color = [UIColor colorFromHexString:@"517795"];
     
-    catArray = [NSArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, nil];
+    catArray = [NSMutableArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, nil];
     
     return catArray;
 }

@@ -21,6 +21,7 @@
 // CRUD functions
 // Path should colon separated, for example "ROOT:Sleep:Nap:"
 - (TSCategory *)addNewCalendar:(TSCategory *)category;
-- (void)switchCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path;
+- (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path;
+- (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path;
 
 @end

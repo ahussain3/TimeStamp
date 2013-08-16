@@ -16,7 +16,6 @@
 @interface TSListTableViewController : ATSDragToReorderTableViewController <TSSlideToDeleteCellDelegate> {
     // Local store of category data
     NSMutableArray *categoryArray;
-    
     TSCategoryStore *model;
 }
 
@@ -24,5 +23,7 @@
 @property (strong, nonatomic) NSString *path;
 @property (weak, nonatomic) IBOutlet UITableView *view;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+
+- (void)reloadData;
 
 @end

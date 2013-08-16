@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 2;
+    int loadDataFrom = 3;
     
     if ((self = [super init]))
     {
@@ -182,7 +182,59 @@
 #pragma mark - database methods
 
 - (NSArray *)dataForPath:(NSString *)path {
-    return [self goToPath:path inArray:self.categoryArray];
+    TSCategory *category = [self categoryForPath:path andCategory:nil];
+    NSArray *array = [[NSArray alloc] init];;
+    if (category == nil) {
+         array = self.categoryArray;
+    } else {
+        array = category.subCategories;
+    }
+    
+    return array;
+}
+
+- (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
+    NSLog(@"Searching for path: %@", path);
+    TSCategory *category = [self categoryForPath:path andCategory:nil];
+    if (category == nil) {
+        // Add calendar level category.
+        NSLog(@"Search function returned a nil category");
+    } else {
+        [category addSubcategory:name];
+    }
+}
+
+
+# pragma mark - Database helper methods.
+// Recursively goes in and locates the category specified by the path.
+// If it returns nil, then we are at the ROOT level.
+- (TSCategory *)categoryForPath:(NSString *)path andCategory:(TSCategory *)category {
+    if (category == nil) {
+        category = [[TSCategory alloc] init];
+        category.subCategories = self.categoryArray;
+    }
+    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
+        NSLog(@"This is the ROOT path");
+        return nil;
+    }
+    
+    NSMutableArray *pathElements = [[path componentsSeparatedByString:@":"] mutableCopy];
+    [pathElements removeObjectAtIndex:0];
+    NSString *newPath = [pathElements componentsJoinedByString:@":"];
+    
+    if ([newPath length] == 0) {
+        return category;
+    }
+    
+    NSString *element = [pathElements objectAtIndex:0];
+    for (TSCategory *cat in category.subCategories) {
+        if ([cat.title isEqualToString:element]) {
+            return [self categoryForPath:newPath andCategory:cat];
+        }
+    }
+    
+    NSLog(@"Error: The specified path (%@) doesn't exist", path);
+    return nil;
 }
 
 - (NSArray *)goToPath:(NSString *)path inArray:(NSArray *)array {
@@ -249,7 +301,7 @@
     return cat;
 }
 
-- (void)switchCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
+- (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
     
     [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
     [self saveData];
@@ -303,8 +355,6 @@
         self.categoryArray = [unarchiver decodeObjectForKey:@"colorCoded"];
     }
 }
-
-
 #pragma mark Utility Methods
 - (TSCategory *)TSCategoryWithEKCalendar:(EKCalendar *)calendar {
     TSCategory *category = [[TSCategory alloc] init];

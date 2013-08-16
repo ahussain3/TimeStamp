@@ -12,6 +12,7 @@
 #import "TSDayViewController.h"
 #import "GCCalendarEvent.h"
 #import "TSCategory.h"
+#import "TSCategoryStore.h"
 
 @interface TSHomePageController ()
 
@@ -32,11 +33,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    // Add a button to the nav bar to create new events
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
-    button.width = 40.0;
-    self.navigationItem.rightBarButtonItem = button;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +61,12 @@
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:listController action:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    // Add a button to the nav bar to create new events
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
+                                                                            action:@selector(addNewCategory:)];
+    button.width = 40.0;
+    self.navigationItem.rightBarButtonItem = button;
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
@@ -81,5 +83,11 @@
     [dayViewController createEvent:event AtPoint:center withDuration:60*60];
 }
 
+- (void)addNewCategory:(id)sender {
+    NSLog(@"Creating new category");
+    TSListTableViewController *list = (TSListTableViewController *)listNavController.topViewController;
+    [[TSCategoryStore instance] addSubcategory:@"Test" AtPathLevel:list.path];
+    [list reloadData];
+}
 
 @end

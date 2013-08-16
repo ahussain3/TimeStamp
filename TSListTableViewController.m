@@ -63,6 +63,7 @@
 - (void)reloadData {
     // Populate local array.
     categoryArray = [[model dataForPath:self.path] mutableCopy];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -103,8 +104,6 @@
      */
     static NSString *CellIdentifier = @"Cell";
     TSListTableViewCell *cell = [[TSListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
-    CGRect cellFrame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, BOX_HEIGHT);
     
     // Load Data
     TSCategory *category = [categoryArray objectAtIndex:indexPath.row];
@@ -181,7 +180,7 @@
  */
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	
-	[model switchCategoryAtIndex:fromIndexPath.row withIndex:toIndexPath.row forPath:nil];
+	[model exchangeCategoryAtIndex:fromIndexPath.row withIndex:toIndexPath.row forPath:nil];
     [self reloadData];
 }
 
@@ -207,13 +206,8 @@
     }];
 }
 
-- (IBAction)addNewCategory:(id)sender {
-}
-
 - (void)goBack:(id)sender {
-//    if (![self.path isEqualToString:ROOT_CATEGORY_PATH]) {
-        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

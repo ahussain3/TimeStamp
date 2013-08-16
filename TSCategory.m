@@ -55,7 +55,7 @@
     subCategory.color = self.color;
     subCategory.path = [self.path stringByAppendingFormat:@":%@", self.title];
     
-    [self.subCategories addObject:subCategory];
+    [self.subCategories insertObject:subCategory atIndex:0];
 }
 
 @end

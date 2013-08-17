@@ -21,11 +21,16 @@
         self.textField.textColor = [UIColor whiteColor];
         self.textField.font = self.textLabel.font;
         // I don't think setting the font here does anything. textLabel has not yet been configured.
-        self.textField.placeholder = @"Add New";
+//        self.textField.placeholder = @"Add New";
         self.textField.textAlignment = NSTextAlignmentCenter;
         self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         self.textField.delegate = self;
         [self addSubview:self.textField];
+        
+        UIImage *image = [UIImage imageNamed:@"plus_sign"];
+        imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.alpha = 0.8;
+        [self addSubview:imageView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissKeyboard) name:@"hideKeyboard" object:nil];
     }
@@ -41,6 +46,9 @@
     
     self.textField.center = self.center;
     self.textField.bounds = self.bounds;
+    
+    imageView.center = self.center;
+    imageView.bounds = CGRectMake(0,0,40,40);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -51,6 +59,7 @@
 
 - (void)dismissKeyboard {
     userCancelledTextEntry = YES;
+    imageView.hidden = NO;
     [self.textField resignFirstResponder];
 }
 
@@ -60,6 +69,7 @@
 {
     if (textField == self.textField) {
         userCancelledTextEntry = NO;
+        imageView.hidden = YES;
     }
     return YES;
 }

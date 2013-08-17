@@ -50,6 +50,7 @@
 		C8A6C7E517ADE44D0086FED4 /* TSDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */; };
 		C8A6C7E617ADE44D0086FED4 /* TSDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */; };
 		C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B93BB117BFD86500759246 /* TSAddNewTableViewCell.m */; };
+		C8B93BB417BFFD0400759246 /* plus_sign.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B93BB317BFFD0400759246 /* plus_sign.png */; };
 		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
@@ -128,6 +129,7 @@
 		C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSDayViewController.m; sourceTree = "<group>"; };
 		C8B93BB017BFD86500759246 /* TSAddNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAddNewTableViewCell.h; sourceTree = "<group>"; };
 		C8B93BB117BFD86500759246 /* TSAddNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAddNewTableViewCell.m; sourceTree = "<group>"; };
+		C8B93BB317BFFD0400759246 /* plus_sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_sign.png; sourceTree = "<group>"; };
 		C8FF165717A5DA440064BA83 /* TSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategory.h; sourceTree = "<group>"; };
 		C8FF165817A5DA440064BA83 /* TSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategory.m; sourceTree = "<group>"; };
 		C8FF165917A5DA440064BA83 /* TSCategoryStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategoryStore.h; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		C8FF165017A5D8C30064BA83 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C8B93BB317BFFD0400759246 /* plus_sign.png */,
 				C81972E816E1BC1400EE65D2 /* Default.png */,
 				C81972EA16E1BC1400EE65D2 /* Default@2x.png */,
 				C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */,
@@ -427,6 +430,7 @@
 				C8A6C7DD17ADE3180086FED4 /* GCDatePickerControlBackground.png in Resources */,
 				C8A6C7DF17ADE3180086FED4 /* GCDatePickerControlLeft.png in Resources */,
 				C8A6C7E117ADE3180086FED4 /* GCDatePickerControlRight.png in Resources */,
+				C8B93BB417BFFD0400759246 /* plus_sign.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

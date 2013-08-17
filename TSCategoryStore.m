@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 3;
+    int loadDataFrom = 0;
     
     if ((self = [super init]))
     {
@@ -210,6 +210,8 @@
     } else {
         [category addSubcategory:name];
     }
+    
+//    [self saveData];
 }
 
 

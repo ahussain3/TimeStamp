@@ -17,6 +17,7 @@
 
 @interface TSAddNewTableViewCell : TSListTableViewCell <UITextFieldDelegate> {
     BOOL userCancelledTextEntry;
+    UIImageView *imageView;
 }
 
 @property (nonatomic, strong) UITextField *textField;

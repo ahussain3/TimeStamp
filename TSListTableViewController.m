@@ -8,7 +8,7 @@
 
 #import "TSListTableViewController.h"
 #import "TSListTableViewCell.h"
-#import "TSAddTableViewCell.h"
+#import "TSAddNewTableViewCell.h"
 #import "TSCategoryStore.h"
 #import "TSCategory.h"
 #import "TSSlidableCell.h"
@@ -141,11 +141,11 @@
     return cell;
 }
 
-- (TSAddTableViewCell *)returnAddTableViewCell {
+- (TSAddNewTableViewCell *)returnAddTableViewCell {
     static NSString *CellID = @"Add Category";
-    TSAddTableViewCell * cell = [[TSAddTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
-    cell.contentView.backgroundColor = [UIColor grayColor];
+    TSAddNewTableViewCell * cell = [[TSAddNewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = @"+Add New";
     
     if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
         cell.contentView.backgroundColor = [UIColor grayColor];

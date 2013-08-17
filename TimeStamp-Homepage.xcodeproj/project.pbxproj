@@ -49,7 +49,7 @@
 		C8A6C7E217ADE3180086FED4 /* GCDatePickerControlRight.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6C7CD17ADE3180086FED4 /* GCDatePickerControlRight.png */; };
 		C8A6C7E517ADE44D0086FED4 /* TSDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */; };
 		C8A6C7E617ADE44D0086FED4 /* TSDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */; };
-		C8B93BAF17BFCB3A00759246 /* TSAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B93BAE17BFCB3A00759246 /* TSAddTableViewCell.m */; };
+		C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B93BB117BFD86500759246 /* TSAddNewTableViewCell.m */; };
 		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
@@ -126,8 +126,8 @@
 		C8A6C7CE17ADE3180086FED4 /* GCGlobalSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCGlobalSettings.h; sourceTree = "<group>"; };
 		C8A6C7E317ADE44D0086FED4 /* TSDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSDayViewController.h; sourceTree = "<group>"; };
 		C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSDayViewController.m; sourceTree = "<group>"; };
-		C8B93BAD17BFCB3A00759246 /* TSAddTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAddTableViewCell.h; sourceTree = "<group>"; };
-		C8B93BAE17BFCB3A00759246 /* TSAddTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAddTableViewCell.m; sourceTree = "<group>"; };
+		C8B93BB017BFD86500759246 /* TSAddNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAddNewTableViewCell.h; sourceTree = "<group>"; };
+		C8B93BB117BFD86500759246 /* TSAddNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAddNewTableViewCell.m; sourceTree = "<group>"; };
 		C8FF165717A5DA440064BA83 /* TSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategory.h; sourceTree = "<group>"; };
 		C8FF165817A5DA440064BA83 /* TSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategory.m; sourceTree = "<group>"; };
 		C8FF165917A5DA440064BA83 /* TSCategoryStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategoryStore.h; sourceTree = "<group>"; };
@@ -292,8 +292,8 @@
 				C81DED07177E652F00317312 /* TSMainView.m */,
 				C8FF165F17A5DCFC0064BA83 /* TSListTableViewCell.h */,
 				C8FF166017A5DCFC0064BA83 /* TSListTableViewCell.m */,
-				C8B93BAD17BFCB3A00759246 /* TSAddTableViewCell.h */,
-				C8B93BAE17BFCB3A00759246 /* TSAddTableViewCell.m */,
+				C8B93BB017BFD86500759246 /* TSAddNewTableViewCell.h */,
+				C8B93BB117BFD86500759246 /* TSAddNewTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -485,7 +485,7 @@
 				C8A6C7D917ADE3180086FED4 /* GCCalendarTodayView.m in Sources */,
 				C8A6C7DB17ADE3180086FED4 /* GCCalendarView.m in Sources */,
 				C8A6C7E517ADE44D0086FED4 /* TSDayViewController.m in Sources */,
-				C8B93BAF17BFCB3A00759246 /* TSAddTableViewCell.m in Sources */,
+				C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

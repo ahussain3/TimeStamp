@@ -15,6 +15,7 @@
 #import "TSCategoryStore.h"
 
 @interface TSHomePageController ()
+@property (weak, nonatomic) IBOutlet UIView *dismissKeyboardView;
 
 @end
 
@@ -52,6 +53,15 @@
         dayViewController = (TSDayViewController *)segue.destinationViewController;
     }
     [self initializeControllers];
+    [self initalizeKeyboardNotifications];
+}
+
+- (void)initalizeKeyboardNotifications {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardViewTapped:)];
+    [self.dismissKeyboardView addGestureRecognizer:tap];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)initializeControllers {
@@ -90,4 +100,15 @@
     [list reloadData];
 }
 
+- (void)keyboardWillShow {
+    self.dismissKeyboardView.hidden = NO;
+}
+- (void)keyboardWillHide {
+    self.dismissKeyboardView.hidden = YES;
+}
+
+- (void)keyboardViewTapped:(UITapGestureRecognizer *)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideKeyboard" object:self];
+    self.dismissKeyboardView.hidden = YES;
+}
 @end

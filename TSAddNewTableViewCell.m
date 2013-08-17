@@ -18,13 +18,16 @@
         self.textLabel.hidden = YES;
 
         self.textField = [[UITextField alloc] init];
-        self.textField.textColor = self.textField.textColor;
+        self.textField.textColor = [UIColor whiteColor];
         self.textField.font = self.textLabel.font;
+        // I don't think setting the font here does anything. textLabel has not yet been configured.
         self.textField.placeholder = @"Add New";
         self.textField.textAlignment = NSTextAlignmentCenter;
         self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         self.textField.delegate = self;
         [self addSubview:self.textField];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissKeyboard) name:@"hideKeyboard" object:nil];
     }
     return self;
 }
@@ -44,6 +47,10 @@
 {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
+}
+
+- (void)dismissKeyboard {
+    [self.textField resignFirstResponder];
 }
 
 #pragma mark UITextViewDelegate methods

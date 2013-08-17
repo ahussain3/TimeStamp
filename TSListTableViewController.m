@@ -146,6 +146,7 @@
     TSAddNewTableViewCell * cell = [[TSAddNewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = @"+Add New";
+    cell.addDelegate = self;
     
     if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
         cell.contentView.backgroundColor = [UIColor grayColor];
@@ -233,6 +234,13 @@
 
 - (void)goBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark TSAddNewTableViewCellDelegate
+- (void)addNewSubcategoryWithString:(NSString *)string {
+    NSLog(@"Creating new category: %@", string);
+    [[TSCategoryStore instance] addSubcategory:string AtPathLevel:self.path];
+    [self reloadData];
 }
 
 @end

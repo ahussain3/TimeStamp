@@ -50,6 +50,7 @@
 }
 
 - (void)dismissKeyboard {
+    userCancelledTextEntry = YES;
     [self.textField resignFirstResponder];
 }
 
@@ -58,7 +59,7 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField == self.textField) {
-
+        userCancelledTextEntry = NO;
     }
     return YES;
 }
@@ -69,13 +70,14 @@
     return YES;
 }
 
--(BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    if (textField == self.textField) {
- 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (userCancelledTextEntry || [self.textField.text length] == 0) {
+        // Do nothing, cancelled or failed validation tests.
+        self.textField.text = @"";
+    } else {
+        // Save the new subcategory
+        [self.addDelegate addNewSubcategoryWithString:self.textField.text];
     }
-    return YES;
 }
-
 
 @end

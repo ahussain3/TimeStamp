@@ -10,11 +10,12 @@
 #import <Foundation/Foundation.h>
 #import "ATSDragToReorderTableViewController.h"
 #import "TSListTableViewCell.h"
+#import "TSAddNewTableViewCell.h"
 
 @class TSCategoryStore;
 @class TSCategory;
 
-@interface TSListTableViewController : ATSDragToReorderTableViewController <TSSlideToDeleteCellDelegate> {
+@interface TSListTableViewController : ATSDragToReorderTableViewController <TSSlideToDeleteCellDelegate, TSAddNewTableCellDelegate> {
     // Local store of category data
     NSMutableArray *categoryArray;
     TSCategory *rootCategory;

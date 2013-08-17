@@ -193,6 +193,14 @@
     return array;
 }
 
+- (TSCategory *)categoryForPath:(NSString *)path {
+    TSCategory *category = nil;
+    if (![path isEqualToString:ROOT_CATEGORY_PATH]) {
+        category = [self categoryForPath:path andCategory:nil];
+    }
+    return category;
+}
+
 - (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
     NSLog(@"Searching for path: %@", path);
     TSCategory *category = [self categoryForPath:path andCategory:nil];

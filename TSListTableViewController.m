@@ -8,6 +8,7 @@
 
 #import "TSListTableViewController.h"
 #import "TSListTableViewCell.h"
+#import "TSAddTableViewCell.h"
 #import "TSCategoryStore.h"
 #import "TSCategory.h"
 #import "TSSlidableCell.h"
@@ -63,6 +64,9 @@
 - (void)reloadData {
     // Populate local array.
     categoryArray = [[model dataForPath:self.path] mutableCopy];
+    NSLog(@"Get category for path: %@", self.path);
+    rootCategory = [model categoryForPath:self.path];
+    NSLog(@"root category: %@", rootCategory);
     [self.tableView reloadData];
 }
 
@@ -77,7 +81,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return categoryArray.count;
+    return categoryArray.count + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,6 +100,10 @@
 
 - (TSListTableViewCell *)configuredCellatIndexPath:(NSIndexPath *)indexPath {
     
+    if (indexPath.row == 0) {
+        return  [self returnAddTableViewCell];
+    }
+    
     /*
      NOTE: Really, we should be reusing cells. However, since the table is likely
      to be very small (<20 cells) we're going to create each cell fresh. When I try to reuse
@@ -106,7 +114,7 @@
     TSListTableViewCell *cell = [[TSListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     // Load Data
-    TSCategory *category = [categoryArray objectAtIndex:indexPath.row];
+    TSCategory *category = [categoryArray objectAtIndex:indexPath.row - 1];
     
     // Configure the cell...
 
@@ -129,6 +137,21 @@
 //    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
 //    redBackground.backgroundColor = [UIColor redColor];
 //    cell.slideToLeftHighlightedView = redBackground;
+    
+    return cell;
+}
+
+- (TSAddTableViewCell *)returnAddTableViewCell {
+    static NSString *CellID = @"Add Category";
+    TSAddTableViewCell * cell = [[TSAddTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+    cell.contentView.backgroundColor = [UIColor grayColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
+        cell.contentView.backgroundColor = [UIColor grayColor];
+    } else {
+        cell.contentView.backgroundColor = rootCategory.color;
+    }
     
     return cell;
 }
@@ -161,11 +184,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 0) return;
+    
     // Navigation logic may go here. Create and push another view controller.
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     TSListTableViewController *nextController = [storyboard instantiateViewControllerWithIdentifier:@"ListViewController"];
     
-    TSCategory *selectedCategory = [categoryArray objectAtIndex:indexPath.row];
+    TSCategory *selectedCategory = [categoryArray objectAtIndex:indexPath.row - 1];
     nextController.path = [self.path stringByAppendingFormat:@":%@",selectedCategory.title];
     
     [self.navigationController pushViewController:nextController animated:YES];
@@ -180,7 +205,7 @@
  */
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	
-	[model exchangeCategoryAtIndex:fromIndexPath.row withIndex:toIndexPath.row forPath:nil];
+	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:nil];
     [self reloadData];
 }
 
@@ -198,7 +223,7 @@
             // Delete button pushed
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             // Call model to delete cell.
-            [categoryArray removeObjectAtIndex:indexPath.row];
+            [categoryArray removeObjectAtIndex:indexPath.row - 1];
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         } else {
             // Reset the cell. Re-animate it back on scree

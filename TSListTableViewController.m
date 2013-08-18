@@ -252,7 +252,6 @@
     
     // Call model to delete cell.
     [model deleteCategory:cell.category atPath:self.path];
-    [self reloadData];
 }
 
 - (void)goBack:(id)sender {

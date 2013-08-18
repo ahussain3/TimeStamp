@@ -10,7 +10,7 @@
 #import "TSSlidableCell.h"
 @class TSCategory;
 
-@interface TSListTableViewCell : UITableViewCell
+@interface TSListTableViewCell : TSSlidableCell
 
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) TSCategory *category;

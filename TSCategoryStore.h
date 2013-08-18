@@ -23,6 +23,7 @@
 // Path should colon separated, for example "ROOT:Sleep:Nap:"
 - (TSCategory *)addNewCalendar:(TSCategory *)category;
 - (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path;
+- (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path;
 - (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path;
 
 @end

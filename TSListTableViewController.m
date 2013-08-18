@@ -112,7 +112,8 @@
     TSCategory *category = [categoryArray objectAtIndex:indexPath.row - 1];
     
     // Configure the cell...
-
+    CGRect cellFrame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, BOX_WIDTH, BOX_HEIGHT);
+    
     cell.textLabel.text = category.title;
     cell.contentView.backgroundColor = category.color;
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -125,13 +126,15 @@
 //    cell.selectedBackgroundView = purpleBackground;
     
     // Set the view that appears when the cell is slid out the way
-//    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
-//    orangeBackground.backgroundColor = [UIColor orangeColor];
-//    cell.slideToLeftView = orangeBackground;
-//    
-//    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
-//    redBackground.backgroundColor = [UIColor redColor];
-//    cell.slideToLeftHighlightedView = redBackground;
+    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
+    orangeBackground.backgroundColor = [UIColor orangeColor];
+    cell.slideToLeftView = orangeBackground;
+    
+    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
+    redBackground.backgroundColor = [UIColor redColor];
+    cell.slideToLeftHighlightedView = redBackground;
+    
+    cell.deleteDelegate = self;
     
     return cell;
 }
@@ -207,25 +210,36 @@
 }
 
 #pragma mark - TSSlideToDeleteDelegate
-- (void)respondToCellSlidLeft:(TSSlidableCell *)cell {
-    NSString *prompt = @"Are you sure you want to delete this activity?";
-    NSString *info = @"This won't delete any of your calendar events";
+- (void)respondToCellSlidLeft:(TSListTableViewCell *)cell {
+//    if (cell.category.subCategories == 0) {
+//        [self removeCell:cell];
+//    } else {
+        NSString *prompt = @"Are you sure you want to delete this activity?";
+        NSString *info = @"This will also delete all subcategories. Note: none of your events will be deleted";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:prompt message:info delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        
+        [MyAlertViewDelegate showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+            // code to take action depending on the value of buttonIndex
+            NSLog(@"Alert view button pushed");
+            if (buttonIndex == 1) {
+                [self removeCell:cell];
+            } else {
+                // Reset the cell. Re-animate it back on screen
+                [cell resetCellToCenter];
+            }
+        }];        
+//    }
+}
+
+- (void)removeCell:(TSListTableViewCell *)cell {
+    // Delete button pushed
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [categoryArray removeObjectAtIndex:indexPath.row - 1];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:prompt message:info delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
-    
-    [MyAlertViewDelegate showAlertView:alert withCallback:^(NSInteger buttonIndex) {
-        // code to take action depending on the value of buttonIndex
-        NSLog(@"Alert view button pushed");
-        if (buttonIndex == 1) {
-            // Delete button pushed
-            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-            // Call model to delete cell.
-            [categoryArray removeObjectAtIndex:indexPath.row - 1];
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        } else {
-            // Reset the cell. Re-animate it back on scree
-        }
-    }];
+    // Call model to delete cell.
+    [model deleteCategory:cell.category atPath:self.path];
 }
 
 - (void)goBack:(id)sender {

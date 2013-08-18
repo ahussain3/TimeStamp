@@ -45,6 +45,7 @@ IMPLEMENTATION NOTES:
 @property (nonatomic, strong) UIView *slideToLeftHighlightedView;
 @property (nonatomic, strong) UIView *slideToRightHighlightedView;
 
-@property (nonatomic, strong) id<TSSlideToDeleteCellDelegate> delegate;
+- (void)resetCellToCenter;
+@property (nonatomic, strong) id<TSSlideToDeleteCellDelegate> deleteDelegate;
 
 @end

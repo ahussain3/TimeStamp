@@ -13,6 +13,7 @@
 #import "UIColor+CalendarPalette.h"
 
 @interface TSCategoryStore () {
+    BOOL saveToFile;
 }
 
 @property (nonatomic, strong) NSMutableArray *categoryArray;
@@ -26,19 +27,22 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 2;
+    int loadDataFrom = 1;
     
     if ((self = [super init]))
     {
         // Initialization code here.
         if (loadDataFrom == 0) {
             // Load from calendar
+            saveToFile = NO;
             self.categoryArray = [self loadCalendarData];
         } else if (loadDataFrom == 1) {
             // Load from encoder (saved data)
+            saveToFile = YES;
             [self loadData];
         } else {
             // Load custom data (with subcategories)
+            saveToFile = NO;
             self.categoryArray = [self loadCustomData];
         }
         [self saveData];
@@ -213,8 +217,9 @@
     TSCategory *category = [self categoryForPath:path andCategory:nil];
     if (category == nil) {
         // Add calendar level category.
-        NSLog(@"Search function returned a nil category");
+        NSLog(@"Need to add a 'calendar' level category");
     } else {
+        // Do some validation checks. Ensure that the category doesn't already exist.
         [category addSubcategory:name];
     }
     [self saveData];
@@ -230,7 +235,17 @@
     [self saveData];
 }
 - (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
-    
+    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
+        // Have to 'hide' an entire calendar. We don't yet have this functionality.
+    } else {
+        TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
+        for (TSCategory *cat in storedCat.subCategories) {
+            if ([cat isEqual:category]) {
+                // remove category.
+                NSLog(@"Found category to delete: %@", cat.title);
+            }
+        }
+    }
 }
 
 # pragma mark - Database helper methods.
@@ -314,18 +329,20 @@
 #pragma mark Persistence Methods
 -(void)saveData
 {
-    NSLog(@"Save data method called");
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                              NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSMutableData *saveData = [[NSMutableData alloc] init];
-    
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
-    [archiver encodeObject:self.categoryArray forKey:@"categories"];
-    [archiver finishEncoding];
-    
-    [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
+    if (saveToFile) {
+        NSLog(@"Save data method called");
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSMutableData *saveData = [[NSMutableData alloc] init];
+        
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
+        [archiver encodeObject:self.categoryArray forKey:@"categories"];
+        [archiver finishEncoding];
+        
+        [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
+    }
 }
 
 -(void)loadData

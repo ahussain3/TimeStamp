@@ -34,7 +34,7 @@ typedef enum {
     
         slideState = TSSlideStateDormant;
         
-//        self.slideRightDisabled = TRUE;
+        self.slideRightDisabled = TRUE;
         
     }
     return self;
@@ -71,6 +71,8 @@ typedef enum {
 - (void)slideGestureHandler:(UIPanGestureRecognizer *)sender {
     UITableView *tableView = (UITableView *)self.superview;
     CGPoint translation = [sender translationInView:self];
+    
+    // Remove interference with scrollView pan gesture recognizer
     if (slideState == TSSlideStateDormant) {
         CGFloat theta =  (180 / M_PI) * atanf(translation.y / translation.x);
         if (fabsf(theta) > 20.0) {
@@ -86,6 +88,7 @@ typedef enum {
     CGFloat yCenter = self.contentView.center.y;
     CGFloat finalXPosition = self.center.x;
     
+    // Animate the 'drag' movement of the cell.
     if (translation.x < 0 && !(self.slideLeftDisabled && slideState == TSSlideStateDormant)) {
         slideState = TSSlideStateToTheLeft;
         
@@ -109,12 +112,12 @@ typedef enum {
         // Animate cell to correct final position
         if (slideState == TSSlideStateToTheLeft && xOffset < -xThreshold) {
             finalXPosition = -(self.contentView.bounds.size.width  / 2.0 + xThreshold);
-            [self.delegate respondToCellSlidLeft:self];
+            [self.deleteDelegate respondToCellSlidLeft:self];
 
         }
         if (slideState == TSSlideStateToTheRight && xOffset > xThreshold) {
             finalXPosition = (self.contentView.bounds.size.width  * 1.5) + xThreshold;
-            [self.delegate respondToCellSlidRight:self];
+            [self.deleteDelegate respondToCellSlidRight:self];
         }
         
         CGPoint finalCenterPosition = CGPointMake(finalXPosition, yCenter);
@@ -131,6 +134,26 @@ typedef enum {
         slideState = TSSlideStateDormant;
         tableView.scrollEnabled = YES;
     }
+}
+
+- (void)resetCellToCenter {
+    self.slideToLeftView.hidden = NO;
+    
+    CGFloat yCenter = self.contentView.center.y;
+    CGFloat finalXPosition = self.center.x;
+    
+    CGPoint finalCenterPosition = CGPointMake(finalXPosition, yCenter);
+    NSTimeInterval duration = 0.3f;
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.contentView.center = finalCenterPosition;
+        self.selectedBackgroundView.center = finalCenterPosition;
+    } completion:^(BOOL completion){
+        
+    }];
+    
+    slideState = TSSlideStateDormant;
+//    tableView.scrollEnabled = YES;
 }
 
 #pragma  mark - UIGestureRecognizerDelegate

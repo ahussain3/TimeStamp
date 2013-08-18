@@ -12,9 +12,9 @@
 #define kTileLeftSide 145.0f
 #define kTileRightSide 5.0f
 
-#define kTopLineBuffer 0
+#define kTopLineBuffer 10
 #define kSideLineBuffer 140.0
 #define kHalfHourDiff 22.0
-#define kTodayViewHeight 1056
+#define kTodayViewHeight 1076
 
 #endif

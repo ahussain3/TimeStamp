@@ -85,24 +85,25 @@
 
 #pragma mark functionality
 - (void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
-    // Work out which view we're going to draw it in.
-    GCCalendarTodayView *activeView;
     CGPoint newPoint = [self.view convertPoint:point toView:todayView];
     CGFloat yValue = newPoint.y;
-    if (yValue >= -kTodayViewHeight && yValue < 0) {
-        yValue += kTodayViewHeight;
-        activeView = yesterdayView;
-    } else if (yValue >= 0 && yValue < kTodayViewHeight) {
-        activeView = todayView;
-    } else if (yValue >= kTodayViewHeight && yValue < 2 * kTodayViewHeight) {
-        activeView = tomorrowView;
-        yValue -= kTodayViewHeight;
-    } else {
-        // Should never be here - error.
-    }
+    
+    // Work out which view we're going to draw it in.
+//    GCCalendarTodayView *activeView;
+//    if (yValue >= -kTodayViewHeight && yValue < 0) {
+//        yValue += kTodayViewHeight;
+//        activeView = yesterdayView;
+//    } else if (yValue >= 0 && yValue < kTodayViewHeight) {
+//        activeView = todayView;
+//    } else if (yValue >= kTodayViewHeight && yValue < 2 * kTodayViewHeight) {
+//        activeView = tomorrowView;
+//        yValue -= kTodayViewHeight;
+//    } else {
+//        // Should never be here - error.
+//    }
     
     // Set the date of the created event.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:activeView.date];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:todayView.date];
     CGFloat time = [self timeForYValue:yValue];
     [components setHour:floorf(time)];
     NSInteger minutes = (time - floorf(time)) * 60;
@@ -116,7 +117,7 @@
     
     // Update the model to reflect this new created event.
     event = [[TSCalendarStore instance] createNewEvent:event];
-    [activeView drawNewEvent:event];
+    [todayView drawNewEvent:event];
 }
 
 #pragma mark GCCalendarDataSource
@@ -169,35 +170,36 @@
 }
 - (void)setCalendarBounds {
     scrollView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, self.calWrapperView.frame.size.height);
-    scrollView.contentSize = CGSizeMake(self.calWrapperView.frame.size.width, 3 * kTodayViewHeight);
-    compositeView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, 3 * kTodayViewHeight);
-    yesterdayView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, kTodayViewHeight);
-    todayView.frame = CGRectMake(0, kTodayViewHeight, self.calWrapperView.frame.size.width, kTodayViewHeight);
-    tomorrowView.frame = CGRectMake(0, 2 * kTodayViewHeight, self.calWrapperView.frame.size.width, kTodayViewHeight);
-    [scrollView setContentOffset:CGPointMake(0, kTodayViewHeight)];
+    scrollView.contentSize = CGSizeMake(self.calWrapperView.frame.size.width, kTodayViewHeight);
+    compositeView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, kTodayViewHeight);
+    todayView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, kTodayViewHeight);
+
+    
+//    yesterdayView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, kTodayViewHeight);
+//    tomorrowView.frame = CGRectMake(0, 2 * kTodayViewHeight, self.calWrapperView.frame.size.width, kTodayViewHeight);
+    [scrollView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (void)reloadData {
 	// drop all subviews
-//	[self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     // Setup scroll view
     scrollView = [[UIScrollView alloc] init];
     scrollView.userInteractionEnabled = YES;
     scrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     scrollView.clipsToBounds = YES;
-        
-    // Setup yesterday view
-//    NSDate *yesterday = [NSDate dateWithTimeInterval:-24*60*60 sinceDate:self.date];
-//    NSArray *events_yesterday = [self calendarEventsForDate:yesterday];
-//    yesterdayView = [[GCCalendarTodayView alloc] initWithEvents:events_yesterday];
-//    yesterdayView.date = yesterday;
     
     // Setup today view
     NSArray *events_today = [self calendarEventsForDate:self.date];
     todayView = [[GCCalendarTodayView alloc] initWithEvents:events_today];
     todayView.delegate = self;
     todayView.date = self.date;
+    
+    // Setup yesterday view
+//    NSDate *yesterday = [NSDate dateWithTimeInterval:-24*60*60 sinceDate:self.date];
+//    NSArray *events_yesterday = [self calendarEventsForDate:yesterday];
+//    yesterdayView = [[GCCalendarTodayView alloc] initWithEvents:events_yesterday];
+//    yesterdayView.date = yesterday;
     
     // Setup tomorrow view
 //    NSDate *tomorrow = [NSDate dateWithTimeInterval:24*60*60 sinceDate:self.date];
@@ -208,10 +210,10 @@
     // Create a composite view combining the three we just created.
     compositeView = [[UIView alloc] init];
     NSLog(@"Composite View interaction enabled?: %i", compositeView.userInteractionEnabled);
-    [compositeView addSubview:yesterdayView];
     [compositeView addSubview:todayView];
-    [compositeView addSubview:tomorrowView];
-    compositeView.clipsToBounds = YES;
+    
+//    [compositeView addSubview:yesterdayView];
+//    [compositeView addSubview:tomorrowView];
     
 	[scrollView addSubview:compositeView];
     [self.calWrapperView addSubview:scrollView];

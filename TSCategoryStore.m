@@ -244,6 +244,7 @@
             if ([cat isEqual:category]) {
                 // remove category.
                 [storedCat.subCategories removeObject:cat];
+                break;
             }
         }
     }

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSString *path;
 @property (weak, nonatomic) IBOutlet UITableView *view;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *pathLabel;
 
 - (void)reloadData;
 

@@ -26,7 +26,7 @@
     if (self) {
         // Custom initialization
         self.tableView.showsVerticalScrollIndicator = NO;
-        
+        self.pathLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     }
     return self;
 }
@@ -59,9 +59,19 @@
 - (void)reloadData {
     // Populate local array.
     categoryArray = [[model dataForPath:self.path] mutableCopy];
-    NSLog(@"Get category for path: %@", self.path);
+//    NSLog(@"Get category for path: %@", self.path);
     rootCategory = [model categoryForPath:self.path];
-    NSLog(@"root category: %@", rootCategory);
+//    NSLog(@"root category: %@", rootCategory);
+    
+    if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
+//        self.pathLabel.hidden = YES;
+    } else {
+//        self.pathLabel.hidden = NO;
+        NSString *path = [self.path substringFromIndex:ROOT_CATEGORY_PATH.length + 1];
+        self.pathLabel.text = path;
+        self.pathLabel.textColor = ((TSCategory *)[categoryArray lastObject]).color;
+    }
+    
     [self.tableView reloadData];
 }
 

@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 0;
+    int loadDataFrom = 1;
     
     if ((self = [super init]))
     {
@@ -37,9 +37,6 @@
         } else if (loadDataFrom == 1) {
             // Load from encoder (saved data)
             [self loadData];
-        } else if (loadDataFrom == 2) {
-            // Load the data I personally re-ordered
-            [self loadColorCoded];
         } else {
             // Load custom data (with subcategories)
             self.categoryArray = [self loadCustomData];
@@ -210,10 +207,21 @@
     } else {
         [category addSubcategory:name];
     }
-    
-//    [self saveData];
+    [self saveData];
 }
-
+- (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
+    TSCategory *category = [self categoryForPath:path andCategory:nil];
+    if (category == nil) {
+        [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+    } else {
+        [category.subCategories exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+    }
+    
+    [self saveData];
+}
+- (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
+    
+}
 
 # pragma mark - Database helper methods.
 // Recursively goes in and locates the category specified by the path.
@@ -244,24 +252,6 @@
     }
     
     NSLog(@"Error: The specified path (%@) doesn't exist", path);
-    return nil;
-}
-
-- (NSArray *)goToPath:(NSString *)path inArray:(NSArray *)array {
-    NSMutableArray *elements = [[path componentsSeparatedByString:@":"] mutableCopy];
-    [elements removeObjectAtIndex:0];
-    NSString *newPath = [elements componentsJoinedByString:@":"];
-    if ([newPath length] == 0) {
-        return array;
-    }
-    
-    NSString *element = [elements objectAtIndex:0];
-    for (TSCategory *cat in array) {
-        if ([cat.title isEqualToString:element]) {
-            return [self goToPath:newPath inArray:cat.subCategories];
-        }
-    }
-    NSLog(@"Error: The path (%@) specified doesn't exist", path);
     return nil;
 }
 
@@ -311,15 +301,6 @@
     return cat;
 }
 
-- (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
-    
-    [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
-    [self saveData];
-}
-
-- (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
-        
-}
 #pragma mark Persistence Methods
 -(void)saveData
 {
@@ -331,7 +312,7 @@
     NSMutableData *saveData = [[NSMutableData alloc] init];
     
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
-    [archiver encodeObject:self.categoryArray forKey:@"colorCoded"];
+    [archiver encodeObject:self.categoryArray forKey:@"categories"];
     [archiver finishEncoding];
     
     [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
@@ -349,20 +330,6 @@
         NSData *data = [fileManager contentsAtPath:savePath];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
         self.categoryArray = [unarchiver decodeObjectForKey:@"categories"];
-    }
-}
--(void)loadColorCoded
-{
-    NSLog(@"Load color coded data method called");
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                              NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:savePath])
-    {
-        NSData *data = [fileManager contentsAtPath:savePath];
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        self.categoryArray = [unarchiver decodeObjectForKey:@"colorCoded"];
     }
 }
 #pragma mark Utility Methods

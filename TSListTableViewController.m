@@ -33,16 +33,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-//    self.tableView.frame = CGRectMake(0, 0, 120, self.view.frame.size.height);
-//    NSLog(@"Table View frame: (%f,%f,%f,%f)", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.clipsToBounds = NO;
 
     // Populate local array
 	model = [TSCategoryStore instance];
@@ -206,7 +201,7 @@
  */
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	
-	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:nil];
+	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
     [self reloadData];
 }
 

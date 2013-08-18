@@ -13,6 +13,7 @@
 #import "TSCategory.h"
 #import "TSSlidableCell.h"
 #import "MyAlertViewDelegate.h"
+#import "UIColor+CalendarPalette.h"
 
 @interface TSListTableViewController ()
 
@@ -127,13 +128,12 @@
     cell.textLabel.text = category.title;
     cell.contentView.backgroundColor = category.color;
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.category = category;
+    cell.color = category.color;
     
     // Set the background color for when cell is selected
-//    UIView *purpleBackground = [[UIView alloc] initWithFrame:cellFrame];
-//    purpleBackground.backgroundColor = [UIColor purpleColor];
-//    cell.selectedBackgroundView = purpleBackground;
+    UIView *background = [[UIView alloc] initWithFrame:cellFrame];
+    cell.selectedBackgroundView = background;
     
     // Set the view that appears when the cell is slid out the way
 //    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];

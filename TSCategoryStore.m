@@ -237,15 +237,18 @@
 - (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
     if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
         // Have to 'hide' an entire calendar. We don't yet have this functionality.
+        
     } else {
         TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
         for (TSCategory *cat in storedCat.subCategories) {
             if ([cat isEqual:category]) {
                 // remove category.
-                NSLog(@"Found category to delete: %@", cat.title);
+                [storedCat.subCategories removeObject:cat];
             }
         }
     }
+    
+    [self saveData];
 }
 
 # pragma mark - Database helper methods.

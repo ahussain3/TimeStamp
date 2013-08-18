@@ -104,9 +104,9 @@ typedef enum {
     }
     
     if (xOffset < -xThreshold) {self.slideToLeftView.hidden = YES; self.slideToLeftHighlightedView.hidden = NO;}
-    else {self.slideToLeftView.hidden = NO; self.slideToLeftHighlightedView.hidden = NO;}
+    else {self.slideToLeftView.hidden = NO; self.slideToLeftHighlightedView.hidden = YES;}
     if (xOffset > xThreshold) {self.slideToRightView.hidden = YES; self.slideToRightHighlightedView.hidden = NO;}
-    else {self.slideToRightView.hidden = NO; self.slideToRightHighlightedView.hidden = NO;}
+    else {self.slideToRightView.hidden = NO; self.slideToRightHighlightedView.hidden = YES;}
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         // Animate cell to correct final position
@@ -138,6 +138,7 @@ typedef enum {
 
 - (void)resetCellToCenter {
     self.slideToLeftView.hidden = NO;
+    self.slideToLeftHighlightedView.hidden = YES;
     
     CGFloat yCenter = self.contentView.center.y;
     CGFloat finalXPosition = self.center.x;

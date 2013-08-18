@@ -126,13 +126,25 @@
 //    cell.selectedBackgroundView = purpleBackground;
     
     // Set the view that appears when the cell is slid out the way
-    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
-    orangeBackground.backgroundColor = [UIColor orangeColor];
-    cell.slideToLeftView = orangeBackground;
+//    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
+//    orangeBackground.backgroundColor = [UIColor orangeColor];
+//    cell.slideToLeftView = orangeBackground;
+//    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
+//    redBackground.backgroundColor = [UIColor redColor];
+//    cell.slideToLeftHighlightedView = redBackground;
     
-    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
-    redBackground.backgroundColor = [UIColor redColor];
-    cell.slideToLeftHighlightedView = redBackground;
+    UIImage *grey_cross = [UIImage imageNamed:@"grey_cross"];
+    UIImageView *greyCrossView = [[UIImageView alloc] initWithImage:grey_cross];
+    greyCrossView.frame = cellFrame;
+    cell.slideToLeftView = greyCrossView;
+    
+    UIImage *grey_cross_red = [UIImage imageNamed:@"grey_cross_red_glow"];
+    UIImageView *greyCrossRedView = [[UIImageView alloc] initWithImage:grey_cross_red];
+    greyCrossRedView.frame = cellFrame;
+    cell.slideToLeftHighlightedView = greyCrossRedView;
+    
+    cell.slideToLeftView.hidden = NO;
+    cell.slideToLeftHighlightedView.hidden = YES;
     
     cell.deleteDelegate = self;
     
@@ -236,10 +248,11 @@
     // Delete button pushed
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     [categoryArray removeObjectAtIndex:indexPath.row - 1];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     
     // Call model to delete cell.
     [model deleteCategory:cell.category atPath:self.path];
+    [self reloadData];
 }
 
 - (void)goBack:(id)sender {

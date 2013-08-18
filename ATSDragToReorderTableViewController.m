@@ -1385,7 +1385,7 @@ typedef enum {
  */
 - (NSArray *)addShadowViewsToCell:(UITableViewCell *)selectedCell {
 // Disabling this function for now.
-    return nil;
+//    return nil;
 	/*
 		We're going to create shadow paths, which is the rect of the cell.
 		Then we'll create two views on top and bottom of the cell that clip to bounds.

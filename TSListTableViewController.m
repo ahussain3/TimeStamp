@@ -227,8 +227,9 @@
  */
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	
-	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
-    [self reloadData];
+    [categoryArray exchangeObjectAtIndex:fromIndexPath.row - 1 withObjectAtIndex:toIndexPath.row - 1];
+//	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
+//    [self reloadData];
 }
 
 #pragma mark - TSSlideToDeleteDelegate

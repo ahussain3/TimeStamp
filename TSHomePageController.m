@@ -81,11 +81,18 @@
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(TSListTableViewCell *)cell {
-    
-    CGPoint center = [listController.view convertPoint:cell.center toView:dayViewController.calWrapperView];
+
+    CGPoint center = [cell.superview convertPoint:cell.center toView:dayViewController.view];
     
     GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
-    event.eventName = cell.textLabel.text;
+    NSString *name = [[NSString alloc] init];
+    if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
+        name = cell.textLabel.text;
+    } else {
+        name = [NSString stringWithFormat:@"%@:%@",cell.category.path, cell.textLabel.text];
+        name = [name substringFromIndex:[ROOT_CATEGORY_PATH length] + 1];
+    }
+    event.eventName = name;
     event.color = cell.contentView.backgroundColor;
     event.calendarIdentifier = cell.category.calendar.calendarIdentifier;
     

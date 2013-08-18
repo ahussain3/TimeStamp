@@ -188,6 +188,7 @@
     
     TSCategory *selectedCategory = [categoryArray objectAtIndex:indexPath.row - 1];
     nextController.path = [self.path stringByAppendingFormat:@":%@",selectedCategory.title];
+    nextController.dragDelegate = self.dragDelegate;
     
     [self.navigationController pushViewController:nextController animated:YES];
 }

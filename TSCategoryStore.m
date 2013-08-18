@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 1;
+    int loadDataFrom = 2;
     
     if ((self = [super init]))
     {
@@ -118,16 +118,19 @@
     TSCategory *sleep = [[TSCategory alloc] init];
     sleep.title = @"Sleep";
     sleep.color = [UIColor colorFromHexString:@"9e9e9e"];
+    sleep.path = ROOT_CATEGORY_PATH;
     [sleep addSubcategory:@"Sleep"];
     [sleep addSubcategory:@"Nap"];
     
     TSCategory *work = [[TSCategory alloc] init];
+    work.path = ROOT_CATEGORY_PATH;
     work.title = @"Work";
     work.color = [UIColor colorFromHexString:@"91565e"];
     
     TSCategory * school = [[TSCategory alloc]init];
     school.title = @"School";
     school.color = [UIColor colorFromHexString:@"C5B46f"];
+    school.path = ROOT_CATEGORY_PATH;
     [school addSubcategory:@"Class"];
     [school addSubcategory:@"Studying"];
     [school addSubcategory:@"Extra Curriculars"];
@@ -135,12 +138,14 @@
     TSCategory *social = [[TSCategory alloc] init];
     social.title = @"Social";
     social.color = [UIColor colorFromHexString:@"BE8260"];
+    social.path = ROOT_CATEGORY_PATH;
     [social addSubcategory:@"Friends"];
     [social addSubcategory:@"Co-workers"];
     
     TSCategory *food = [[TSCategory alloc] init];
     food.title = @"Food";
     food.color = [UIColor colorFromHexString:@"254540"];
+    food.path = ROOT_CATEGORY_PATH;
     [food addSubcategory:@"Breakfast"];
     [food addSubcategory:@"Lunch"];
     [food addSubcategory:@"Dinner"];
@@ -149,6 +154,7 @@
     TSCategory *travel = [[TSCategory alloc] init];
     travel.title = @"Travel";
     travel.color = [UIColor colorFromHexString:@"052F3B"];
+    travel.path = ROOT_CATEGORY_PATH;
     [travel addSubcategory:@"Commute"];
     [travel addSubcategory:@"Driving"];
     [travel addSubcategory:@"Bus"];
@@ -157,6 +163,7 @@
     TSCategory * sport = [[TSCategory alloc]init];
     sport.title = @"Fitness";
     sport.color = [UIColor colorFromHexString:@"6C9B5C"];
+    sport.path = ROOT_CATEGORY_PATH;
     [sport addSubcategory:@"Gym"];
     [sport addSubcategory:@"Sports"];
     [sport addSubcategory:@"Running"];
@@ -164,10 +171,12 @@
     TSCategory * procras = [[TSCategory alloc]init];
     procras.title = @"Wasted Time";
     procras.color = [UIColor colorFromHexString:@"8F6A77"];
+    procras.path = ROOT_CATEGORY_PATH;
     [procras addSubcategory:@"Internet"];
     [procras addSubcategory:@"Fatigue"];
     
     TSCategory *misc = [[TSCategory alloc] init];
+    misc.path = ROOT_CATEGORY_PATH;
     misc.title = @"Miscellaneous";
     misc.color = [UIColor colorFromHexString:@"517795"];
     
@@ -191,11 +200,12 @@
 }
 
 - (TSCategory *)categoryForPath:(NSString *)path {
-    TSCategory *category = nil;
+    TSCategory *category = [[TSCategory alloc] init];
     if (![path isEqualToString:ROOT_CATEGORY_PATH]) {
         category = [self categoryForPath:path andCategory:nil];
+        return category;
     }
-    return category;
+    return nil;
 }
 
 - (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {

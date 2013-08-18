@@ -19,6 +19,7 @@
     // Local store of category data
     NSMutableArray *categoryArray;
     TSCategory *rootCategory;
+    
     TSCategoryStore *model;
 }
 

@@ -26,7 +26,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 2;
+    int loadDataFrom = 1;
     
     if ((self = [super init]))
     {
@@ -38,7 +38,7 @@
             // Load from encoder (saved data)
             [self loadData];
         } else {
-            // Load custom data (with subcategories)
+            // Load default data (with subcategories)
             self.categoryArray = [self loadCustomData];
         }
         [self saveData];

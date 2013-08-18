@@ -18,6 +18,7 @@
 #define SNAP_TO_MINUTE_INCREMENT 15
 #define tDragAreaHeight 50
 #define BOX_HEIGHT 100
+#define BOX_WIDTH 100
 #define DETAIL_BOX_HEIGHT 35.0
 #define NOW_ARROW_TIME_PERIOD 300
 #define TILE_CORNER_RADIUS 10.0

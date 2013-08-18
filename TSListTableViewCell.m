@@ -10,6 +10,7 @@
 
 #import "TSListTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+CalendarPalette.h"
 
 @interface TSListTableViewCell () {
     CGFloat circleDiameter;
@@ -23,7 +24,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        // Initialization code        
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
@@ -45,7 +46,10 @@
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    self.selectedBackgroundView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
+    self.selectedBackgroundView.layer.borderColor = self.color.CGColor;
+    self.selectedBackgroundView.layer.borderWidth = 6.0;
+    self.selectedBackgroundView.layer.cornerRadius = BOX_HEIGHT / 2.0;
 }
 
 @end

@@ -34,6 +34,8 @@
         
         self.contentView = [[UIView alloc] init];
         self.contentView.backgroundColor = event.color;
+        self.contentView.clipsToBounds = YES;
+
         
         self.selectedView = [[UIView alloc] init];
         self.selectedView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
@@ -45,23 +47,24 @@
         titleLabel = [[UILabel alloc] init];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.numberOfLines = 2;
+        titleLabel.numberOfLines = 0;
         titleLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:12.0f];
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingHead;
         titleLabel.text = event.eventName;
 
-        descriptionLabel = [[UILabel alloc] init];
-        descriptionLabel.backgroundColor = [UIColor clearColor];
-        descriptionLabel.textColor = [UIColor whiteColor];
-        descriptionLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
-        descriptionLabel.font = [UIFont fontWithName:@"Verdana" size:10.0f];
-        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        descriptionLabel.numberOfLines = 0;
-        descriptionLabel.text = event.eventDescription;
+//        descriptionLabel = [[UILabel alloc] init];
+//        descriptionLabel.backgroundColor = [UIColor clearColor];
+//        descriptionLabel.textColor = [UIColor whiteColor];
+//        descriptionLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+//        descriptionLabel.font = [UIFont fontWithName:@"Verdana" size:10.0f];
+//        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+//        descriptionLabel.numberOfLines = 0;
+//        descriptionLabel.text = event.eventDescription;
 
         [self addSubview:self.selectedView];
         [self addSubview:self.contentView];
 		[self addSubview:titleLabel];
-		[self addSubview:descriptionLabel];
+//		[self addSubview:descriptionLabel];
         
         [self addGestureRecognizers];
 	}
@@ -119,14 +122,14 @@
             self.startTimeDragView.hidden = NO;
             self.endTimeDragView.hidden = NO;
             titleLabel.textColor = self.event.color;
-            descriptionLabel.textColor = self.event.color;
+//            descriptionLabel.textColor = self.event.color;
         } else {
             self.contentView.hidden = NO;
             self.selectedView.hidden = NO;
             self.startTimeDragView.hidden = YES;
             self.endTimeDragView.hidden = YES;
             titleLabel.textColor = [UIColor colorFromHexString:@"#eeeeee"];
-            descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
+//            descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
         }
         [self setNeedsLayout];
     }
@@ -166,21 +169,25 @@
     
     downArrowView.center = CGPointMake(self.endTimeDragView.bounds.size.width / 2, self.endTimeDragView.bounds.size.height / 2 + CORNER_RADIUS);
     downArrowView.bounds = CGRectMake(0, 0, 30, 30);
+
+    CGSize maxSize = CGSizeMake(contentFrame.size.width - 2*CORNER_RADIUS,
+                                contentFrame.size.height - 6);
+    CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font
+                                   constrainedToSize:maxSize
+                                       lineBreakMode:titleLabel.lineBreakMode];
     
-	CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font];
-	titleLabel.frame = CGRectMake(10,
+	titleLabel.frame = CGRectMake(CORNER_RADIUS,
 								  contentFrame.origin.y + 3,
-								  contentFrame.size.width - 16,
-								  stringSize.height);
-	
+                                  stringSize.width, stringSize.height);
+    
 	if (self.event.allDayEvent) {
-		descriptionLabel.frame = CGRectZero;
+//		descriptionLabel.frame = CGRectZero;
 	}
 	else {
-		descriptionLabel.frame = CGRectMake(14,
-											titleLabel.frame.size.height + 3,
-											contentFrame.size.width - 20,
-											contentFrame.size.height - 14 - titleLabel.frame.size.height);
+//		descriptionLabel.frame = CGRectMake(14,
+//											titleLabel.frame.size.height + 3,
+//											contentFrame.size.width - 20,
+//											contentFrame.size.height - 14 - titleLabel.frame.size.height);
 	}
 }
 

@@ -72,13 +72,17 @@
 - (void)configureDraggableAreas {
     self.startTimeDragView = [[UIView alloc] init];
     self.startTimeDragView.backgroundColor = [UIColor grayColor];
-    self.startTimeDragView.alpha = 0.5f;
+    self.startTimeDragView.alpha = 0.8f;
     self.startTimeDragView.hidden = YES;
+    upArrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"up_arrow"]];
+    [self.startTimeDragView addSubview:upArrowView];
     
     self.endTimeDragView = [[UIView alloc] init];
     self.endTimeDragView.backgroundColor = [UIColor grayColor];
-    self.endTimeDragView.alpha = 0.5f;
+    self.endTimeDragView.alpha = 0.8f;
     self.endTimeDragView.hidden = YES;
+    downArrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_arrow"]];
+    [self.endTimeDragView addSubview:downArrowView];
     
     [self addSubview:self.startTimeDragView];
     [self addSubview:self.endTimeDragView];
@@ -139,9 +143,13 @@
     
     CGRect startRect = CGRectMake(0, 0, contentFrame.size.width, tDragAreaHeight);
     self.startTimeDragView.frame = startRect;
+    upArrowView.center = CGPointMake(self.startTimeDragView.bounds.size.width / 2, self.startTimeDragView.bounds.size.height / 2);
+    upArrowView.bounds = CGRectMake(0, 0, 30, 30);
     
     CGRect endRect = CGRectMake(0, contentFrame.origin.y + contentFrame.size.height, contentFrame.size.width, tDragAreaHeight);
     self.endTimeDragView.frame = endRect;
+    downArrowView.center = CGPointMake(self.endTimeDragView.bounds.size.width / 2, self.endTimeDragView.bounds.size.height / 2);
+    downArrowView.bounds = CGRectMake(0, 0, 30, 30);
     
 	CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font];
 	titleLabel.frame = CGRectMake(10,

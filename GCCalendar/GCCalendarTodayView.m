@@ -255,12 +255,13 @@ static NSArray *timeStrings;
         viewIsToday = TRUE;
     }
     if (!self.nowArrow && viewIsToday) {
-        self.nowArrow = [[UIView alloc] initWithFrame:CGRectMake(0, yVal, self.bounds.size.width, 5)];
+        self.nowArrow = [[UIView alloc] init];
         [self addSubview:self.nowArrow];
     }
     
     self.nowArrow.backgroundColor = [UIColor blueColor];
-    self.nowArrow.frame = CGRectMake(0, yVal, self.bounds.size.width, 3);
+    self.nowArrow.frame = CGRectMake(kSideLineBuffer - 30, yVal, self.bounds.size.width - kSideLineBuffer + 30, THICKNESS_OF_NOW_LINE);
+    [self bringSubviewToFront:self.nowArrow];
     
     // Still to do: automatically scroll so that 'now' is in the middle of the screen.
     

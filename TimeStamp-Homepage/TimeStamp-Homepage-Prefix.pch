@@ -22,6 +22,7 @@
 #define DETAIL_BOX_HEIGHT 35.0
 #define NOW_ARROW_TIME_PERIOD 300
 #define CORNER_RADIUS 10.0
+#define THICKNESS_OF_NOW_LINE 3.0
 
 // Global Settings
 #define kTileLeftSide 145.0f

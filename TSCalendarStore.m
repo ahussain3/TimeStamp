@@ -25,7 +25,7 @@
     {
         // Initialization code here.
         [self setup];
-        updateICalRecord =  NO;
+        updateICalRecord =  YES;
     }
     
     return self;

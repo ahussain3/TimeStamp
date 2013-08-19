@@ -15,6 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface GCCalendarTile () {
+    BOOL shouldRasterize;
 }
 @property (nonatomic) CGRect extendedFrame;
 
@@ -28,6 +29,7 @@
 
 - (id)initWithEvent:(GCCalendarEvent *)event {
 	if (self = [super init]) {
+        shouldRasterize = YES;
         self.event = event;
         
         self.contentView = [[UIView alloc] init];
@@ -144,10 +146,14 @@
     self.selectedView.layer.cornerRadius = CORNER_RADIUS;
     self.contentView.layer.masksToBounds = NO;
     self.selectedView.layer.masksToBounds = NO;
+    self.contentView.layer.shouldRasterize = shouldRasterize;
+    self.selectedView.layer.shouldRasterize = shouldRasterize;
     
     CGRect startRect = CGRectMake(0, 0, contentFrame.size.width, tDragAreaHeight + CORNER_RADIUS * 2);
     self.startTimeDragView.frame = startRect;
     self.startTimeDragView.layer.cornerRadius = CORNER_RADIUS;
+    self.startTimeDragView.layer.masksToBounds = NO;
+    self.startTimeDragView.layer.shouldRasterize = shouldRasterize;
     
     upArrowView.center = CGPointMake(self.startTimeDragView.bounds.size.width / 2, self.startTimeDragView.bounds.size.height / 2 - CORNER_RADIUS);
     upArrowView.bounds = CGRectMake(0, 0, 30, 30);
@@ -155,6 +161,8 @@
     CGRect endRect = CGRectMake(0, contentFrame.origin.y + contentFrame.size.height - CORNER_RADIUS * 2, contentFrame.size.width, tDragAreaHeight + CORNER_RADIUS * 2);
     self.endTimeDragView.frame = endRect;
     self.endTimeDragView.layer.cornerRadius = CORNER_RADIUS;
+    self.endTimeDragView.layer.masksToBounds = NO;
+    self.endTimeDragView.layer.shouldRasterize = shouldRasterize;
     
     downArrowView.center = CGPointMake(self.endTimeDragView.bounds.size.width / 2, self.endTimeDragView.bounds.size.height / 2 + CORNER_RADIUS);
     downArrowView.bounds = CGRectMake(0, 0, 30, 30);

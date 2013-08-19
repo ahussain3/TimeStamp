@@ -375,7 +375,7 @@ static NSArray *timeStrings;
         }
         
         // work out the y position of the top of the end drag time.
-        CGFloat endYPosition = [sender locationInView:self].y - yOffset;
+        CGFloat endYPosition = [sender locationInView:self].y - yOffset + CORNER_RADIUS * 2;
         endYPosition = [self snappedYValueForYValue:endYPosition];
         
         // set the height of natural frame to be y pos - origin.

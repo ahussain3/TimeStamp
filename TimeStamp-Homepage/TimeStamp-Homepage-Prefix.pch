@@ -21,4 +21,28 @@
 #define BOX_WIDTH 100
 #define DETAIL_BOX_HEIGHT 35.0
 #define NOW_ARROW_TIME_PERIOD 300
-#define TILE_CORNER_RADIUS 10.0
+#define CORNER_RADIUS 10.0
+
+// Global Settings
+#define kTileLeftSide 145.0f
+#define kTileRightSide 5.0f
+
+#define kTopLineBuffer 10
+#define kSideLineBuffer 140.0
+#define kHalfHourDiff 22.0
+#define kTodayViewHeight 1076
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

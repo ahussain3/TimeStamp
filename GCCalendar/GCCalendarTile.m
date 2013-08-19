@@ -138,17 +138,25 @@
         contentFrame = CGRectMake(0, 0, self.naturalFrame.size.width, self.naturalFrame.size.height);
     }
     
-    self.selectedView.frame = contentFrame;    
     self.contentView.frame = contentFrame;
+    self.selectedView.frame = contentFrame;
+    self.contentView.layer.cornerRadius = CORNER_RADIUS;
+    self.selectedView.layer.cornerRadius = CORNER_RADIUS;
+    self.contentView.layer.masksToBounds = NO;
+    self.selectedView.layer.masksToBounds = NO;
     
-    CGRect startRect = CGRectMake(0, 0, contentFrame.size.width, tDragAreaHeight);
+    CGRect startRect = CGRectMake(0, 0, contentFrame.size.width, tDragAreaHeight + CORNER_RADIUS * 2);
     self.startTimeDragView.frame = startRect;
-    upArrowView.center = CGPointMake(self.startTimeDragView.bounds.size.width / 2, self.startTimeDragView.bounds.size.height / 2);
+    self.startTimeDragView.layer.cornerRadius = CORNER_RADIUS;
+    
+    upArrowView.center = CGPointMake(self.startTimeDragView.bounds.size.width / 2, self.startTimeDragView.bounds.size.height / 2 - CORNER_RADIUS);
     upArrowView.bounds = CGRectMake(0, 0, 30, 30);
     
-    CGRect endRect = CGRectMake(0, contentFrame.origin.y + contentFrame.size.height, contentFrame.size.width, tDragAreaHeight);
+    CGRect endRect = CGRectMake(0, contentFrame.origin.y + contentFrame.size.height - CORNER_RADIUS * 2, contentFrame.size.width, tDragAreaHeight + CORNER_RADIUS * 2);
     self.endTimeDragView.frame = endRect;
-    downArrowView.center = CGPointMake(self.endTimeDragView.bounds.size.width / 2, self.endTimeDragView.bounds.size.height / 2);
+    self.endTimeDragView.layer.cornerRadius = CORNER_RADIUS;
+    
+    downArrowView.center = CGPointMake(self.endTimeDragView.bounds.size.width / 2, self.endTimeDragView.bounds.size.height / 2 + CORNER_RADIUS);
     downArrowView.bounds = CGRectMake(0, 0, 30, 30);
     
 	CGSize stringSize = [titleLabel.text sizeWithFont:titleLabel.font];

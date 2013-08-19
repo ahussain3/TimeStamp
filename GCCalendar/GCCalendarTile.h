@@ -32,6 +32,10 @@
 	UILabel *descriptionLabel;
     // frame for the actual event
     CGRect contentFrame;
+    // image of up arrow
+    UIImageView *upArrowView;
+    // image of down arrow
+    UIImageView *downArrowView;
 }
 
 - (id)initWithEvent:(GCCalendarEvent *)event;

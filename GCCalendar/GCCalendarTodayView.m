@@ -346,6 +346,13 @@ static NSArray *timeStrings;
         }
 
         CGFloat startYPosition = [sender locationInView:self].y - yOffset + tDragAreaHeight;
+        
+        // Ensure that the start date doesn't go later then end date
+//        if (startYPosition > (self.selectedTile.frame.origin.y + self.selectedTile.frame.size.height) - ((kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
+        if (startYPosition > self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height - (2.0 * (kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
+            return;
+        }
+        
         startYPosition = [self snappedYValueForYValue:startYPosition];
         CGFloat height = (self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height) - startYPosition;
         
@@ -377,6 +384,10 @@ static NSArray *timeStrings;
         
         // work out the y position of the top of the end drag time.
         CGFloat endYPosition = [sender locationInView:self].y - yOffset + CORNER_RADIUS * 2;
+        if (endYPosition < self.selectedTile.naturalFrame.origin.y + (2.0 * (kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
+            return;
+        }
+        
         endYPosition = [self snappedYValueForYValue:endYPosition];
         
         // set the height of natural frame to be y pos - origin.

@@ -135,14 +135,6 @@
     UIView *background = [[UIView alloc] initWithFrame:cellFrame];
     cell.selectedBackgroundView = background;
     
-    // Set the view that appears when the cell is slid out the way
-//    UIView *orangeBackground = [[UIView alloc] initWithFrame:cellFrame];
-//    orangeBackground.backgroundColor = [UIColor orangeColor];
-//    cell.slideToLeftView = orangeBackground;
-//    UIView *redBackground = [[UIView alloc] initWithFrame:cellFrame];
-//    redBackground.backgroundColor = [UIColor redColor];
-//    cell.slideToLeftHighlightedView = redBackground;
-    
     UIImage *grey_cross = [UIImage imageNamed:@"grey_cross"];
     UIImageView *greyCrossView = [[UIImageView alloc] initWithImage:grey_cross];
     greyCrossView.frame = cellFrame;
@@ -176,30 +168,6 @@
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    BOOL edit = (indexPath.row == 0) ? YES : NO;
-    return edit;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
 #pragma mark - Table view delegate
 

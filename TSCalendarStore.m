@@ -171,46 +171,49 @@
         }
         return [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
     }
-    return nil;
+    return gcEvent;
 }
 
 - (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent {
-    
-    // Find matching EKEvent with identifier / calendar information.
-    EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
-    
-    // Change the event to match the new event.
-    ekEvent.startDate = gcEvent.startDate;
-    ekEvent.endDate = gcEvent.endDate;
-    
     if (updateICalRecord) {
-        NSError *err;
-        BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+        // Find matching EKEvent with identifier / calendar information.
+        EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
         
-        if (success == NO) {
-            NSLog(@"Error updating event start/end times: %@", err);
-        } else {
-            NSLog(@"Successfully updated event!");
+        // Change the event to match the new event.
+        ekEvent.startDate = gcEvent.startDate;
+        ekEvent.endDate = gcEvent.endDate;
+        
+        if (updateICalRecord) {
+            NSError *err;
+            BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+            
+            if (success == NO) {
+                NSLog(@"Error updating event start/end times: %@", err);
+            } else {
+                NSLog(@"Successfully updated event!");
+            }
         }
-    }
     
-    // Convert back to GC and return it.
-    GCCalendarEvent *gc = [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
-    return gc;
+        // Convert back to GC and return it.
+        gcEvent = [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
+    }
+    return gcEvent;
 }
 
 - (void)removeGCCalendarEvent:(GCCalendarEvent *)gcEvent {
-    // Find matching EKEvent with identifier / calendar information.
-    EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
-    
     if (updateICalRecord) {
-        NSError *err;
-        BOOL success = [self.store removeEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+        // Find matching EKEvent with identifier / calendar information.
+        EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
         
-        if (success == NO) {
-            NSLog(@"Error deleting event: %@", err);
-        } else {
-            NSLog(@"Successfully deleted event!");
+        if (updateICalRecord) {
+            NSError *err;
+            BOOL success = [self.store removeEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+            
+            if (success == NO) {
+                NSLog(@"Error deleting event: %@", err);
+            } else {
+                NSLog(@"Successfully deleted event!");
+            }
         }
     }
 }

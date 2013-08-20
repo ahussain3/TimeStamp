@@ -19,6 +19,12 @@
 
 @interface GCCalendarTodayView : UIView <GCCalendarTileDelegate, UIGestureRecognizerDelegate> {
     BOOL userIsDraggingTile;
+    // Array of the event objects which will be shown for this day
+    NSArray *events;
+    
+    CGPoint offset;
+    CGFloat yOffset;
+    BOOL dragState;
 }
 
 - (id)initWithEvents:(NSArray *)a;

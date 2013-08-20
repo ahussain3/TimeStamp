@@ -15,11 +15,15 @@
 
 static NSArray *timeStrings;
 
+typedef enum {
+    TSDragStateDormant,
+    TSDragStateRight,
+    TSDragStateUpDown,
+    TSDragStateSliding
+} TSDragState;
+
 @interface GCCalendarTodayView () {
-	// Array of the event objects which will be shown for this day
-    NSArray *events;
-    
-    CGFloat yOffset;
+
 }
 
 - (id)initWithEvents:(NSArray *)a;
@@ -135,7 +139,6 @@ static NSArray *timeStrings;
                 endHour = 23;
                 endMinute = 60;
             }
-            
             
             CGFloat startPos = kTopLineBuffer + startHour * 2 * kHalfHourDiff;
             startPos += (startMinute / 60.0) * (kHalfHourDiff * 2.0);
@@ -315,20 +318,41 @@ static NSArray *timeStrings;
 
 - (void)handleDragEvent:(UIPanGestureRecognizer *)sender {
     if (sender.view == self.selectedTile) {
+        CGPoint translation = [sender translationInView:self];
+        
         if (sender.state == UIGestureRecognizerStateBegan) {
-            yOffset = [sender locationInView:self].y - self.selectedTile.naturalFrame.origin.y;
+            offset = CGPointMake([sender locationInView:self].x - self.selectedTile.naturalFrame.origin.x,
+                                 [sender locationInView:self].y - self.selectedTile.naturalFrame.origin.y);
             return;
         }
-
-        CGFloat newY = [sender locationInView:self].y - yOffset;
-        CGFloat snappedY = [self snappedYValueForYValue:newY];
         
-        CGRect newNatFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
-                                        snappedY,
-                                        self.selectedTile.naturalFrame.size.width,
-                                        self.selectedTile.naturalFrame.size.height);
-        self.selectedTile.naturalFrame = newNatFrame;
-        [sender setTranslation:CGPointMake(0, 0) inView:self];
+        if (dragState == TSDragStateDormant) {
+            CGFloat theta = (180 / M_PI) * atanf(translation.y / translation.x);
+            if (fabsf(theta) > 20.0){
+                // scroll enabled.
+                dragState = TSDragStateUpDown;
+                return;
+            } else {
+                // scroll disabled.
+                dragState = TSDragStateRight;
+            }
+        }
+
+        if (dragState == TSDragStateUpDown) {
+            CGFloat newY = [sender locationInView:self].y - offset.y;
+            CGFloat snappedY = [self snappedYValueForYValue:newY];
+            
+            CGRect newNatFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
+                                            snappedY,
+                                            self.selectedTile.naturalFrame.size.width,
+                                            self.selectedTile.naturalFrame.size.height);
+            self.selectedTile.naturalFrame = newNatFrame;
+            [sender setTranslation:CGPointMake(0, 0) inView:self];
+            
+        }
+        
+        
+        
     }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
@@ -348,7 +372,6 @@ static NSArray *timeStrings;
         CGFloat startYPosition = [sender locationInView:self].y - yOffset + tDragAreaHeight;
         
         // Ensure that the start date doesn't go later then end date
-//        if (startYPosition > (self.selectedTile.frame.origin.y + self.selectedTile.frame.size.height) - ((kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
         if (startYPosition > self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height - (2.0 * (kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
             return;
         }

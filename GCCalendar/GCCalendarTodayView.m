@@ -77,6 +77,23 @@ typedef enum {
         _date = midnight;
     }
 }
+
+- (void)removeEvent:(GCCalendarEvent *)event {
+    if ([events containsObject:event]) {
+        NSMutableArray *newArray = [events mutableCopy];
+        [newArray removeObject:event];
+        events = [newArray copy];
+        
+        for (UIView *view in self.subviews) {
+            if ([view isKindOfClass:[GCCalendarTile class]]){
+                GCCalendarTile *tile = (GCCalendarTile *)view;
+                if ([tile.event isEqual:event]) [tile removeFromSuperview];
+            }
+        }
+        [self setNeedsLayout];
+    }
+}
+
 # pragma mark Utility methods
 - (CGFloat)snappedYValueForYValue:(CGFloat)yValue {
     ;
@@ -107,6 +124,13 @@ typedef enum {
 }
 
 # pragma mark Drawing / Subview methods
+- (void)addNewEvent:(GCCalendarEvent *)event {
+    NSMutableArray *newArray = [events mutableCopy];
+    [newArray addObject:event];
+    events = newArray;
+    [self drawNewEvent:event];
+}
+
 - (void)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
     tile.delegate = self;
@@ -323,6 +347,7 @@ typedef enum {
         if (sender.state == UIGestureRecognizerStateBegan) {
             offset = CGPointMake([sender locationInView:self].x - self.selectedTile.naturalFrame.origin.x,
                                  [sender locationInView:self].y - self.selectedTile.naturalFrame.origin.y);
+            initialCenter = self.selectedTile.center;
             return;
         }
         
@@ -348,17 +373,39 @@ typedef enum {
                                             self.selectedTile.naturalFrame.size.height);
             self.selectedTile.naturalFrame = newNatFrame;
             [sender setTranslation:CGPointMake(0, 0) inView:self];
-            
         }
         
+        CGFloat xThreshold = self.selectedTile.frame.size.width * 0.4;
+        CGFloat finalXPosition = initialCenter.x;
         
-        
-    }
+        if (dragState == TSDragStateRight) {
+            self.selectedTile.center = CGPointMake(fmaxf(self.selectedTile.center.x + translation.x, initialCenter.x), self.selectedTile.center.y);
+            [sender setTranslation:CGPointZero inView:self];
+        }
     
-    if (sender.state == UIGestureRecognizerStateEnded) {
-//        NSLog(@"Drag gesture ended");
-        [self updateTileToReflectNewPosition:self.selectedTile];
-        return;
+        if (sender.state == UIGestureRecognizerStateEnded) {
+    //        NSLog(@"Drag gesture ended");
+            if (dragState == TSDragStateUpDown) {
+                [self updateTileToReflectNewPosition:self.selectedTile];
+            } else if (dragState == TSDragStateRight) {
+                if (self.selectedTile.center.x > initialCenter.x + xThreshold){
+                    finalXPosition = initialCenter.x + self.selectedTile.bounds.size.width + kTileRightSide + 1;
+                    [self.delegate respondToTileSlidRight:self.selectedTile inDayView:self];
+                }
+                
+                CGPoint finalCenterPosition = CGPointMake(finalXPosition, initialCenter.y);
+                CGPoint velocity = [sender velocityInView:self];
+                NSTimeInterval duration = fmaxf(0.1f,fminf(0.3f, fabs((offset.x - finalXPosition) / velocity.x)));
+                
+                [UIView animateWithDuration:duration animations:^{
+                    self.selectedTile.center = finalCenterPosition;
+                } completion:^(BOOL completion){
+                }];
+            }
+            dragState = TSDragStateDormant;
+            // Enable scrolling again
+            return;
+        }
     }
 }
 
@@ -442,6 +489,18 @@ typedef enum {
     
     // Update model to reflect new start time
     [self.delegate updateEventWithNewTimes:tile.event];
+}
+
+- (void)resetToCenter:(GCCalendarTile *)tile {
+    // Assuming that the initialCenter of these has been set.
+    CGFloat finalXPosition = kTileLeftSide + (self.bounds.size.width - kTileLeftSide - kTileRightSide) / 2;
+    
+    NSTimeInterval duration = 0.3f;
+    [UIView animateWithDuration:duration animations:^{
+        self.selectedTile.center = CGPointMake(finalXPosition, self.selectedTile.center.y);
+    }];
+    
+    dragState = TSDragStateDormant;
 }
 
 @end

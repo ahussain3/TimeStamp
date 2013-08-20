@@ -14,6 +14,7 @@
 #import "TSCalendarStore.h"
 #import "GCCalendarTodayView.h"
 #import "GCGlobalSettings.h"
+#import "MyAlertViewDelegate.h"
 
 #define kAnimationDuration 0.3f
 
@@ -65,6 +66,8 @@
 - (void)setupCalendar {
     // create calendar view
     // GCCalendarView delegate / datasource.
+    model = [TSCalendarStore instance];
+    
     self.dataSource = self;
     
     viewDirty = YES;
@@ -117,7 +120,7 @@
     
     // Update the model to reflect this new created event.
     event = [[TSCalendarStore instance] createNewEvent:event];
-    [todayView drawNewEvent:event];
+    [todayView addNewEvent:event];
 }
 
 #pragma mark GCCalendarDataSource
@@ -182,9 +185,13 @@
 
 - (void)reloadData {
 	// drop all subviews
+    if (todayView) {
+        [todayView removeFromSuperview];
+        todayView = nil;
+    }
     
     // Setup scroll view
-    scrollView = [[UIScrollView alloc] init];
+    if (!scrollView) scrollView = [[UIScrollView alloc] init];
     scrollView.userInteractionEnabled = YES;
     scrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     scrollView.clipsToBounds = YES;
@@ -208,7 +215,7 @@
 //    tomorrowView.date = tomorrow;
     
     // Create a composite view combining the three we just created.
-    compositeView = [[UIView alloc] init];
+    if (!compositeView) compositeView = [[UIView alloc] init];
     NSLog(@"Composite View interaction enabled?: %i", compositeView.userInteractionEnabled);
     [compositeView addSubview:todayView];
     
@@ -226,6 +233,28 @@
 - (void)updateEventWithNewTimes:(GCCalendarEvent *)gcevent {
     [[TSCalendarStore instance] updateGCCalendarEvent:gcevent];
 }
+
+- (void)respondToTileSlidRight:(GCCalendarTile *)tile inDayView:(GCCalendarTodayView *)dayView {
+    // Pop up a warning message, then call the model method to delete.
+    NSString *prompt = @"Are you sure you want to remove this event?";
+    NSString *info = @"This will also delete the event in your iCal / gCal";
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:prompt message:info delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+    
+    [MyAlertViewDelegate showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+        // code to take action depending on the value of buttonIndex
+        NSLog(@"Alert view button pushed");
+        if (buttonIndex == 1) {
+            [model removeGCCalendarEvent:tile.event];
+            [todayView removeEvent:tile.event];
+//            [self reloadData];
+        } else {
+            // Reset the cell. Re-animate it back on screen
+            [todayView resetToCenter:tile];
+        }
+    }];
+}
+
 
 
 @end

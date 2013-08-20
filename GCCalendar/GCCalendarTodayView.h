@@ -12,9 +12,11 @@
 #import "GCCalendarTile.h"
 @class GCCalendarTile;
 @class GCCalendarEvent;
+@class GCCalendarTodayView;
 
 @protocol GCCalendarTodayViewDelegate <NSObject>
 - (void)updateEventWithNewTimes:(GCCalendarEvent *)gcevent;
+- (void)respondToTileSlidRight:(GCCalendarTile *)tile inDayView:(GCCalendarTodayView *)dayView;
 @end
 
 @interface GCCalendarTodayView : UIView <GCCalendarTileDelegate, UIGestureRecognizerDelegate> {
@@ -23,12 +25,15 @@
     NSArray *events;
     
     CGPoint offset;
+    CGPoint initialCenter;
     CGFloat yOffset;
     BOOL dragState;
 }
 
 - (id)initWithEvents:(NSArray *)a;
-- (void)drawNewEvent:(GCCalendarEvent *)event;
+- (void)removeEvent:(GCCalendarEvent *)event;
+- (void)addNewEvent:(GCCalendarEvent *)event;
+- (void)resetToCenter:(GCCalendarTile *)tile;
 
 @property (nonatomic, strong) GCCalendarTile *selectedTile;
 @property (nonatomic, strong) NSDate *date;

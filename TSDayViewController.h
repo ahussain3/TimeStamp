@@ -15,6 +15,7 @@
 @class TableHeaderToolBar;
 @class TSMenuBoxContainer;
 @class GCCalendarTodayView;
+@class TSCalendarStore;
 
 /*
  GCCalendarPortraitView defines the top-level view controller containing
@@ -29,6 +30,8 @@
  event (currently unimplemnted)
  */
  @interface TSDayViewController : GCCalendarView <GCCalendarDataSource, GCCalendarTodayViewDelegate> {
+     
+     TSCalendarStore *model;
     
     // scrollView wraps the today views
     UIScrollView *scrollView;

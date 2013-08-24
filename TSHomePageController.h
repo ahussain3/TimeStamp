@@ -12,10 +12,15 @@
 @class TSDayViewController;
 @class TSListTableViewController;
 
-@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate> {
+@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate, UIGestureRecognizerDelegate> {
     TSListTableViewController *listController;
     TSDayViewController *dayViewController;
     UINavigationController *listNavController;
+    CGPoint initialListCellCenter;
+    UIPanGestureRecognizer *dragGestureRecognizer;
 }
+
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
+@property (nonatomic, strong) UITableViewCell *draggedCell;
 
 @end

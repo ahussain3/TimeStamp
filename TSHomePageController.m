@@ -34,6 +34,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondToCellDragged:)];
+    [self.view addGestureRecognizer:dragGestureRecognizer];
+    dragGestureRecognizer.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,12 +105,49 @@
 }
 
 - (void)dealWithDraggedCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath {
-
+    
     UITableViewCell *cellCopy;
     cellCopy = [tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
 	cellCopy.frame = [tableView rectForRowAtIndexPath:indexPath];
-
+    cellCopy.frame = [self.view convertRect:cellCopy.frame fromView:tableView];
+    cellCopy.selected = YES;
+    
+    initialListCellCenter = cellCopy.center;
+    
+    self.draggedCell = cellCopy;
     [self.view addSubview:cellCopy];
+}
+
+- (void)respondToCellDragged:(UIPanGestureRecognizer *)sender {
+    if (!self.draggedCell) return;
+    
+	CGPoint translation = [sender translationInView:self.view];
+    
+	if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+        [self.draggedCell removeFromSuperview];
+        self.draggedCell = nil;
+    } else {
+		[self updateFrameOfDraggedCellForTranlationPoint:translation];
+    }
+}
+
+- (void)updateFrameOfDraggedCellForTranlationPoint:(CGPoint)translation {
+    CGFloat newXCenter = initialListCellCenter.x + translation.x;
+	CGFloat newYCenter = initialListCellCenter.y + translation.y;
+    
+	/*
+     draggedCell.center shouldn't go offscreen.
+     Check that it's at least the contentOffset and no further than the contentoffset plus the contentsize.
+	 */
+    newXCenter = MIN(newXCenter, self.view.frame.size.width);
+	newYCenter = MIN(newYCenter, self.view.frame.size.height);
+    
+	CGPoint newDraggedCellCenter = {
+		.x = newXCenter,
+		.y = newYCenter
+	};
+    
+	self.draggedCell.center = newDraggedCellCenter;
 }
 
 - (UIView *)viewOnWhichToAddCell {
@@ -131,4 +172,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideKeyboard" object:self];
     self.dismissKeyboardView.hidden = YES;
 }
+
+#pragma mark UIGestureRecognizerDelegate methods
+/*
+ *	Defaults to NO, needs to be YES for press and drag to be one continuous action.
+ */
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+	return (gestureRecognizer == dragGestureRecognizer || otherGestureRecognizer == dragGestureRecognizer);
+}
+
 @end

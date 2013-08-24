@@ -12,6 +12,11 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" id="oeJ-2o-pNx">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="505"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <containerView multipleTouchEnabled="YES" contentMode="scaleToFill" id="pbp-c4-Z6s">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="505"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,6 +47,7 @@
                     <navigationItem key="navigationItem" id="fbi-D3-vxo"/>
                     <connections>
                         <outlet property="dismissKeyboardView" destination="9NT-bD-k6f" id="UEy-wa-6B2"/>
+                        <outlet property="overlayView" destination="oeJ-2o-pNx" id="LaD-re-C24"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dX7-Ge-Epg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -163,6 +169,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
             <relationships>
                 <relationship kind="outlet" name="dismissKeyboardView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="TSListTableViewController" superclassName="ATSDragToReorderTableViewController">

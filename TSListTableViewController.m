@@ -95,16 +95,16 @@
     // Configure the table view
 //    tableView.backgroundColor = [UIColor clearColor];
     
-    return [self configuredCellatIndexPath:indexPath];
+    return [self configuredCellatIndexPath:indexPath isCopy:NO];
 }
 
 // should be identical to cell returned in -tableView:cellForRowAtIndexPath:
 - (UITableViewCell *)cellIdenticalToCellAtIndexPath:(NSIndexPath *)indexPath forDragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController {
 	
-	return [self configuredCellatIndexPath:indexPath];
+	return [self configuredCellatIndexPath:indexPath isCopy:YES];
 }
 
-- (TSListTableViewCell *)configuredCellatIndexPath:(NSIndexPath *)indexPath {
+- (TSListTableViewCell *)configuredCellatIndexPath:(NSIndexPath *)indexPath isCopy:(BOOL)copy {
     
     if (indexPath.row == 0) {
         return  [self returnAddTableViewCell];
@@ -132,23 +132,28 @@
     cell.color = category.color;
     
     // Set the background color for when cell is selected
-    UIView *background = [[UIView alloc] initWithFrame:cellFrame];
-    cell.selectedBackgroundView = background;
+    UIView *selectedBackground = [[UIView alloc] initWithFrame:cellFrame];
+    cell.selectedBackgroundView = selectedBackground;
     
-    UIImage *grey_cross = [UIImage imageNamed:@"grey_cross"];
-    UIImageView *greyCrossView = [[UIImageView alloc] initWithImage:grey_cross];
-    greyCrossView.frame = cellFrame;
-    cell.slideToLeftView = greyCrossView;
-    
-    UIImage *grey_cross_red = [UIImage imageNamed:@"grey_cross_red_glow"];
-    UIImageView *greyCrossRedView = [[UIImageView alloc] initWithImage:grey_cross_red];
-    greyCrossRedView.frame = cellFrame;
-    cell.slideToLeftHighlightedView = greyCrossRedView;
-    
-    cell.slideToLeftView.hidden = NO;
-    cell.slideToLeftHighlightedView.hidden = YES;
-    
-    cell.deleteDelegate = self;
+    if (!copy) {
+        UIImage *grey_cross = [UIImage imageNamed:@"grey_cross"];
+        UIImageView *greyCrossView = [[UIImageView alloc] initWithImage:grey_cross];
+        greyCrossView.frame = cellFrame;
+        cell.slideToLeftView = greyCrossView;
+        
+        UIImage *grey_cross_red = [UIImage imageNamed:@"grey_cross_red_glow"];
+        UIImageView *greyCrossRedView = [[UIImageView alloc] initWithImage:grey_cross_red];
+        greyCrossRedView.frame = cellFrame;
+        cell.slideToLeftHighlightedView = greyCrossRedView;
+        
+        cell.slideToLeftView.hidden = NO;
+        cell.slideToLeftHighlightedView.hidden = YES;
+        cell.deleteDelegate = self;
+    } else {
+        for (UIGestureRecognizer *gest in cell.gestureRecognizers) {
+            [cell removeGestureRecognizer:gest];
+        }
+    }
     
     return cell;
 }

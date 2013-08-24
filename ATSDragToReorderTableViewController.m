@@ -714,8 +714,8 @@ typedef enum {
 		cellCopy = [self.tableView.dataSource tableView:self.tableView cellForRowAtIndexPath:indexPath];
 	cellCopy.frame = [self.tableView rectForRowAtIndexPath:indexPath];
 
-//    [self.dragDelegate dealWithDraggedCell:cellCopy inTableView:self.tableView andIndexPath:indexPath];
-    [[self.dragDelegate viewOnWhichToAddCell] addSubview:cellCopy];
+    [self.dragDelegate dealWithDraggedCell:cellCopy inTableView:self.tableView andIndexPath:indexPath];
+//    [[self.dragDelegate viewOnWhichToAddCell] addSubview:cellCopy];
 //	[self.tableView addSubview:cellCopy];
 //	[self.tableView bringSubviewToFront:cellCopy];
 

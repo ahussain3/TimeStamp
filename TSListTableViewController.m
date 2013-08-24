@@ -194,7 +194,9 @@
  Required for drag tableview controller
  */
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-	
+    // Item at index 0 is add new category.
+    if (fromIndexPath.row == 0 || toIndexPath.row == 0) return;
+    
     [categoryArray exchangeObjectAtIndex:fromIndexPath.row - 1 withObjectAtIndex:toIndexPath.row - 1];
 //	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
 //    [self reloadData];

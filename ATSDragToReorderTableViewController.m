@@ -789,8 +789,7 @@ typedef enum {
     } else {
         size = self.tableView.frame.size;
     }
-    NSLog(@"table view content size height: %f", size.height);
-
+    
 	CGRect contentRect = {
 		.origin = self.tableView.contentOffset,
 		.size = size
@@ -1036,6 +1035,14 @@ typedef enum {
 		Now we compare the dragged cell's center with the center of the whole covered rect to determine whether to shuffle.
 	 */
 	NSArray *arrayOfCoveredIndexPaths = [self.tableView indexPathsForRowsInRect:self.draggedCell.frame];
+    
+    // Check to make sure we don't include the 'add new' cell
+    NSMutableArray *tempArray = [arrayOfCoveredIndexPaths mutableCopy];
+    for (NSIndexPath *path in tempArray) {
+        if (path.row == 0) [tempArray removeObject:path];
+        break;
+    }
+    arrayOfCoveredIndexPaths = [tempArray mutableCopy];
 
 	/*
 		Use blank rect instead of the cell itself. The cell might be offscreen and thus nil.

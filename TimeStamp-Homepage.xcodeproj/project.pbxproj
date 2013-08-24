@@ -55,6 +55,7 @@
 		C8B93BB817C127DB00759246 /* grey_cross.png in Resources */ = {isa = PBXBuildFile; fileRef = C8B93BB617C127DB00759246 /* grey_cross.png */; };
 		C8E4A59117C26FFB002504B0 /* down_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A58F17C26FFB002504B0 /* down_arrow.png */; };
 		C8E4A59217C26FFB002504B0 /* up_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A59017C26FFB002504B0 /* up_arrow.png */; };
+		C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
 		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
@@ -69,7 +70,6 @@
 		C8FF166E17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */; };
 		C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
 		C8FF167917A5E0DF0064BA83 /* TSListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */; };
-		C8FF167C17A617640064BA83 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
 		C8FF167F17A93E310064BA83 /* TSCalendarStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167E17A93E310064BA83 /* TSCalendarStore.m */; };
 /* End PBXBuildFile section */
 
@@ -497,7 +497,6 @@
 				C8FF166B17A5DD160064BA83 /* TSSlidableCell.m in Sources */,
 				C8FF166D17A5DD160064BA83 /* ATSDragToReorderTableViewController.m in Sources */,
 				C8FF167817A5E0DF0064BA83 /* TSListTableViewController.m in Sources */,
-				C8FF167C17A617640064BA83 /* TSHomePageController.m in Sources */,
 				C8FF167F17A93E310064BA83 /* TSCalendarStore.m in Sources */,
 				C8A6C7D317ADE3180086FED4 /* GCCalendar.m in Sources */,
 				C8A6C7D517ADE3180086FED4 /* GCCalendarEvent.m in Sources */,
@@ -506,6 +505,7 @@
 				C8A6C7DB17ADE3180086FED4 /* GCCalendarView.m in Sources */,
 				C8A6C7E517ADE44D0086FED4 /* TSDayViewController.m in Sources */,
 				C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */,
+				C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

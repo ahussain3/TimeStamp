@@ -242,6 +242,7 @@ typedef enum {
 	
 	if (longPressGestureRecognizer == nil || [self.tableView.gestureRecognizers containsObject:longPressGestureRecognizer] == NO) {
 		longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized)];
+        longPressGestureRecognizer.minimumPressDuration = 0.2;
 		longPressGestureRecognizer.delegate = self;
 		
 		[self.tableView addGestureRecognizer:longPressGestureRecognizer];
@@ -888,16 +889,6 @@ typedef enum {
 		Get final frame of cell.
 	 */
 	[self updateFrameOfDraggedCellForTranlationPoint:translation];
-    
-    if (draggedCell.center.x > self.tableView.frame.size.width) {
-        // Cell is being dragged to the right.
-//        NSLog(@"Cell center is on the right");
-        if ([self.dragDelegate respondsToSelector:@selector(dragTableViewController:draggedCellOutsideTableView:)]) {
-            [self.dragDelegate dragTableViewController:self draggedCellOutsideTableView:draggedCell];
-        }
-    } else {
-//        NSLog(@"Cell center is on the left");
-    }
     
 	/*
 		If the row changes at the last minute, update so we don't put it away in the wrong spot

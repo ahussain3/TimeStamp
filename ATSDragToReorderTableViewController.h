@@ -99,7 +99,6 @@
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController willEndDraggingToRow:(NSIndexPath *)destinationIndexPath;
 - (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController didEndDraggingToRow:(NSIndexPath *)destinationIndexPath;
 - (BOOL)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController shouldHideDraggableIndicatorForDraggingToRow:(NSIndexPath *)destinationIndexPath;
-- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController draggedCellOutsideTableView:(UITableViewCell *)cell;
 // This function is necessary to enable us to move the draggable cell off the inital table view.
 - (void)dealWithDraggedCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath;
 - (UIView *)viewOnWhichToAddCell;

@@ -84,27 +84,6 @@
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
-- (void)draggingEndedOnCell:(TSListTableViewCell *)cell {
-    if (cell.center.x > listController.view.frame.size.width + 50) {
-        CGPoint center = [cell.superview convertPoint:cell.center toView:dayViewController.view];
-        
-        GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
-        NSString *name = [[NSString alloc] init];
-        if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
-            name = cell.textLabel.text;
-        } else {
-            name = [NSString stringWithFormat:@"%@:%@",cell.category.path, cell.textLabel.text];
-            name = [name substringFromIndex:[ROOT_CATEGORY_PATH length] + 1];
-        }
-        event.eventName = name;
-        event.color = cell.contentView.backgroundColor;
-        event.calendarIdentifier = cell.category.calendar.calendarIdentifier;
-        
-        //    event.calender // need to set this once we have a list of calendars; Create a TSCalendarStore model object which contains this array.
-        [dayViewController createEvent:event AtPoint:center withDuration:60*60];
-    }
-}
-
 - (void)dealWithDraggedCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cellCopy;
@@ -125,14 +104,42 @@
 	CGPoint translation = [sender translationInView:self.view];
     
 	if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
-        [self draggingEndedOnCell:self.draggedCell];
-        [self.draggedCell removeFromSuperview];
-        self.draggedCell = nil;
+        [self draggingEndedOnCell:(TSListTableViewCell *)self.draggedCell];
     } else {
 		[self updateFrameOfDraggedCellForTranlationPoint:translation];
     }
 }
-
+- (void)draggingEndedOnCell:(TSListTableViewCell *)cell {
+    if (cell.center.x > listController.view.frame.size.width + 50) {
+        CGPoint center = [cell.superview convertPoint:cell.center toView:dayViewController.view];
+        
+        GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
+        NSString *name = [[NSString alloc] init];
+        if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
+            name = cell.textLabel.text;
+        } else {
+            name = [NSString stringWithFormat:@"%@:%@",cell.category.path, cell.textLabel.text];
+            name = [name substringFromIndex:[ROOT_CATEGORY_PATH length] + 1];
+        }
+        event.eventName = name;
+        event.color = cell.contentView.backgroundColor;
+        event.calendarIdentifier = cell.category.calendar.calendarIdentifier;
+        
+        //    event.calender // need to set this once we have a list of calendars; Create a TSCalendarStore model object which contains this array.
+        [dayViewController createEvent:event AtPoint:center withDuration:60*60];
+    }
+    
+    [self cleanUpAfterDraggingEnded];
+}
+- (void)cleanUpAfterDraggingEnded {
+    if (self.draggedCell) {
+        [self.draggedCell removeFromSuperview];
+        self.draggedCell = nil;
+    }
+}
+- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController willEndDraggingToRow:(NSIndexPath *)destinationIndexPath {
+    [self cleanUpAfterDraggingEnded];
+}
 - (void)updateFrameOfDraggedCellForTranlationPoint:(CGPoint)translation {
     CGFloat newXCenter = initialListCellCenter.x + translation.x;
 	CGFloat newYCenter = initialListCellCenter.y + translation.y;

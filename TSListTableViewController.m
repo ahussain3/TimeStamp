@@ -141,7 +141,7 @@
         greyCrossView.frame = cellFrame;
         cell.slideToLeftView = greyCrossView;
         
-        UIImage *grey_cross_red = [UIImage imageNamed:@"grey_cross_red_glow"];
+        UIImage *grey_cross_red = [UIImage imageNamed:@"grey_cross"];
         UIImageView *greyCrossRedView = [[UIImageView alloc] initWithImage:grey_cross_red];
         greyCrossRedView.frame = cellFrame;
         cell.slideToLeftHighlightedView = greyCrossRedView;

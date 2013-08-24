@@ -41,7 +41,10 @@
     }
     return self;
 }
-
+//- (void)setSelected:(BOOL)selected {
+//    [super setSelected:selected];
+//    [self setSelected:selected animated:YES];
+//}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

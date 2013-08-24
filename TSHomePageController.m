@@ -100,6 +100,19 @@
     [dayViewController createEvent:event AtPoint:center withDuration:60*60];
 }
 
+- (void)dealWithDraggedCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath {
+
+    UITableViewCell *cellCopy;
+    cellCopy = [tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+	cellCopy.frame = [tableView rectForRowAtIndexPath:indexPath];
+
+    [self.view addSubview:cellCopy];
+}
+
+- (UIView *)viewOnWhichToAddCell {
+    return self.view;
+}
+
 - (void)addNewCategory:(id)sender {
     NSLog(@"Creating new category");
     TSListTableViewController *list = (TSListTableViewController *)listNavController.topViewController;

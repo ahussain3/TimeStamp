@@ -783,22 +783,29 @@ typedef enum {
 		Prevent it from going off the bottom.
 		Make a content rect which is a frame of the entire content.
 	 */
+    CGSize size;
+    if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
+        size = self.tableView.contentSize;
+    } else {
+        size = self.tableView.frame.size;
+    }
+    NSLog(@"table view content size height: %f", size.height);
+
 	CGRect contentRect = {
 		.origin = self.tableView.contentOffset,
-		.size = self.tableView.contentSize
+		.size = size
 	};
 
 	/*
 		Height of content minus height of cell. Means the bottom of the cell is flush with the bottom of the tableview.
 	 */
-	CGFloat maxYOffsetOfDraggedCell = contentRect.origin.x + contentRect.size.height - draggedCell.frame.size.height;
+	CGFloat maxYOffsetOfDraggedCell = contentRect.origin.y + contentRect.size.height - draggedCell.frame.size.height;
 
 	if (draggedCell.frame.origin.y >= maxYOffsetOfDraggedCell) {
 		CGRect newDraggedCellFrame = draggedCell.frame;
 		newDraggedCellFrame.origin.y = maxYOffsetOfDraggedCell;
 		draggedCell.frame = newDraggedCellFrame;
 	}
-
 }
 
 /*

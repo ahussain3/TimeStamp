@@ -365,6 +365,8 @@ typedef enum {
 
         if (dragState == TSDragStateUpDown) {
             CGFloat newY = [sender locationInView:self].y - offset.y;
+            if (newY < kTopLineBuffer) return;
+            if (newY + self.selectedTile.naturalFrame.size.height > kTopLineBuffer + (kHalfHourDiff * 24 * 2)) return;
             CGFloat snappedY = [self snappedYValueForYValue:newY];
             
             CGRect newNatFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,
@@ -454,6 +456,8 @@ typedef enum {
         
         // work out the y position of the top of the end drag time.
         CGFloat endYPosition = [sender locationInView:self].y - yOffset + CORNER_RADIUS * 2;
+        
+        // Ensure start and end times don't overlap
         if (endYPosition < self.selectedTile.naturalFrame.origin.y + (2.0 * (kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
             return;
         }

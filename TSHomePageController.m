@@ -60,6 +60,25 @@
     [self initializeKeyboardNotifications];
     [self initializeCalendarNotifications];
 }
+
+- (void)initializeControllers {
+    listNavController.navigationBarHidden = YES;
+    listController.dragDelegate = self;
+    listController.path = ROOT_CATEGORY_PATH;
+    
+    [self updateNavBarWithDate:[NSDate date]];
+    dayViewController.date = [NSDate date];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:listController action:@selector(goBack:)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    // Add a button to the nav bar to create new events
+    //    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(reloadTodayView)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(scrollToCurrentTime)];
+    
+    button.width = 40.0;
+    self.navigationItem.rightBarButtonItem = button;
+}
 - (void)initializeCalendarNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(storeChanged:)
@@ -73,21 +92,25 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
+- (void)updateNavBarWithDate:(NSDate *)date {
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"EEE, MMM d"];
+    NSString *string = [dateFormatter stringFromDate:date];
+    self.title = string;
+}
+#pragma mark Change date methods.
+- (IBAction)nextDay:(id)sender {
+    NSDate *newDate = [dayViewController.date dateByAddingTimeInterval:60*60*24];
+    [self updateNavBarWithDate:newDate];
+    dayViewController.date = newDate;
+    [dayViewController reloadTodayView];
+}
 
-- (void)initializeControllers {
-    listNavController.navigationBarHidden = YES;    
-    listController.dragDelegate = self;
-    listController.path = ROOT_CATEGORY_PATH;
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:listController action:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    // Add a button to the nav bar to create new events
-//    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(reloadTodayView)];
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(scrollToCurrentTime)];
-
-    button.width = 40.0;
-    self.navigationItem.rightBarButtonItem = button;
+- (IBAction)prevDay:(id)sender {
+    NSDate *newDate = [dayViewController.date dateByAddingTimeInterval:-60*60*24];
+    [self updateNavBarWithDate:newDate];
+    dayViewController.date = newDate;
+    [dayViewController reloadTodayView];
 }
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods

@@ -210,17 +210,9 @@
     
     [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, yOffset) animated:YES];
 }
-- (void)updateNavBarWithDate {
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"EEE, MMM d"];
-    NSString *string = [dateFormatter stringFromDate:self.date];
-    self.superController.title = string;
-}
 - (void)updateNavBarWithColor:(UIColor *)color {
     [[[UINavigationBar class] appearance] setBackgroundColor:color];
-    [self updateNavBarWithDate];
 }
-
 #pragma mark GCCalendarTodayViewDelegate methods
 
 - (void)updateEventWithNewTimes:(GCCalendarEvent *)gcevent {

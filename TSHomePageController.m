@@ -181,8 +181,8 @@
         self.draggedCell = nil;
     }
 }
-- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController willEndDraggingToRow:(NSIndexPath *)destinationIndexPath {
-    [self cleanUpAfterDraggingEnded];
+- (void)dragTableViewController:(ATSDragToReorderTableViewController *)dragTableViewController didEndDraggingToRow:(NSIndexPath *)destinationIndexPath {
+    [self draggingEndedOnCell:(TSListTableViewCell *)self.draggedCell];
 }
 - (void)updateFrameOfDraggedCellForTranlationPoint:(CGPoint)translation {
     CGFloat newXCenter = initialListCellCenter.x + translation.x;

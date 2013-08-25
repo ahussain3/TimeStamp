@@ -137,17 +137,18 @@ typedef enum {
 }
 
 # pragma mark Drawing / Subview methods
-- (void)addNewEvent:(GCCalendarEvent *)event {
+- (void)addNewEvent:(GCCalendarEvent *)event{
     NSMutableArray *newArray = [events mutableCopy];
     [newArray addObject:event];
     events = newArray;
     [self drawNewEvent:event];
 }
-- (void)drawNewEvent:(GCCalendarEvent *)event {
+- (GCCalendarTile *)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
     tile.delegate = self;
     [self addGesturerecognizersForTile:tile];
     [self addSubview:tile];
+    return tile;
 }
 - (void)layoutSubviews {
     if (userIsDraggingTile) return;

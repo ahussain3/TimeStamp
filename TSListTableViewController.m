@@ -203,7 +203,7 @@
     if (fromIndexPath.row == 0 || toIndexPath.row == 0) return;
     
     [categoryArray exchangeObjectAtIndex:fromIndexPath.row - 1 withObjectAtIndex:toIndexPath.row - 1];
-//	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
+	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
 //    [self reloadData];
 }
 

@@ -83,8 +83,8 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     // Add a button to the nav bar to create new events
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(reloadTodayView)];
-//    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(scrollToCurrentTime)];
+//    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(reloadTodayView)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(scrollToCurrentTime)];
 
     button.width = 40.0;
     self.navigationItem.rightBarButtonItem = button;
@@ -109,6 +109,8 @@
     if (!self.draggedCell) return;
     
 	CGPoint translation = [sender translationInView:self.view];
+    
+    NSLog(@"drag gesture state: %i", sender.state);
     
 	if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
         [self draggingEndedOnCell:(TSListTableViewCell *)self.draggedCell];
@@ -199,7 +201,7 @@
  *	Defaults to NO, needs to be YES for press and drag to be one continuous action.
  */
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-	return (gestureRecognizer == dragGestureRecognizer || otherGestureRecognizer == dragGestureRecognizer);
+    return YES;
 }
 
 @end

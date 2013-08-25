@@ -205,7 +205,6 @@
     CGFloat buffer = scrollView.frame.size.height / 2.0 - 50;
     
     CGFloat yOffset = yValue - buffer;
-    NSLog(@"yValue = %f", yValue);
     yOffset = MAX(0.0, yOffset);
     yOffset = MIN(yOffset, todayView.frame.size.height - scrollView.frame.size.height);
     

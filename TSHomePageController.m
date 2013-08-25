@@ -57,10 +57,16 @@
         dayViewController.superController = self;
     }
     [self initializeControllers];
-    [self initalizeKeyboardNotifications];
+    [self initializeKeyboardNotifications];
+    [self initializeCalendarNotifications];
 }
-
-- (void)initalizeKeyboardNotifications {
+- (void)initializeCalendarNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(storeChanged:)
+                                                 name:EKEventStoreChangedNotification
+                                               object:nil];
+}
+- (void)initializeKeyboardNotifications {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardViewTapped:)];
     [self.dismissKeyboardView addGestureRecognizer:tap];
     
@@ -182,7 +188,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideKeyboard" object:self];
     self.dismissKeyboardView.hidden = YES;
 }
-
+- (void)storeChanged:(NSNotification *)notif {
+    if (dayViewController && [dayViewController respondsToSelector:@selector(reloadTodayView)]) {
+        [dayViewController reloadTodayView];
+    }
+}
+     
 #pragma mark UIGestureRecognizerDelegate methods
 /*
  *	Defaults to NO, needs to be YES for press and drag to be one continuous action.

@@ -47,6 +47,7 @@
 
 -(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
 - (void)scrollToCurrentTime;
+- (void)reloadTodayView;
 
 @property (weak, nonatomic) UIViewController *superController;
 @property (weak, nonatomic) IBOutlet UIView *calWrapperView;

@@ -20,7 +20,6 @@
     UIPanGestureRecognizer *dragGestureRecognizer;
 }
 
-@property (weak, nonatomic) IBOutlet UIView *overlayView;
 @property (nonatomic, strong) UITableViewCell *draggedCell;
 
 @end

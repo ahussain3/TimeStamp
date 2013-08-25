@@ -39,12 +39,7 @@ typedef enum {
 
 - (id)initWithEvents:(NSArray *)a {
 	if (self = [super init]) {
-		NSPredicate *pred = [NSPredicate predicateWithFormat:@"allDayEvent == NO"];
-		events = [a filteredArrayUsingPredicate:pred];
-		for (GCCalendarEvent *e in events) {
-            [self drawNewEvent:e];
-		}
-        
+        [self initializeTilesWithArray:a];
         [self initialize];
 	}
 	return self;
@@ -54,6 +49,23 @@ typedef enum {
 }
 - (void)dealloc {
 	events = nil;
+}
+- (void)initializeTilesWithArray:(NSArray *)a {
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"allDayEvent == NO"];
+    events = [a filteredArrayUsingPredicate:pred];
+    for (GCCalendarEvent *e in events) {
+        [self drawNewEvent:e];
+    }
+}
+- (void)reloadData {
+    NSArray *newEvents = [self.datasource eventsToDisplay];
+    
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[GCCalendarTile class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    [self initializeTilesWithArray:newEvents];
 }
 - (void) initialize {
     self.userInteractionEnabled = YES;
@@ -108,11 +120,12 @@ typedef enum {
 }
 
 - (NSDate *)timeForYValue:(CGFloat)yValue {
-    if (yValue > self.frame.size.height) {
+    if (yValue > self.frame.size.height || yValue < 0) {
         NSLog(@"Warning: The event is a multiday event");
         return nil;
     }
     
+    // Use in order to get 'date' components of date/time.
     NSDate *date = self.date;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:self.date];
     CGFloat hours = (yValue - kTopLineBuffer) / (kHalfHourDiff * 2);

@@ -178,8 +178,9 @@
     // Setup today view
     NSArray *events_today = [self calendarEventsForDate:self.date];
     todayView = [[GCCalendarTodayView alloc] initWithEvents:events_today];
-    todayView.delegate = self;
     todayView.date = self.date;
+    todayView.datasource = self;
+    todayView.delegate = self;
     
     // Create a composite view combining the three we just created.
     if (!compositeView) compositeView = [[UIView alloc] init];
@@ -198,11 +199,12 @@
     NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:now];
     float hours = [nowComponents hour] + ((float)[nowComponents minute] / 60);
     CGFloat yValue = [self yValueForTime:hours];
-    CGFloat buffer = todayView.frame.size.height / 2.0 - 100;
+    CGFloat buffer = scrollView.frame.size.height / 2.0 - 50;
     
     CGFloat yOffset = yValue - buffer;
-    yOffset = MAX(0, yValue);
-    yOffset = MIN(yValue, todayView.frame.size.height - scrollView.frame.size.height);
+    NSLog(@"yValue = %f", yValue);
+    yOffset = MAX(0.0, yOffset);
+    yOffset = MIN(yOffset, todayView.frame.size.height - scrollView.frame.size.height);
     
     [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, yOffset) animated:YES];
 }
@@ -244,6 +246,12 @@
     }];
 }
 
-
+#pragma mark GCCalendarTodayViewDatasource
+- (NSDate *)dateToDisplay {
+    return self.date;
+}
+- (NSArray *)eventsToDisplay {
+    return [self calendarEventsForDate:self.date];
+}
 
 @end

@@ -29,7 +29,7 @@
  push a detailed view controller onto the stack with more information about the
  event (currently unimplemnted)
  */
- @interface TSDayViewController : GCCalendarView <GCCalendarDataSource, GCCalendarTodayViewDelegate> {
+ @interface TSDayViewController : GCCalendarView <GCCalendarDataSource, GCCalendarTodayViewDelegate, GCCalendarTodayViewDatasource> {
      
      TSCalendarStore *model;
     

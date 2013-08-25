@@ -57,6 +57,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+    
+    if (viewDirty) {
+        [self reloadData];
+        viewDirty = NO;
+    }
+    
+    [self setCalendarBounds];
+    [self scrollToCurrentTime];
+    
+	viewVisible = YES;
+}
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	viewVisible = NO;
+    viewDirty = YES;
+}
 - (void)setupCalendar {
     // create calendar view
     // GCCalendarView delegate / datasource.
@@ -68,7 +86,6 @@
     viewVisible = NO;
     
     self.title = @"TimeStamp";
-    self.tabBarItem.image = [UIImage imageNamed:@"Calendar.png"];
 }
 
 #pragma mark setters and getters
@@ -104,7 +121,7 @@
 
 #pragma mark GCCalendarDataSource
 - (NSArray *)calendarEventsForDate:(NSDate *)date {
-    NSArray *EKArray = [[TSCalendarStore instance] allCalendarEventsForDate:date];
+    NSArray *EKArray = [model allCalendarEventsForDate:date];
     
     // convert events from EKEvent to GCCalendarEvent
     NSMutableArray *GCEventArray = [[NSMutableArray alloc] init];
@@ -138,22 +155,6 @@
 }
 
 #pragma mark view notifications
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	if (viewDirty) {
-		[self reloadData];
-		viewDirty = NO;
-	}
-    [self setCalendarBounds];
-    [self scrollToCurrentTime];
-    
-	viewVisible = YES;
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-	viewVisible = NO;
-}
 - (void)setCalendarBounds {
     scrollView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, self.calWrapperView.frame.size.height);
     scrollView.contentSize = CGSizeMake(self.calWrapperView.frame.size.width, kTodayViewHeight);
@@ -161,7 +162,9 @@
     todayView.frame = CGRectMake(0, 0, self.calWrapperView.frame.size.width, kTodayViewHeight);
     [scrollView setContentOffset:CGPointMake(0, 0)];
 }
-
+- (void)reloadTodayView {
+    if (todayView) [todayView reloadData];
+}
 - (void)reloadData {
 	// drop all subviews
     if (todayView) {

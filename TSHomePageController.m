@@ -77,10 +77,9 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     // Add a button to the nav bar to create new events
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now"
-                                                               style:UIBarButtonItemStyleBordered
-                                                              target:dayViewController
-                                                              action:@selector(scrollToCurrentTime)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(reloadTodayView)];
+//    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(scrollToCurrentTime)];
+
     button.width = 40.0;
     self.navigationItem.rightBarButtonItem = button;
 }

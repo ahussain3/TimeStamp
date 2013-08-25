@@ -58,8 +58,8 @@ typedef enum {
     }
 }
 - (void)reloadData {
+    self.date = [self.datasource dateToDisplay];
     NSArray *newEvents = [self.datasource eventsToDisplay];
-    
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[GCCalendarTile class]]) {
             [view removeFromSuperview];

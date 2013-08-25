@@ -37,6 +37,7 @@
 }
 
 - (id)initWithEvents:(NSArray *)a;
+- (void)reloadData;
 - (void)removeEvent:(GCCalendarEvent *)event;
 - (void)addNewEvent:(GCCalendarEvent *)event;
 - (void)resetToCenter:(GCCalendarTile *)tile;

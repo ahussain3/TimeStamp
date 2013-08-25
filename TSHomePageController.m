@@ -14,7 +14,9 @@
 #import "TSCategory.h"
 #import "TSCategoryStore.h"
 
-@interface TSHomePageController ()
+@interface TSHomePageController () {
+    BOOL userIsDragging;
+}
 @property (weak, nonatomic) IBOutlet UIView *dismissKeyboardView;
 
 @end
@@ -74,7 +76,7 @@
     
     // Add a button to the nav bar to create new events
     //    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(reloadTodayView)];
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now" style:UIBarButtonItemStyleBordered target:dayViewController action:@selector(scrollToCurrentTime)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(scrollToCurrentTime)];
     
     button.width = 40.0;
     self.navigationItem.rightBarButtonItem = button;
@@ -97,6 +99,14 @@
     [dateFormatter setDateFormat:@"EEE, MMM d"];
     NSString *string = [dateFormatter stringFromDate:date];
     self.title = string;
+}
+- (void)scrollToCurrentTime {
+    if (dayViewController) {
+        [self updateNavBarWithDate:[NSDate date]];
+        dayViewController.date = [NSDate date];
+        [dayViewController reloadTodayView];
+        [dayViewController scrollToCurrentTime];
+    }
 }
 #pragma mark Change date methods.
 - (IBAction)nextDay:(id)sender {
@@ -129,7 +139,8 @@
 }
 
 - (void)respondToCellDragged:(UIPanGestureRecognizer *)sender {
-    if (!self.draggedCell) return;
+    if (sender.state == UIGestureRecognizerStateBegan && self.draggedCell) userIsDragging = TRUE;
+    if (!userIsDragging) return;
     
 	CGPoint translation = [sender translationInView:self.view];
     
@@ -137,6 +148,7 @@
     
 	if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
         [self draggingEndedOnCell:(TSListTableViewCell *)self.draggedCell];
+        userIsDragging = FALSE;
     } else {
 		[self updateFrameOfDraggedCellForTranlationPoint:translation];
     }

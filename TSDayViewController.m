@@ -202,7 +202,7 @@
     NSDateComponents *nowComponents = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:now];
     float hours = [nowComponents hour] + ((float)[nowComponents minute] / 60);
     CGFloat yValue = [self yValueForTime:hours];
-    CGFloat buffer = scrollView.frame.size.height / 2.0 - 50;
+    CGFloat buffer = scrollView.frame.size.height / 2.0;
     
     CGFloat yOffset = yValue - buffer;
     yOffset = MAX(0.0, yOffset);

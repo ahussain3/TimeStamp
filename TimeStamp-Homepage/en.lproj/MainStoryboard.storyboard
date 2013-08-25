@@ -37,7 +37,7 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oZ3-oc-zAG">
-                                <rect key="frame" x="110" y="5" width="50" height="40"/>
+                                <rect key="frame" x="110" y="5" width="50" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Prev">
@@ -52,8 +52,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="13H-NU-OUO">
-                                <rect key="frame" x="258" y="5" width="57" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="258" y="5" width="57" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Next">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -176,34 +176,6 @@
             <point key="canvasLocation" x="1509" y="373"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="ATSDragToReorderTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSDragToReorderTableViewController.h"/>
-        </class>
-        <class className="GCCalendarView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCCalendarView.h"/>
-        </class>
-        <class className="TSDayViewController" superclassName="GCCalendarView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSDayViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="calWrapperView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TSHomePageController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dismissKeyboardView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TSListTableViewController" superclassName="ATSDragToReorderTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSListTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="pathLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="view" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

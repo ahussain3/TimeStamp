@@ -37,9 +37,7 @@
     UIScrollView *scrollView;
     UIView *compositeView;
     GCCalendarTodayView *todayView;
-    GCCalendarTodayView *yesterdayView;
-    GCCalendarTodayView *tomorrowView;
-    
+
     // view has changed since last time on screen
     BOOL viewDirty;
     
@@ -48,7 +46,10 @@
 }
 
 -(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
+- (void)scrollToCurrentTime;
 
+@property (weak, nonatomic) UIViewController *superController;
 @property (weak, nonatomic) IBOutlet UIView *calWrapperView;
+@property (nonatomic, strong) NSDate *date;
 
 @end

@@ -17,6 +17,7 @@
 @protocol GCCalendarTodayViewDelegate <NSObject>
 - (void)updateEventWithNewTimes:(GCCalendarEvent *)gcevent;
 - (void)respondToTileSlidRight:(GCCalendarTile *)tile inDayView:(GCCalendarTodayView *)dayView;
+- (void)updateNavBarWithColor:(UIColor *)color;
 @end
 
 @interface GCCalendarTodayView : UIView <GCCalendarTileDelegate, UIGestureRecognizerDelegate> {

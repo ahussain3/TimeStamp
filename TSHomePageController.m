@@ -51,10 +51,10 @@
     if ([[segue identifier] isEqualToString:@"listSegue"]) {
         listNavController = (UINavigationController *)segue.destinationViewController;        
         listController = (TSListTableViewController *)listNavController.topViewController;
-        
     }
     if ([[segue identifier] isEqualToString:@"daySegue"]) {
         dayViewController = (TSDayViewController *)segue.destinationViewController;
+        dayViewController.superController = self;
     }
     [self initializeControllers];
     [self initalizeKeyboardNotifications];
@@ -73,12 +73,14 @@
     listController.dragDelegate = self;
     listController.path = ROOT_CATEGORY_PATH;
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:listController action:@selector(goBack:)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:listController action:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = backButton;
     
     // Add a button to the nav bar to create new events
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
-                                                                            action:@selector(addNewCategory:)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Now"
+                                                               style:UIBarButtonItemStyleBordered
+                                                              target:dayViewController
+                                                              action:@selector(scrollToCurrentTime)];
     button.width = 40.0;
     self.navigationItem.rightBarButtonItem = button;
 }

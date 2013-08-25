@@ -130,7 +130,6 @@ typedef enum {
     events = newArray;
     [self drawNewEvent:event];
 }
-
 - (void)drawNewEvent:(GCCalendarEvent *)event {
     GCCalendarTile *tile = [[GCCalendarTile alloc] initWithEvent:event];
     tile.delegate = self;
@@ -289,10 +288,23 @@ typedef enum {
     self.nowArrow.backgroundColor = [UIColor blueColor];
     self.nowArrow.frame = CGRectMake(kSideLineBuffer - 30, yVal, self.bounds.size.width - kSideLineBuffer + 30, THICKNESS_OF_NOW_LINE);
     [self bringSubviewToFront:self.nowArrow];
-    
-    // Still to do: automatically scroll so that 'now' is in the middle of the screen.
+
+    // Change the nav bar to match the color of the current event.
+    [self updateNavBarWithCurrentEvent];
     
     [self performSelector:@selector(drawLineForCurrentTime) withObject:nil afterDelay:NOW_ARROW_TIME_PERIOD];
+}
+- (void)updateNavBarWithCurrentEvent {
+    NSDate *now = [NSDate date];
+    
+    for (GCCalendarEvent *event in events) {
+        if ([event.startDate compare:now] == NSOrderedAscending && [event.endDate compare:now] == NSOrderedDescending) {
+            [self.delegate updateNavBarWithColor:event.color];
+            return;
+        }
+    }
+    
+    [self.delegate updateNavBarWithColor:[UIColor grayColor]];
 }
 
 #pragma mark GCCalendarTileDelegate methods
@@ -386,7 +398,6 @@ typedef enum {
         }
     
         if (sender.state == UIGestureRecognizerStateEnded) {
-    //        NSLog(@"Drag gesture ended");
             if (dragState == TSDragStateUpDown) {
                 [self updateTileToReflectNewPosition:self.selectedTile];
             } else if (dragState == TSDragStateRight) {

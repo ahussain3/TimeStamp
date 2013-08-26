@@ -94,7 +94,7 @@
     [button2.layer setCornerRadius:5.0f];
     [button2.layer setMasksToBounds:YES];
     button2.frame=CGRectMake(0.0, 100.0, 60.0, 30.0);
-    [button2 addTarget:self action:@selector(scrollToCurrentTime:) forControlEvents:UIControlEventTouchUpInside];
+    [button2 addTarget:self action:@selector(scrollToCurrentTime) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* todayButton = [[UIBarButtonItem alloc] initWithCustomView:button2];
         
     self.navigationItem.rightBarButtonItem = todayButton;

@@ -102,10 +102,11 @@
     
     // Convert EKCalendars to TSCatgories.
     for (EKCalendar *cal in calendars) {
-        if (!cal.allowsContentModifications) {
+        if (!cal.allowsContentModifications || [cal.title isEqualToString:@"jeremynixon@college.harvard.edu"]) {
             // Remove calendars that do not allow editing
             NSLog(@"Error, calendar: %@ cannot be modfied", cal);
         } else {
+            NSLog(@"Calendar added: %@", cal);
             TSCategory *cat = [self TSCategoryWithEKCalendar:cal];
             [catArray addObject:cat];
             cat.level = 0;
@@ -369,6 +370,9 @@
     
     category.title = calendar.title;
     category.color = [UIColor colorWithCGColor:calendar.CGColor];
+    float h, s, b, a;
+    [category.color getHue:&h saturation:&s brightness:&b alpha:&a];
+    category.color = [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
     category.calendar = calendar;
     
     return category;

@@ -10,4 +10,6 @@
 
 @interface UIColor (CalendarPalette)
 + (UIColor *) colorFromHexString:(NSString *)hexString;
++ (UIColor *) prettyColorFromHexString:(NSString *)hexString;
+- (UIColor *) prettyColor;
 @end

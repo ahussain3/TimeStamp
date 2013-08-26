@@ -31,4 +31,23 @@
     
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
+
++ (UIColor *) prettyColorFromHexString:(NSString *)hexString {
+    UIColor *color = [self colorFromHexString:hexString];
+    
+    float h, s, b, a;
+    if ([color getHue:&h saturation:&s brightness:&b alpha:&a]) {
+        return [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
+    }
+    return nil;
+}
+- (UIColor *)prettyColor {
+    float h, s, b, a;
+    if ([self getHue:&h saturation:&s brightness:&b alpha:&a]) {
+        return [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
+    }
+    return nil;
+
+}
+
 @end

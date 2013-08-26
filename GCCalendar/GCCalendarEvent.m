@@ -10,6 +10,7 @@
 
 #import "GCCalendarEvent.h"
 #import <EventKit/EventKit.h>
+#import "UIColor+CalendarPalette.h"
 
 @implementation GCCalendarEvent
 
@@ -37,7 +38,7 @@
     gcevent.eventName = ekevent.title;
     gcevent.eventDescription = ekevent.notes;
     gcevent.allDayEvent = ekevent.allDay;
-    gcevent.color = [UIColor colorWithCGColor:ekevent.calendar.CGColor];
+    gcevent.color = [[UIColor colorWithCGColor:ekevent.calendar.CGColor] prettyColor];
     gcevent.calendarIdentifier = ekevent.calendar.calendarIdentifier;
     gcevent.eventIdentifier = ekevent.eventIdentifier;
     return gcevent;

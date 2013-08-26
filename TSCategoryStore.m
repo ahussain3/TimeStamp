@@ -16,7 +16,7 @@
     BOOL saveToFile;
 }
 
-@property (nonatomic, strong) NSArray *activeCalendars;
+@property (nonatomic, strong) NSSet *activeCalendars;
 @property (nonatomic, strong) NSMutableArray *categoryArray;
 @property (nonatomic, strong) EKEventStore *store;
 
@@ -57,10 +57,10 @@
     }
     return _store;
 }
-- (void)setActiveCalendars:(NSArray *)activeCalendars {
+- (void)setActiveCalendars:(NSSet *)activeCalendars {
     [[TSCalendarStore instance] setActiveCalendars:activeCalendars];
 }
-- (NSArray *)activeCalendars {
+- (NSSet *)activeCalendars {
     return [[TSCalendarStore instance] activeCalendars];
 }
 + (TSCategoryStore *) instance
@@ -104,7 +104,7 @@
     NSMutableArray *catArray = [[NSMutableArray alloc] init];
     
     // retrieve only active calendars
-    NSArray *calendars = self.activeCalendars;
+    NSArray *calendars = [self.activeCalendars allObjects];
 #warning Eventually we should remove the line below.
     if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
     

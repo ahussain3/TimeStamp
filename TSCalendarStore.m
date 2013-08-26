@@ -53,14 +53,21 @@
         }
     }
 }
-- (void)setActiveCalendars:(NSArray *)activeCalendars {
+- (void)setActiveCalendars:(NSSet *)activeCalendars {
     if (activeCalendars != _activeCalendars) {
         _activeCalendars = activeCalendars;
-        [[NSUserDefaults standardUserDefaults] setObject:_activeCalendars forKey:CAL_STORAGE_KEY];
+        
+        NSMutableDictionary *calDict = [[NSMutableDictionary alloc] initWithCapacity:activeCalendars.count];
+        for (EKCalendar *cal in activeCalendars) {
+            [calDict setObject:cal.calendarIdentifier forKey:cal.title];
+        }
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[calDict copy] forKey:CAL_STORAGE_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        NSLog(@"Saved dictionary: %@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:CAL_STORAGE_KEY]);
     }
 }
-- (NSArray *)activeCalendars {
+- (NSSet *)activeCalendars {
     self.calsDirty = YES;
     if (self.calsDirty) {
         NSMutableArray *calArray = [[NSMutableArray alloc] init];
@@ -71,7 +78,7 @@
             EKCalendar *calendar = [self.store calendarWithIdentifier:calID];
             if (calendar) [calArray addObject:calendar];
         }
-        _activeCalendars = calArray;
+        _activeCalendars = [NSSet setWithArray:calArray];
     }
     return _activeCalendars;
 }
@@ -113,9 +120,9 @@
 
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date {
     // retrieve all calendars
-    NSArray *calendars = self.activeCalendars;
+    NSArray *calendars = [self.activeCalendars allObjects];
 #warning Eventually we should remove the line below.
-    if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+//    if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
     
     // This array will store all the events from all calendars.
     NSMutableArray *eventArray = [[NSMutableArray alloc] init];

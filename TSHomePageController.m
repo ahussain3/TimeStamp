@@ -20,8 +20,10 @@
 
 @interface TSHomePageController () {
     BOOL userIsDragging;
+    TSCalendarStore *calStore;
 }
 @property (weak, nonatomic) IBOutlet UIView *dismissKeyboardView;
+@property (strong, nonatomic) NSSet *tempSet;
 
 @end
 
@@ -44,6 +46,7 @@
     dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondToCellDragged:)];
     [self.view addGestureRecognizer:dragGestureRecognizer];
     dragGestureRecognizer.delegate = self;
+    calStore = [TSCalendarStore instance];
 }
 
 - (void)didReceiveMemoryWarning
@@ -132,7 +135,10 @@
 
 #pragma mark Show Calendar Chooser 
 - (IBAction)showCalChooser:(id)sender {
-    TSCalendarChooser *calChooser = [[TSCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars entityType:EKEntityTypeEvent eventStore:[[TSCalendarStore instance] store]];
+    TSCalendarChooser *calChooser = [[TSCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
+//    [calChooser setEditing:YES];
+    calChooser.selectedCalendars = calStore.activeCalendars;
+    //    calChooser.selectedCalendars = self.tempSet;
     calChooser.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     calChooser.showsCancelButton = YES;
     calChooser.showsDoneButton = YES;
@@ -148,14 +154,9 @@
 
 - (void)calendarChooserDidFinish:(EKCalendarChooser *)calendarChooser {
     [calendarChooser dismissViewControllerAnimated:YES completion:^{
-        NSSet *selectedCals = calendarChooser.selectedCalendars;
-        for (EKCalendar *cal in selectedCals) {
-            // Update our 'active calendars' so that they reflect the changes.
-            // Loop through active calendars. If we have a calendar that doesn't appear in selectedCals, remove it from active calendars.
-            if (FALSE) {
-                
-            }
-        }
+        if ([calStore.activeCalendars isEqualToSet:calendarChooser.selectedCalendars]) return;
+        [calStore setActiveCalendars:calendarChooser.selectedCalendars];
+        [dayViewController reloadTodayView];
     }];
 }
 

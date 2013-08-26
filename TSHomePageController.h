@@ -12,7 +12,7 @@
 @class TSDayViewController;
 @class TSListTableViewController;
 
-@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate, UIGestureRecognizerDelegate> {
+@interface TSHomePageController : UIViewController <ATSDragToReorderTableViewControllerDelegate, UIGestureRecognizerDelegate, EKCalendarChooserDelegate> {
     TSListTableViewController *listController;
     TSDayViewController *dayViewController;
     UINavigationController *listNavController;

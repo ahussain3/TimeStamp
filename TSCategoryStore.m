@@ -16,6 +16,7 @@
     BOOL saveToFile;
 }
 
+@property (nonatomic, strong) NSArray *activeCalendars;
 @property (nonatomic, strong) NSMutableArray *categoryArray;
 @property (nonatomic, strong) EKEventStore *store;
 
@@ -56,7 +57,12 @@
     }
     return _store;
 }
-
+- (void)setActiveCalendars:(NSArray *)activeCalendars {
+    [[TSCalendarStore instance] setActiveCalendars:activeCalendars];
+}
+- (NSArray *)activeCalendars {
+    return [[TSCalendarStore instance] activeCalendars];
+}
 + (TSCategoryStore *) instance
 {
     // Persistent instance.
@@ -97,8 +103,10 @@
 - (NSMutableArray *)loadCalendarData {
     NSMutableArray *catArray = [[NSMutableArray alloc] init];
     
-    // retrieve all calendars
-    NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+    // retrieve only active calendars
+    NSArray *calendars = self.activeCalendars;
+#warning Eventually we should remove the line below.
+    if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
     
     // Convert EKCalendars to TSCatgories.
     for (EKCalendar *cal in calendars) {

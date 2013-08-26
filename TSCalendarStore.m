@@ -18,6 +18,8 @@
 
 @implementation TSCalendarStore
 
+@synthesize activeCalendars = _activeCalendars;
+
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
@@ -51,7 +53,28 @@
         }
     }
 }
-
+- (void)setActiveCalendars:(NSArray *)activeCalendars {
+    if (activeCalendars != _activeCalendars) {
+        _activeCalendars = activeCalendars;
+        [[NSUserDefaults standardUserDefaults] setObject:_activeCalendars forKey:CAL_STORAGE_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+- (NSArray *)activeCalendars {
+    self.calsDirty = YES;
+    if (self.calsDirty) {
+        NSMutableArray *calArray = [[NSMutableArray alloc] init];
+        NSDictionary *calDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:CAL_STORAGE_KEY];
+        NSArray *allKeys = [calDict allKeys];
+        for (NSString *key in allKeys) {
+            NSString *calID = [calDict valueForKey:key];
+            EKCalendar *calendar = [self.store calendarWithIdentifier:calID];
+            if (calendar) [calArray addObject:calendar];
+        }
+        _activeCalendars = calArray;
+    }
+    return _activeCalendars;
+}
 + (TSCalendarStore *) instance
 {
     // Persistent instance.
@@ -88,10 +111,11 @@
     return _default;
 }
 
-
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date {
     // retrieve all calendars
-    NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+    NSArray *calendars = self.activeCalendars;
+#warning Eventually we should remove the line below.
+    if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
     
     // This array will store all the events from all calendars.
     NSMutableArray *eventArray = [[NSMutableArray alloc] init];

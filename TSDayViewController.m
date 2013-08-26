@@ -211,7 +211,7 @@
     [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, yOffset) animated:YES];
 }
 - (void)updateNavBarWithColor:(UIColor *)color {
-    [[[UINavigationBar class] appearance] setBackgroundColor:color];
+//    [[[UINavigationBar class] appearance] setBackgroundColor:color];
 }
 #pragma mark GCCalendarTodayViewDelegate methods
 

@@ -56,6 +56,7 @@
 		C8E4A59117C26FFB002504B0 /* down_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A58F17C26FFB002504B0 /* down_arrow.png */; };
 		C8E4A59217C26FFB002504B0 /* up_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A59017C26FFB002504B0 /* up_arrow.png */; };
 		C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
+		C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */; };
 		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
@@ -138,6 +139,8 @@
 		C8B93BB617C127DB00759246 /* grey_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey_cross.png; sourceTree = "<group>"; };
 		C8E4A58F17C26FFB002504B0 /* down_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_arrow.png; sourceTree = "<group>"; };
 		C8E4A59017C26FFB002504B0 /* up_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up_arrow.png; sourceTree = "<group>"; };
+		C8EA7E0517CBD15F009EED40 /* TSCalendarChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCalendarChooser.h; sourceTree = "<group>"; };
+		C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCalendarChooser.m; sourceTree = "<group>"; };
 		C8FF165717A5DA440064BA83 /* TSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategory.h; sourceTree = "<group>"; };
 		C8FF165817A5DA440064BA83 /* TSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategory.m; sourceTree = "<group>"; };
 		C8FF165917A5DA440064BA83 /* TSCategoryStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategoryStore.h; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */,
 				C8FF167617A5E0DF0064BA83 /* TSListTableViewController.h */,
 				C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */,
+				C8EA7E0517CBD15F009EED40 /* TSCalendarChooser.h */,
+				C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -506,6 +511,7 @@
 				C8A6C7E517ADE44D0086FED4 /* TSDayViewController.m in Sources */,
 				C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */,
 				C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */,
+				C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

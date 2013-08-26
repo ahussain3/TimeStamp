@@ -14,6 +14,8 @@
 
 // Event store
 @property (nonatomic, strong) EKEventStore *store;
+@property (nonatomic, strong) NSArray *activeCalendars;
+@property (nonatomic) BOOL calsDirty;
 
 // Singleton methods
 + (TSCalendarStore *)instance;

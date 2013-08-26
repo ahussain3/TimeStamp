@@ -7,13 +7,16 @@
 //
 
 #import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
 #import "TSHomePageController.h"
 #import "TSListTableViewController.h"
 #import "TSDayViewController.h"
 #import "GCCalendarEvent.h"
 #import "TSCategory.h"
 #import "TSCategoryStore.h"
+#import "TSCalendarStore.h"
 #import "UIColor+CalendarPalette.h"
+#import "TSCalendarChooser.h"
 
 @interface TSHomePageController () {
     BOOL userIsDragging;
@@ -126,6 +129,40 @@
         [dayViewController scrollToCurrentTime];
     }
 }
+
+#pragma mark Show Calendar Chooser 
+- (IBAction)showCalChooser:(id)sender {
+    TSCalendarChooser *calChooser = [[TSCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars entityType:EKEntityTypeEvent eventStore:[[TSCalendarStore instance] store]];
+    calChooser.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    calChooser.showsCancelButton = YES;
+    calChooser.showsDoneButton = YES;
+    calChooser.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:calChooser];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark EKCalendarChooserDelegate
+- (void)calendarChooserSelectionDidChange:(EKCalendarChooser *)calendarChooser {
+    
+}
+
+- (void)calendarChooserDidFinish:(EKCalendarChooser *)calendarChooser {
+    [calendarChooser dismissViewControllerAnimated:YES completion:^{
+        NSSet *selectedCals = calendarChooser.selectedCalendars;
+        for (EKCalendar *cal in selectedCals) {
+            // Update our 'active calendars' so that they reflect the changes.
+            // Loop through active calendars. If we have a calendar that doesn't appear in selectedCals, remove it from active calendars.
+            if (FALSE) {
+                
+            }
+        }
+    }];
+}
+
+- (void)calendarChooserDidCancel:(EKCalendarChooser *)calendarChooser {
+    [calendarChooser dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark Change date methods.
 - (IBAction)nextDay:(id)sender {
     NSDate *newDate = [dayViewController.date dateByAddingTimeInterval:60*60*24];

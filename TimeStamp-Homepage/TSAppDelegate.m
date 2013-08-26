@@ -18,6 +18,19 @@
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor colorFromHexString:@"#282E5C"]];
     
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
+    {
+        // app already launched
+        NSLog(@"App has launched once already");
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        // This is the first launch ever
+        NSLog(@"This is the first time the app has ever launched");
+    }
+    
     return YES;
 }
 							

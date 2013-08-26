@@ -41,18 +41,14 @@
     }
     return self;
 }
-//- (void)setSelected:(BOOL)selected {
-//    [super setSelected:selected];
-//    [self setSelected:selected animated:YES];
-//}
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
     self.selectedBackgroundView.backgroundColor = [UIColor colorFromHexString:@"#dddddd"];
     self.selectedBackgroundView.layer.borderColor = self.color.CGColor;
     self.selectedBackgroundView.layer.borderWidth = 6.0;
     self.selectedBackgroundView.layer.cornerRadius = BOX_HEIGHT / 2.0;
 }
-
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:NO];
+}
 @end

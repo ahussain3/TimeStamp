@@ -128,6 +128,7 @@
     cell.textLabel.text = category.title;
     cell.contentView.backgroundColor = category.color;
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = category.color;
     cell.category = category;
     cell.color = category.color;
     

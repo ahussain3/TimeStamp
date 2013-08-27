@@ -219,8 +219,10 @@
         if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
             name = cell.textLabel.text;
         } else {
-            name = [NSString stringWithFormat:@"%@:%@",cell.category.path, cell.textLabel.text];
-            name = [name substringFromIndex:[ROOT_CATEGORY_PATH length] + 1];
+            NSMutableArray *string = [[cell.category.path componentsSeparatedByString:@":"] mutableCopy];
+            [string removeObjectAtIndex:0]; // remove the $ROOT text.
+            NSArray *reversed = [[string reverseObjectEnumerator] allObjects];
+            name = [NSString stringWithFormat:@"%@ : %@",cell.textLabel.text, [reversed componentsJoinedByString:@" : "]];
         }
         event.eventName = name;
         event.color = cell.contentView.backgroundColor;

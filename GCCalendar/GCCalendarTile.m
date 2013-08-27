@@ -49,7 +49,7 @@
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.numberOfLines = 0;
         titleLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:12.0f];
-        titleLabel.lineBreakMode = NSLineBreakByTruncatingHead;
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         titleLabel.text = event.eventName;
 
 //        descriptionLabel = [[UILabel alloc] init];

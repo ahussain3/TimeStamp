@@ -30,8 +30,8 @@
 
 #define kTopLineBuffer 10
 #define kSideLineBuffer 140.0
-#define kHalfHourDiff 22.0
-#define kTodayViewHeight 1076
+#define kHalfHourDiff 32.0
+#define kTodayViewHeight 1556
 
 #define CAL_STORAGE_KEY @"activeCalendars"
 

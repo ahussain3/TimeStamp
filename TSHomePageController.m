@@ -201,7 +201,7 @@
     
 	CGPoint translation = [sender translationInView:self.view];
     
-    NSLog(@"drag gesture state: %i", sender.state);
+//    NSLog(@"drag gesture state: %i", sender.state);
     
 	if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
         [self draggingEndedOnCell:(TSListTableViewCell *)self.draggedCell];

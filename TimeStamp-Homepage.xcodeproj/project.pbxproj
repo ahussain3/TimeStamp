@@ -57,6 +57,8 @@
 		C8E4A59217C26FFB002504B0 /* up_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A59017C26FFB002504B0 /* up_arrow.png */; };
 		C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
 		C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */; };
+		C8EA7E0A17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */; };
+		C8EA7E0B17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */; };
 		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
@@ -141,6 +143,8 @@
 		C8E4A59017C26FFB002504B0 /* up_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up_arrow.png; sourceTree = "<group>"; };
 		C8EA7E0517CBD15F009EED40 /* TSCalendarChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCalendarChooser.h; sourceTree = "<group>"; };
 		C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCalendarChooser.m; sourceTree = "<group>"; };
+		C8EA7E0817CC2F15009EED40 /* UIColor+MLPFlatColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MLPFlatColors.h"; sourceTree = "<group>"; };
+		C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MLPFlatColors.m"; sourceTree = "<group>"; };
 		C8FF165717A5DA440064BA83 /* TSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategory.h; sourceTree = "<group>"; };
 		C8FF165817A5DA440064BA83 /* TSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategory.m; sourceTree = "<group>"; };
 		C8FF165917A5DA440064BA83 /* TSCategoryStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategoryStore.h; sourceTree = "<group>"; };
@@ -342,6 +346,8 @@
 			children = (
 				C8FF166317A5DD160064BA83 /* MyAlertViewDelegate.h */,
 				C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */,
+				C8EA7E0817CC2F15009EED40 /* UIColor+MLPFlatColors.h */,
+				C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */,
 				C8FF166517A5DD160064BA83 /* TSSlidableCell.h */,
 				C8FF166617A5DD160064BA83 /* TSSlidableCell.m */,
 				C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */,
@@ -512,6 +518,7 @@
 				C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */,
 				C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */,
 				C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */,
+				C8EA7E0A17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +540,7 @@
 				C8A6C7DA17ADE3180086FED4 /* GCCalendarTodayView.m in Sources */,
 				C8A6C7DC17ADE3180086FED4 /* GCCalendarView.m in Sources */,
 				C8A6C7E617ADE44D0086FED4 /* TSDayViewController.m in Sources */,
+				C8EA7E0B17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,8 +62,6 @@
     categoryArray = [[model dataForPath:self.path] mutableCopy];
     rootCategory = [model categoryForPath:self.path];
     
-    NSLog(@"New data: %@", categoryArray);
-    
     if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
 //        self.pathLabel.hidden = YES;
     } else {
@@ -205,7 +203,6 @@
     
     [categoryArray exchangeObjectAtIndex:fromIndexPath.row - 1 withObjectAtIndex:toIndexPath.row - 1];
 	[model exchangeCategoryAtIndex:fromIndexPath.row - 1 withIndex:toIndexPath.row - 1 forPath:self.path];
-//    [self reloadData];
 }
 
 #pragma mark - TSSlideToDeleteDelegate
@@ -218,7 +215,7 @@
     NSString *deleteButton;
     if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
         prompt = @"Are you sure you want to hide this category?";
-        info = [NSString stringWithFormat:@"This will also hide any \"%@\" events. You can click 'settings' below to unhide the category", cell.category.title];
+        info = [NSString stringWithFormat:@"This will also hide any events that fall under the \"%@\" category. You can click 'settings' below to unhide the category.", cell.category.title];
         deleteButton = @"Hide";
     } else {
         prompt = @"Are you sure you want to delete this activity?";

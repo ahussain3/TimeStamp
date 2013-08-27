@@ -11,6 +11,7 @@
 #import "TSCalendarStore.h"
 #import "TSCategory.h"
 #import "UIColor+CalendarPalette.h"
+#import "UIColor+MLPFlatColors.h"
 
 @interface TSCategoryStore () {
     BOOL saveToFile;
@@ -265,10 +266,19 @@
 }
 - (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
     NSLog(@"Searching for path: %@", path);
+    if ([name isEqualToString:@""]) return;
     TSCategory *category = [self categoryForPath:path andCategory:nil];
-    if (category == nil) {
-        // Add calendar level category.
+    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
         NSLog(@"Need to add a 'calendar' level category");
+        TSCategory *newCat = [[TSCategory alloc] init];
+
+        newCat.title = name;
+        newCat.color = [UIColor randomFlatColor];
+        // For some reason it's not seeing that I have a UIColor category, so the below is done manually. 
+        float h, s, b, a;
+        [newCat.color getHue:&h saturation:&s brightness:&b alpha:&a];
+        newCat.color = [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
+        [self addNewCalendar:newCat];
     } else {
         // Do some validation checks. Ensure that the category doesn't already exist.
         [category addSubcategory:name];
@@ -348,6 +358,7 @@
     BOOL success = [self.store saveCalendar:calendar commit:YES error:&err];
     if (success == NO) {
         NSLog(@"Error creating new calendar: %@", err);
+        return nil;
     } else {
         NSLog(@"Successfully created new calendar:%@", calendar);
     }
@@ -358,7 +369,10 @@
     cat.path = ROOT_CATEGORY_PATH;
     
     // Let the database know.
-    [self.allCategories addObject:cat];
+    [self.allCategories insertObject:cat atIndex:0];
+    NSMutableSet *temp = [self.activeCalendars mutableCopy];
+    [temp addObject:calendar];
+    self.activeCalendars = temp;
     [self saveData];
     
     return cat;

@@ -64,7 +64,6 @@
         
         [[NSUserDefaults standardUserDefaults] setObject:[calDict copy] forKey:CAL_STORAGE_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        NSLog(@"Saved dictionary: %@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:CAL_STORAGE_KEY]);
     }
 }
 - (NSSet *)activeCalendars {

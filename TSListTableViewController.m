@@ -60,9 +60,9 @@
 - (void)reloadData {
     // Populate local array.
     categoryArray = [[model dataForPath:self.path] mutableCopy];
-//    NSLog(@"Get category for path: %@", self.path);
     rootCategory = [model categoryForPath:self.path];
-//    NSLog(@"root category: %@", rootCategory);
+    
+    NSLog(@"New data: %@", categoryArray);
     
     if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
 //        self.pathLabel.hidden = YES;
@@ -213,10 +213,19 @@
 //    if (cell.category.subCategories == 0) {
 //        [self removeCell:cell];
 //    } else {
-        NSString *prompt = @"Are you sure you want to delete this activity?";
-        NSString *info = @"This will also delete all subcategories. Note: none of your events will be deleted";
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:prompt message:info delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+    NSString *prompt;
+    NSString *info;
+    NSString *deleteButton;
+    if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
+        prompt = @"Are you sure you want to hide this category?";
+        info = [NSString stringWithFormat:@"This will also hide any \"%@\" events. You can click 'settings' below to unhide the category", cell.category.title];
+        deleteButton = @"Hide";
+    } else {
+        prompt = @"Are you sure you want to delete this activity?";
+        info = @"This will also delete all subcategories. Note: none of your events will be deleted";
+        deleteButton = @"Delete";
+    }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:prompt message:info delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:deleteButton, nil];
         
         [MyAlertViewDelegate showAlertView:alert withCallback:^(NSInteger buttonIndex) {
             // code to take action depending on the value of buttonIndex
@@ -251,5 +260,7 @@
     [[TSCategoryStore instance] addSubcategory:string AtPathLevel:self.path];
     [self reloadData];
 }
+
+
 
 @end

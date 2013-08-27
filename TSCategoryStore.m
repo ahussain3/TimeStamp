@@ -15,15 +15,18 @@
 @interface TSCategoryStore () {
     BOOL saveToFile;
 }
-
+// Set of EKCalendar objects representing 'unhidden' calendars
 @property (nonatomic, strong) NSSet *activeCalendars;
+// Store of all the categories and subcategories ever created (hidden and unhidden).
+@property (nonatomic, strong) NSMutableArray *allCategories;
+// This is the curated list of only unhidden categories. Use active calendars to derive this list.
 @property (nonatomic, strong) NSMutableArray *categoryArray;
 @property (nonatomic, strong) EKEventStore *store;
 
 @end
 
 @implementation TSCategoryStore
-@synthesize categoryArray = _categoryArray;
+@synthesize allCategories = _allCategories;
 
 #pragma mark - Singleton methods
 - (id) initSingleton
@@ -35,8 +38,8 @@
         // Initialization code here.
         if (loadDataFrom == 0) {
             // Load from calendar
-            saveToFile = NO;
-            self.categoryArray = [self loadCalendarData];
+            saveToFile = YES;
+            self.allCategories = [self loadCalendarData];
         } else if (loadDataFrom == 1) {
             // Load from encoder (saved data)
             saveToFile = YES;
@@ -44,7 +47,7 @@
         } else {
             // Load custom data (with subcategories)
             saveToFile = NO;
-            self.categoryArray = [self loadCustomData];
+            self.allCategories = [self loadCustomData];
         }
         [self saveData];
     }
@@ -62,6 +65,19 @@
 }
 - (NSSet *)activeCalendars {
     return [[TSCalendarStore instance] activeCalendars];
+}
+- (NSMutableArray *)categoryArray {
+    // Check to ensure that each category has a corresponding entry in the active calendars list.
+    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:_categoryArray.count];
+    for (TSCategory *cat in self.allCategories) {
+        for (EKCalendar *cal in self.activeCalendars) {
+            if ([cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+                [tempArray addObject:cat];
+                break;
+            }
+        }
+    }
+    return tempArray;
 }
 + (TSCategoryStore *) instance
 {
@@ -199,19 +215,16 @@
 }
 
 #pragma mark - database methods
-
 - (NSArray *)dataForPath:(NSString *)path {
     TSCategory *category = [self categoryForPath:path andCategory:nil];
     NSArray *array = [[NSArray alloc] init];;
     if (category == nil) {
-         array = self.categoryArray;
+        array = self.categoryArray;
     } else {
         array = category.subCategories;
     }
-    
     return array;
 }
-
 - (TSCategory *)categoryForPath:(NSString *)path {
     TSCategory *category = [[TSCategory alloc] init];
     if (![path isEqualToString:ROOT_CATEGORY_PATH]) {
@@ -220,54 +233,12 @@
     }
     return nil;
 }
-
-- (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
-    NSLog(@"Searching for path: %@", path);
-    TSCategory *category = [self categoryForPath:path andCategory:nil];
-    if (category == nil) {
-        // Add calendar level category.
-        NSLog(@"Need to add a 'calendar' level category");
-    } else {
-        // Do some validation checks. Ensure that the category doesn't already exist.
-        [category addSubcategory:name];
-    }
-    [self saveData];
-}
-- (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
-    TSCategory *category = [self categoryForPath:path andCategory:nil];
-    if (category == nil) {
-        [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
-    } else {
-        [category.subCategories exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
-    }
-    
-    [self saveData];
-}
-- (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
-    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
-        // Have to 'hide' an entire calendar. We don't yet have this functionality.
-        
-    } else {
-        TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
-        for (TSCategory *cat in storedCat.subCategories) {
-            if ([cat isEqual:category]) {
-                // remove category.
-                [storedCat.subCategories removeObject:cat];
-                break;
-            }
-        }
-    }
-    
-    [self saveData];
-}
-
-# pragma mark - Database helper methods.
 // Recursively goes in and locates the category specified by the path.
 // If it returns nil, then we are at the ROOT level.
 - (TSCategory *)categoryForPath:(NSString *)path andCategory:(TSCategory *)category {
     if (category == nil) {
         category = [[TSCategory alloc] init];
-        category.subCategories = self.categoryArray;
+        category.subCategories = self.allCategories;
     }
     if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
         NSLog(@"This is the ROOT path");
@@ -291,6 +262,60 @@
     
     NSLog(@"Error: The specified path (%@) doesn't exist", path);
     return nil;
+}
+- (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
+    NSLog(@"Searching for path: %@", path);
+    TSCategory *category = [self categoryForPath:path andCategory:nil];
+    if (category == nil) {
+        // Add calendar level category.
+        NSLog(@"Need to add a 'calendar' level category");
+    } else {
+        // Do some validation checks. Ensure that the category doesn't already exist.
+        [category addSubcategory:name];
+    }
+    [self saveData];
+}
+- (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
+    TSCategory *category = [self categoryForPath:path andCategory:nil];
+    if (category == nil) {
+        TSCategory *cat1 = [self.categoryArray objectAtIndex:ind1];
+        TSCategory *cat2 = [self.categoryArray objectAtIndex:ind2];
+        
+//        [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+        
+        NSInteger newInd1 = [self.allCategories indexOfObject:cat1];
+        NSInteger newInd2 = [self.allCategories indexOfObject:cat2];
+        
+        [self.allCategories exchangeObjectAtIndex:newInd1 withObjectAtIndex:newInd2];
+    } else {
+        [category.subCategories exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+    }
+    
+    [self saveData];
+}
+- (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
+    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
+        // Have to 'hide' an entire calendar. We don't yet have this functionality.
+        for (EKCalendar *cal in self.activeCalendars) {
+            if ([cal.calendarIdentifier isEqualToString:category.calendar.calendarIdentifier]) {
+                NSMutableArray *tempArray = [self.activeCalendars mutableCopy];
+                [tempArray removeObject:cal];
+                self.activeCalendars = [tempArray copy];
+                break;
+            }
+        }
+    } else {
+        TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
+        for (TSCategory *cat in storedCat.subCategories) {
+            if ([cat isEqual:category]) {
+                // remove category.
+                [storedCat.subCategories removeObject:cat];
+                break;
+            }
+        }
+    }
+    
+    [self saveData];
 }
 
 - (TSCategory *)addNewCalendar:(TSCategory *)category {
@@ -333,7 +358,7 @@
     cat.path = ROOT_CATEGORY_PATH;
     
     // Let the database know.
-    [self.categoryArray addObject:cat];
+    [self.allCategories addObject:cat];
     [self saveData];
     
     return cat;
@@ -351,7 +376,7 @@
         NSMutableData *saveData = [[NSMutableData alloc] init];
         
         NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
-        [archiver encodeObject:self.categoryArray forKey:@"categories"];
+        [archiver encodeObject:self.allCategories forKey:@"categories"];
         [archiver finishEncoding];
         
         [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
@@ -369,7 +394,7 @@
     {
         NSData *data = [fileManager contentsAtPath:savePath];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        self.categoryArray = [unarchiver decodeObjectForKey:@"categories"];
+        self.allCategories = [unarchiver decodeObjectForKey:@"categories"];
     }
 }
 #pragma mark Utility Methods

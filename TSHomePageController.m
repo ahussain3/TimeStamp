@@ -157,6 +157,7 @@
         if ([calStore.activeCalendars isEqualToSet:calendarChooser.selectedCalendars]) return;
         [calStore setActiveCalendars:calendarChooser.selectedCalendars];
         [dayViewController reloadTodayView];
+        [listController reloadData];
     }];
 }
 

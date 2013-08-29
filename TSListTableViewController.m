@@ -44,6 +44,10 @@
 	model = [TSCategoryStore instance];
     [self reloadData];
     
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goBack:)];
+    swipe.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.tableView addGestureRecognizer:swipe];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -249,6 +253,10 @@
 
 - (void)goBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)goHome:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark TSAddNewTableViewCellDelegate

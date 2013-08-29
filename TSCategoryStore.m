@@ -47,8 +47,9 @@
             [self loadData];
         } else {
             // Load custom data (with subcategories)
-            saveToFile = NO;
-            self.allCategories = [self loadCustomData];
+            saveToFile = YES;
+            [self loadData];
+            [self importDefaultCalendars];
         }
         [self saveData];
     }
@@ -141,57 +142,92 @@
     
     return catArray;
 }
+- (void)syncStoredDataWithGCalData {
+    // retrieve only active calendars
+    NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
 
-- (NSMutableArray *)loadCustomData {
+    BOOL catExists;
+    for (EKCalendar *cal in calendars) {
+        for (TSCategory *cat in self.allCategories) {
+            catExists = FALSE;
+        }
+        
+//        if (!catExists) [self.allCategories addObject:cal];
+    }
+}
+- (void)importDefaultCalendars {
+    NSArray *cats = [[self getDefaultCalendars] copy];
+    TSCategory *tempCat;
+    BOOL catExistsAlready;
+    // Check that the category doesn't already exist in our application.
+    for (TSCategory *defCat in cats) {
+        for (TSCategory *stoCat in self.allCategories) {
+            catExistsAlready = FALSE;
+            if ([defCat.title isEqualToString:stoCat.title] || [defCat.calendar.title isEqualToString:stoCat.calendar.title] || [defCat.calendar.calendarIdentifier isEqualToString:stoCat.calendar.calendarIdentifier]) {
+                // The calendar already exists in our store
+                catExistsAlready = TRUE;
+                stoCat.calendar = defCat.calendar;
+                stoCat.color = defCat.color;
+                // Make stoCat an active calendar.
+                
+                break;
+            }
+        }
+        if (!catExistsAlready) {
+            tempCat = [self addNewCalendar:defCat];
+        }
+    }
+}
+- (NSMutableArray *)getDefaultCalendars {
     NSMutableArray *catArray = [[NSMutableArray alloc] init];
     
-    TSCategory *sleep = [[TSCategory alloc] init];
-    sleep.title = @"Sleep";
-    sleep.color = [UIColor colorFromHexString:@"9e9e9e"];
-    sleep.path = ROOT_CATEGORY_PATH;
-    [sleep addSubcategory:@"Sleep"];
-    [sleep addSubcategory:@"Nap"];
-    
-    TSCategory *work = [[TSCategory alloc] init];
-    work.path = ROOT_CATEGORY_PATH;
-    work.title = @"Work";
-    work.color = [UIColor colorFromHexString:@"91565e"];
-    
-    TSCategory * school = [[TSCategory alloc]init];
-    school.title = @"School";
-    school.color = [UIColor colorFromHexString:@"C5B46f"];
-    school.path = ROOT_CATEGORY_PATH;
-    [school addSubcategory:@"Class"];
-    [school addSubcategory:@"Studying"];
-    [school addSubcategory:@"Extra Curriculars"];
-    
-    TSCategory *social = [[TSCategory alloc] init];
-    social.title = @"Social";
-    social.color = [UIColor colorFromHexString:@"BE8260"];
-    social.path = ROOT_CATEGORY_PATH;
-    [social addSubcategory:@"Friends"];
-    [social addSubcategory:@"Co-workers"];
-    
-    TSCategory *food = [[TSCategory alloc] init];
-    food.title = @"Food";
-    food.color = [UIColor colorFromHexString:@"254540"];
-    food.path = ROOT_CATEGORY_PATH;
-    [food addSubcategory:@"Breakfast"];
-    [food addSubcategory:@"Lunch"];
-    [food addSubcategory:@"Dinner"];
-    [food addSubcategory:@"Snacks"];
-    
-    TSCategory *travel = [[TSCategory alloc] init];
-    travel.title = @"Travel";
-    travel.color = [UIColor colorFromHexString:@"052F3B"];
-    travel.path = ROOT_CATEGORY_PATH;
-    [travel addSubcategory:@"Commute"];
-    [travel addSubcategory:@"Driving"];
-    [travel addSubcategory:@"Bus"];
-    [travel addSubcategory:@"Cycling"];
+//    TSCategory *sleep = [[TSCategory alloc] init];
+//    sleep.title = @"Sleep";
+//    sleep.color = [UIColor colorFromHexString:@"9e9e9e"];
+//    sleep.path = ROOT_CATEGORY_PATH;
+//    [sleep addSubcategory:@"Sleep"];
+//    [sleep addSubcategory:@"Nap"];
+//    
+//    TSCategory *work = [[TSCategory alloc] init];
+//    work.path = ROOT_CATEGORY_PATH;
+//    work.title = @"Work";
+//    work.color = [UIColor colorFromHexString:@"91565e"];
+//    
+//    TSCategory * school = [[TSCategory alloc]init];
+//    school.title = @"School";
+//    school.color = [UIColor colorFromHexString:@"C5B46f"];
+//    school.path = ROOT_CATEGORY_PATH;
+//    [school addSubcategory:@"Class"];
+//    [school addSubcategory:@"Studying"];
+//    [school addSubcategory:@"Extra Curriculars"];
+//    
+//    TSCategory *social = [[TSCategory alloc] init];
+//    social.title = @"Social";
+//    social.color = [UIColor colorFromHexString:@"BE8260"];
+//    social.path = ROOT_CATEGORY_PATH;
+//    [social addSubcategory:@"Friends"];
+//    [social addSubcategory:@"Co-workers"];
+//    
+//    TSCategory *food = [[TSCategory alloc] init];
+//    food.title = @"Food";
+//    food.color = [UIColor colorFromHexString:@"254540"];
+//    food.path = ROOT_CATEGORY_PATH;
+//    [food addSubcategory:@"Breakfast"];
+//    [food addSubcategory:@"Lunch"];
+//    [food addSubcategory:@"Dinner"];
+//    [food addSubcategory:@"Snacks"];
+//    
+//    TSCategory *travel = [[TSCategory alloc] init];
+//    travel.title = @"Travel";
+//    travel.color = [UIColor colorFromHexString:@"052F3B"];
+//    travel.path = ROOT_CATEGORY_PATH;
+//    [travel addSubcategory:@"Commute"];
+//    [travel addSubcategory:@"Driving"];
+//    [travel addSubcategory:@"Bus"];
+//    [travel addSubcategory:@"Cycling"];
     
     TSCategory * sport = [[TSCategory alloc]init];
-    sport.title = @"Fitness";
+    sport.title = @"Sport";
     sport.color = [UIColor colorFromHexString:@"6C9B5C"];
     sport.path = ROOT_CATEGORY_PATH;
     [sport addSubcategory:@"Gym"];
@@ -207,11 +243,12 @@
     
     TSCategory *misc = [[TSCategory alloc] init];
     misc.path = ROOT_CATEGORY_PATH;
-    misc.title = @"Miscellaneous";
+    misc.title = @"Misc";
     misc.color = [UIColor colorFromHexString:@"517795"];
     
-    catArray = [NSMutableArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, misc, nil];
-    
+//    catArray = [NSMutableArray arrayWithObjects:sleep,work,school,social,food,travel,sport,procras, misc, nil];
+    catArray = [NSMutableArray arrayWithObjects:sport,procras, misc, nil];
+
     return catArray;
 }
 
@@ -370,6 +407,7 @@
     
     // Let the database know.
     [self.allCategories insertObject:cat atIndex:0];
+    // Make calendar active
     NSMutableSet *temp = [self.activeCalendars mutableCopy];
     [temp addObject:calendar];
     self.activeCalendars = temp;

@@ -66,7 +66,7 @@
                                     <segue destination="kGr-Gl-f3f" kind="embed" identifier="listSegue" id="obD-oM-5RS"/>
                                 </connections>
                             </containerView>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9be-y9-QFO">
+                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9be-y9-QFO">
                                 <rect key="frame" x="7" y="455" width="97" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -87,6 +87,8 @@
                     <navigationItem key="navigationItem" id="fbi-D3-vxo"/>
                     <connections>
                         <outlet property="dismissKeyboardView" destination="9NT-bD-k6f" id="UEy-wa-6B2"/>
+                        <outlet property="nextButton" destination="13H-NU-OUO" id="CKB-Si-rIm"/>
+                        <outlet property="prevButton" destination="oZ3-oc-zAG" id="wDo-fw-FqY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dX7-Ge-Epg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -195,6 +197,39 @@
         <image name="next_button.png" width="100" height="70"/>
         <image name="prev_button.png" width="100" height="70"/>
     </resources>
+    <classes>
+        <class className="ATSDragToReorderTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSDragToReorderTableViewController.h"/>
+        </class>
+        <class className="GCCalendarView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCCalendarView.h"/>
+        </class>
+        <class className="TSDayViewController" superclassName="GCCalendarView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSDayViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="calWrapperView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="TSHomePageController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
+            <relationships>
+                <relationship kind="action" name="nextDay:"/>
+                <relationship kind="action" name="prevDay:"/>
+                <relationship kind="action" name="showCalChooser:"/>
+                <relationship kind="outlet" name="dismissKeyboardView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="prevButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="TSListTableViewController" superclassName="ATSDragToReorderTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSListTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pathLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="view" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

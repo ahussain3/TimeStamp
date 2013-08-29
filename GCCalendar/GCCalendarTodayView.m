@@ -297,6 +297,10 @@ typedef enum {
     if (!self.nowArrow && viewIsToday) {
         self.nowArrow = [[UIView alloc] init];
         [self addSubview:self.nowArrow];
+    } else if (!viewIsToday){
+        [self.nowArrow removeFromSuperview];
+        self.nowArrow = nil;
+        return;
     }
     
     self.nowArrow.backgroundColor = [UIColor blueColor];

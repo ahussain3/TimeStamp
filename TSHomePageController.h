@@ -19,6 +19,8 @@
     CGPoint initialListCellCenter;
     UIPanGestureRecognizer *dragGestureRecognizer;
 }
+@property (weak, nonatomic) IBOutlet UIButton *prevButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @property (nonatomic, strong) UITableViewCell *draggedCell;
 

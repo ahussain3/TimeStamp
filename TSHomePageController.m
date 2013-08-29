@@ -81,12 +81,12 @@
     // Set up navigation bar buttons. 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.backgroundColor = [UIColor colorFromHexString:@"#282E5C"];
-    [button setTitle:@"Back" forState:UIControlStateNormal];
+    [button setTitle:@"Home" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
     [button.layer setCornerRadius:5.0f];
     [button.layer setMasksToBounds:YES];
     button.frame=CGRectMake(0.0, 100.0, 60.0, 30.0);
-    [button addTarget:listController action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:listController action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     self.navigationItem.leftBarButtonItem = backButton;
@@ -125,6 +125,8 @@
     self.title = string;
 }
 - (void)scrollToCurrentTime {
+//    self.nextButton.hidden = !self.nextButton.hidden;
+//    self.prevButton.hidden = !self.prevButton.hidden;
     if (dayViewController) {
         [self updateNavBarWithDate:[NSDate date]];
         dayViewController.date = [NSDate date];
@@ -221,8 +223,8 @@
         } else {
             NSMutableArray *string = [[cell.category.path componentsSeparatedByString:@":"] mutableCopy];
             [string removeObjectAtIndex:0]; // remove the $ROOT text.
-            NSArray *reversed = [[string reverseObjectEnumerator] allObjects];
-            name = [NSString stringWithFormat:@"%@ : %@",cell.textLabel.text, [reversed componentsJoinedByString:@" : "]];
+            if (string.count > 1) [string removeObjectAtIndex:0]; // Remove the "category" label.
+            name = [NSString stringWithFormat:@"%@ : %@",[string componentsJoinedByString:@" : "], cell.textLabel.text];
         }
         event.eventName = name;
         event.color = cell.contentView.backgroundColor;

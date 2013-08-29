@@ -66,7 +66,7 @@
                                     <segue destination="kGr-Gl-f3f" kind="embed" identifier="listSegue" id="obD-oM-5RS"/>
                                 </connections>
                             </containerView>
-                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9be-y9-QFO">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9be-y9-QFO">
                                 <rect key="frame" x="7" y="455" width="97" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -214,7 +214,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
             <relationships>
                 <relationship kind="action" name="nextDay:"/>
-                <relationship kind="action" name="prevDay:"/>
                 <relationship kind="action" name="showCalChooser:"/>
                 <relationship kind="outlet" name="dismissKeyboardView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>

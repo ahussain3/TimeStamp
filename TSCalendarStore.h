@@ -15,7 +15,7 @@
 // Event store
 @property (nonatomic, strong) EKEventStore *store;
 @property (nonatomic, strong) NSSet *activeCalendars;
-@property (nonatomic) BOOL calsDirty;
+@property (nonatomic) BOOL eventsShouldReload;
 
 // Singleton methods
 + (TSCalendarStore *)instance;

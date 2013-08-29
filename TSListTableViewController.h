@@ -30,5 +30,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *pathLabel;
 
 - (void)reloadData;
-
+- (void)goHome:(id)sender;
 @end

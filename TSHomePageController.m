@@ -86,7 +86,7 @@
     [button.layer setCornerRadius:5.0f];
     [button.layer setMasksToBounds:YES];
     button.frame=CGRectMake(0.0, 100.0, 60.0, 30.0);
-    [button addTarget:listController action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     self.navigationItem.leftBarButtonItem = backButton;
@@ -130,9 +130,13 @@
     if (dayViewController) {
         [self updateNavBarWithDate:[NSDate date]];
         dayViewController.date = [NSDate date];
-        [dayViewController reloadTodayView];
+        if ([[TSCalendarStore instance] eventsShouldReload] == YES) [dayViewController reloadTodayView];
+//        [dayViewController reloadTodayView];
         [dayViewController scrollToCurrentTime];
     }
+}
+- (void)goHome:(id)sender {
+    if ([listController respondsToSelector:@selector(goHome:)]) [listController goHome:sender];
 }
 
 #pragma mark Show Calendar Chooser 
@@ -218,14 +222,15 @@
         
         GCCalendarEvent *event = [[GCCalendarEvent alloc] init];
         NSString *name = [[NSString alloc] init];
-        if ([cell.category.path isEqualToString:ROOT_CATEGORY_PATH]) {
-            name = cell.textLabel.text;
-        } else {
-            NSMutableArray *string = [[cell.category.path componentsSeparatedByString:@":"] mutableCopy];
-            [string removeObjectAtIndex:0]; // remove the $ROOT text.
-            if (string.count > 1) [string removeObjectAtIndex:0]; // Remove the "category" label.
+        NSMutableArray *string = [[cell.category.path componentsSeparatedByString:@":"] mutableCopy];
+        [string removeObjectAtIndex:0]; // remove the $ROOT text.
+        if (string.count > 1) {
+            [string removeObjectAtIndex:0]; // Remove the "category" label.
             name = [NSString stringWithFormat:@"%@ : %@",[string componentsJoinedByString:@" : "], cell.textLabel.text];
+        } else {
+            name = cell.textLabel.text;
         }
+        
         event.eventName = name;
         event.color = cell.contentView.backgroundColor;
         event.calendarIdentifier = cell.category.calendar.calendarIdentifier;
@@ -287,9 +292,7 @@
     self.dismissKeyboardView.hidden = YES;
 }
 - (void)storeChanged:(NSNotification *)notif {
-    if (dayViewController && [dayViewController respondsToSelector:@selector(reloadTodayView)]) {
-        [dayViewController reloadTodayView];
-    }
+    [[TSCalendarStore instance] setEventsShouldReload:YES];
 }
      
 #pragma mark UIGestureRecognizerDelegate methods

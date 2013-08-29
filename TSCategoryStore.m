@@ -32,7 +32,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 1;
+    int loadDataFrom = 2;
     
     if ((self = [super init]))
     {
@@ -143,13 +143,18 @@
     return catArray;
 }
 - (void)syncStoredDataWithGCalData {
-    // retrieve only active calendars
+    // get all calendars
     NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+    NSMutableArray *existingCategories = [[NSMutableArray alloc] initWithCapacity:calendars.count];
 
     BOOL catExists;
     for (EKCalendar *cal in calendars) {
         for (TSCategory *cat in self.allCategories) {
             catExists = FALSE;
+            if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+                catExists = TRUE;
+                [existingCategories addObject:cat];
+            }
         }
         
 //        if (!catExists) [self.allCategories addObject:cal];
@@ -166,8 +171,7 @@
             if ([defCat.title isEqualToString:stoCat.title] || [defCat.calendar.title isEqualToString:stoCat.calendar.title] || [defCat.calendar.calendarIdentifier isEqualToString:stoCat.calendar.calendarIdentifier]) {
                 // The calendar already exists in our store
                 catExistsAlready = TRUE;
-                stoCat.calendar = defCat.calendar;
-                stoCat.color = defCat.color;
+                defCat.calendar = stoCat.calendar;
                 // Make stoCat an active calendar.
                 
                 break;

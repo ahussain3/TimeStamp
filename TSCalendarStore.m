@@ -13,6 +13,7 @@
 @interface TSCalendarStore () {
     BOOL updateICalRecord;
 }
+@property (nonatomic) BOOL calsDirty;
 
 @end
 

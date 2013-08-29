@@ -60,6 +60,7 @@ typedef enum {
 - (void)reloadData {
     self.date = [self.datasource dateToDisplay];
     NSArray *newEvents = [self.datasource eventsToDisplay];
+    NSLog(@"New events to display: %@", newEvents);
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[GCCalendarTile class]]) {
             [view removeFromSuperview];
@@ -74,7 +75,6 @@ typedef enum {
     timeStrings = [NSArray arrayWithObjects:@"12",
                    @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11",
                    @"12", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12", nil];
-
 }
 - (void) setDate:(NSDate *)date {
     // ensure date is set to midnight of today.

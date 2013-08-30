@@ -32,7 +32,7 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 2;
+    int loadDataFrom = 3;
     
     if ((self = [super init]))
     {
@@ -45,11 +45,20 @@
             // Load from encoder (saved data)
             saveToFile = YES;
             [self loadData];
-        } else {
+        } else if (loadDataFrom == 2){
             // Load custom data (with subcategories)
             saveToFile = YES;
             [self loadData];
             [self importDefaultCalendars];
+        } else if (loadDataFrom == 3) {
+            saveToFile = YES;
+            [self loadData];
+            [self syncStoredDataWithGCalData];
+        } else if (loadDataFrom == 4) {
+            // Usually only run this on first launch
+            [self loadData];
+            [self importDefaultCalendars];
+            [self syncStoredDataWithGCalData];
         }
         [self saveData];
     }
@@ -118,6 +127,10 @@
 }
 
 #pragma mark setters and getters
+- (void)importCalendarData {
+
+}
+
 - (NSMutableArray *)loadCalendarData {
     NSMutableArray *catArray = [[NSMutableArray alloc] init];
     
@@ -149,23 +162,42 @@
 
     BOOL catExists;
     for (EKCalendar *cal in calendars) {
-        for (TSCategory *cat in self.allCategories) {
-            catExists = FALSE;
-            if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
-                catExists = TRUE;
-                [existingCategories addObject:cat];
+        if (cal.allowsContentModifications) {
+            for (TSCategory *cat in self.allCategories) {
+                catExists = FALSE;
+                if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+                    catExists = TRUE;
+                    [existingCategories addObject:cat];
+                    break;
+                }
+            }
+            // We have a new gCal calendar that doesn't have a TS equivalent.
+            if (!catExists) {
+                TSCategory *newCategory = [self TSCategoryWithEKCalendar:cal];
+                newCategory.level = 0;
+                newCategory.path = ROOT_CATEGORY_PATH;
+                [existingCategories addObject:newCategory];
+                [self.allCategories addObject:newCategory];
+                
             }
         }
-        
-//        if (!catExists) [self.allCategories addObject:cal];
     }
+    
+    // Remove excess categories from allCategories.
+    NSMutableArray *remove = [[NSMutableArray alloc] init];
+    for (TSCategory *cat in self.allCategories) {
+        if (![existingCategories containsObject:cat]) {
+            [remove addObject:cat];
+        }
+    }
+    [self.allCategories removeObjectsInArray:remove];
 }
 - (void)importDefaultCalendars {
-    NSArray *cats = [[self getDefaultCalendars] copy];
+    NSArray *defaultCats = [[self getDefaultCalendars] copy];
     TSCategory *tempCat;
     BOOL catExistsAlready;
     // Check that the category doesn't already exist in our application.
-    for (TSCategory *defCat in cats) {
+    for (TSCategory *defCat in defaultCats) {
         for (TSCategory *stoCat in self.allCategories) {
             catExistsAlready = FALSE;
             if ([defCat.title isEqualToString:stoCat.title] || [defCat.calendar.title isEqualToString:stoCat.calendar.title] || [defCat.calendar.calendarIdentifier isEqualToString:stoCat.calendar.calendarIdentifier]) {
@@ -173,11 +205,14 @@
                 catExistsAlready = TRUE;
                 defCat.calendar = stoCat.calendar;
                 // Make stoCat an active calendar.
-                
+                NSMutableSet *tempSet = [self.activeCalendars mutableCopy];
+                [tempSet addObject:stoCat.calendar];
+                self.activeCalendars = tempSet;
                 break;
             }
         }
         if (!catExistsAlready) {
+            // The addNewCalendar: function takes care of adding newCat to self.allCategories.
             tempCat = [self addNewCalendar:defCat];
         }
     }

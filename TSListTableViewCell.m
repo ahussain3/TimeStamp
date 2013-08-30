@@ -27,10 +27,10 @@
         // Initialization code        
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.backgroundColor = [UIColor clearColor];
-        self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-        self.textLabel.numberOfLines = 1;
+        self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
         self.textLabel.adjustsFontSizeToFitWidth = YES;
         self.textLabel.minimumScaleFactor = 0.8f;
+        self.textLabel.numberOfLines = 2;
         
         if (self.bounds.size.height > self.bounds.size.width) {
             circleDiameter = self.bounds.size.width;

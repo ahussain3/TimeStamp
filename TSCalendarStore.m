@@ -8,10 +8,12 @@
 
 #import "TSCalendarStore.h"
 #import <EventKit/EventKit.h>
+#import <dispatch/dispatch.h>
 #import "GCCalendarEvent.h"
 
 @interface TSCalendarStore () {
     BOOL updateICalRecord;
+    dispatch_queue_t backgroundQueue;
 }
 @property (nonatomic) BOOL calsDirty;
 
@@ -35,6 +37,8 @@
 }
 
 - (void)setup {
+    backgroundQueue = dispatch_queue_create("com.timestamp.calQueue", NULL);
+    
     if (self.store == nil) {
         self.store = [[EKEventStore alloc] init];
         if([self.store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
@@ -205,48 +209,60 @@
     return gcEvent;
 }
 
-- (GCCalendarEvent *)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent {
-    if (updateICalRecord) {
-        // Find matching EKEvent with identifier / calendar information.
-        EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
-        
-        // Change the event to match the new event.
-        ekEvent.startDate = gcEvent.startDate;
-        ekEvent.endDate = gcEvent.endDate;
-        
+- (void)updateGCCalendarEvent:(GCCalendarEvent *)gcEvent {
+    void (^block) (GCCalendarEvent *) = ^(GCCalendarEvent *gcEvent){
         if (updateICalRecord) {
-            NSError *err;
-            BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+            // Find matching EKEvent with identifier / calendar information.
+            EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
             
-            if (success == NO) {
-                NSLog(@"Error updating event start/end times: %@", err);
-            } else {
-                NSLog(@"Successfully updated event!");
+            // Change the event to match the new event.
+            ekEvent.startDate = gcEvent.startDate;
+            ekEvent.endDate = gcEvent.endDate;
+            
+            if (updateICalRecord) {
+                NSError *err;
+                BOOL success = [self.store saveEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+                
+                if (success == NO) {
+                    NSLog(@"Error updating event start/end times: %@", err);
+                } else {
+                    NSLog(@"Successfully updated event!");
+                }
             }
+            
+            // Convert back to GC and return it.
+            gcEvent = [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
         }
-    
-        // Convert back to GC and return it.
-        gcEvent = [GCCalendarEvent createGCEventFromEKEvent:ekEvent];
-    }
-    return gcEvent;
+        return;
+    };
+
+    dispatch_async(backgroundQueue, ^{
+        block(gcEvent);
+    });
 }
 
 - (void)removeGCCalendarEvent:(GCCalendarEvent *)gcEvent {
-    if (updateICalRecord) {
-        // Find matching EKEvent with identifier / calendar information.
-        EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
-        
+    void (^block) (GCCalendarEvent *) = ^(GCCalendarEvent *gcEvent){
         if (updateICalRecord) {
-            NSError *err;
-            BOOL success = [self.store removeEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+            // Find matching EKEvent with identifier / calendar information.
+            EKEvent *ekEvent = [self.store eventWithIdentifier:gcEvent.eventIdentifier];
             
-            if (success == NO) {
-                NSLog(@"Error deleting event: %@", err);
-            } else {
-                NSLog(@"Successfully deleted event!");
+            if (updateICalRecord) {
+                NSError *err;
+                BOOL success = [self.store removeEvent:ekEvent span:EKSpanThisEvent commit:YES error:&err];
+                
+                if (success == NO) {
+                    NSLog(@"Error deleting event: %@", err);
+                } else {
+                    NSLog(@"Successfully deleted event!");
+                }
             }
         }
-    }
+    };
+    
+    dispatch_async(backgroundQueue, ^{
+        block(gcEvent);
+    });
 }
 
 # pragma mark Utility Methods

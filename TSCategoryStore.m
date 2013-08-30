@@ -8,6 +8,7 @@
 
 #import "TSCategoryStore.h"
 #import <EventKit/EventKit.h>
+#import <dispatch/dispatch.h>
 #import "TSCalendarStore.h"
 #import "TSCategory.h"
 #import "UIColor+CalendarPalette.h"
@@ -15,6 +16,7 @@
 
 @interface TSCategoryStore () {
     BOOL saveToFile;
+    dispatch_queue_t backgroundQueue;
 }
 // Set of EKCalendar objects representing 'unhidden' calendars
 @property (nonatomic, strong) NSSet *activeCalendars;
@@ -32,8 +34,9 @@
 #pragma mark - Singleton methods
 - (id) initSingleton
 {
-    int loadDataFrom = 3;
+    backgroundQueue = dispatch_queue_create("com.timestamp.bgqueue", NULL);
     
+    int loadDataFrom = 3;
     if ((self = [super init]))
     {
         // Initialization code here.
@@ -156,41 +159,44 @@
     return catArray;
 }
 - (void)syncStoredDataWithGCalData {
-    // get all calendars
-    NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
-    NSMutableArray *existingCategories = [[NSMutableArray alloc] initWithCapacity:calendars.count];
-
-    BOOL catExists;
-    for (EKCalendar *cal in calendars) {
-        if (cal.allowsContentModifications) {
-            for (TSCategory *cat in self.allCategories) {
-                catExists = FALSE;
-                if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
-                    catExists = TRUE;
-                    [existingCategories addObject:cat];
-                    break;
+//    dispatch_async(backgroundQueue, ^{
+        // get all calendars
+        NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+        NSMutableArray *existingCategories = [[NSMutableArray alloc] initWithCapacity:calendars.count];
+        
+        BOOL catExists;
+        for (EKCalendar *cal in calendars) {
+            if (cal.allowsContentModifications) {
+                for (TSCategory *cat in self.allCategories) {
+                    catExists = FALSE;
+                    if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+                        catExists = TRUE;
+                        [existingCategories addObject:cat];
+                        break;
+                    }
+                }
+                // We have a new gCal calendar that doesn't have a TS equivalent.
+                if (!catExists) {
+                    TSCategory *newCategory = [self TSCategoryWithEKCalendar:cal];
+                    newCategory.level = 0;
+                    newCategory.path = ROOT_CATEGORY_PATH;
+                    [existingCategories addObject:newCategory];
+                    [self.allCategories addObject:newCategory];
+                    
                 }
             }
-            // We have a new gCal calendar that doesn't have a TS equivalent.
-            if (!catExists) {
-                TSCategory *newCategory = [self TSCategoryWithEKCalendar:cal];
-                newCategory.level = 0;
-                newCategory.path = ROOT_CATEGORY_PATH;
-                [existingCategories addObject:newCategory];
-                [self.allCategories addObject:newCategory];
-                
+        }
+        
+        // Remove excess categories from allCategories.
+        NSMutableArray *remove = [[NSMutableArray alloc] init];
+        for (TSCategory *cat in self.allCategories) {
+            if (![existingCategories containsObject:cat]) {
+                [remove addObject:cat];
             }
         }
-    }
-    
-    // Remove excess categories from allCategories.
-    NSMutableArray *remove = [[NSMutableArray alloc] init];
-    for (TSCategory *cat in self.allCategories) {
-        if (![existingCategories containsObject:cat]) {
-            [remove addObject:cat];
-        }
-    }
-    [self.allCategories removeObjectsInArray:remove];
+        [self.allCategories removeObjectsInArray:remove];
+        NSLog(@"Finished syncing calendars");
+//    });
 }
 - (void)importDefaultCalendars {
     NSArray *defaultCats = [[self getDefaultCalendars] copy];
@@ -341,67 +347,73 @@
     return nil;
 }
 - (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
-    NSLog(@"Searching for path: %@", path);
-    if ([name isEqualToString:@""]) return;
-    TSCategory *category = [self categoryForPath:path andCategory:nil];
-    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
-        NSLog(@"Need to add a 'calendar' level category");
-        TSCategory *newCat = [[TSCategory alloc] init];
-
-        newCat.title = name;
-        newCat.color = [UIColor randomFlatColor];
-        // For some reason it's not seeing that I have a UIColor category, so the below is done manually. 
-        float h, s, b, a;
-        [newCat.color getHue:&h saturation:&s brightness:&b alpha:&a];
-        newCat.color = [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
-        [self addNewCalendar:newCat];
-    } else {
-        // Do some validation checks. Ensure that the category doesn't already exist.
-        [category addSubcategory:name];
-    }
-    [self saveData];
+    dispatch_async(backgroundQueue, ^{
+        NSLog(@"Searching for path: %@", path);
+        if ([name isEqualToString:@""]) return;
+        TSCategory *category = [self categoryForPath:path andCategory:nil];
+        if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
+            NSLog(@"Need to add a 'calendar' level category");
+            TSCategory *newCat = [[TSCategory alloc] init];
+            
+            newCat.title = name;
+            newCat.color = [UIColor randomFlatColor];
+            // For some reason it's not seeing that I have a UIColor category, so the below is done manually.
+            float h, s, b, a;
+            [newCat.color getHue:&h saturation:&s brightness:&b alpha:&a];
+            newCat.color = [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
+            [self addNewCalendar:newCat];
+        } else {
+            // Do some validation checks. Ensure that the category doesn't already exist.
+            [category addSubcategory:name];
+        }
+        [self saveData];    
+    });
 }
 - (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
-    TSCategory *category = [self categoryForPath:path andCategory:nil];
-    if (category == nil) {
-        TSCategory *cat1 = [self.categoryArray objectAtIndex:ind1];
-        TSCategory *cat2 = [self.categoryArray objectAtIndex:ind2];
+    dispatch_async(backgroundQueue, ^{
+        TSCategory *category = [self categoryForPath:path andCategory:nil];
+        if (category == nil) {
+            TSCategory *cat1 = [self.categoryArray objectAtIndex:ind1];
+            TSCategory *cat2 = [self.categoryArray objectAtIndex:ind2];
+            
+            //        [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+            
+            NSInteger newInd1 = [self.allCategories indexOfObject:cat1];
+            NSInteger newInd2 = [self.allCategories indexOfObject:cat2];
+            
+            [self.allCategories exchangeObjectAtIndex:newInd1 withObjectAtIndex:newInd2];
+        } else {
+            [category.subCategories exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
+        }
         
-//        [self.categoryArray exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
-        
-        NSInteger newInd1 = [self.allCategories indexOfObject:cat1];
-        NSInteger newInd2 = [self.allCategories indexOfObject:cat2];
-        
-        [self.allCategories exchangeObjectAtIndex:newInd1 withObjectAtIndex:newInd2];
-    } else {
-        [category.subCategories exchangeObjectAtIndex:ind1 withObjectAtIndex:ind2];
-    }
-    
-    [self saveData];
+        [self saveData];
+    });
 }
 - (void)deleteCategory:(TSCategory *)category atPath:(NSString *)path {
-    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
-        // Have to 'hide' an entire calendar. We don't yet have this functionality.
-        for (EKCalendar *cal in self.activeCalendars) {
-            if ([cal.calendarIdentifier isEqualToString:category.calendar.calendarIdentifier]) {
-                NSMutableArray *tempArray = [self.activeCalendars mutableCopy];
-                [tempArray removeObject:cal];
-                self.activeCalendars = [tempArray copy];
-                break;
+    dispatch_async(backgroundQueue, ^{
+        if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
+            // Have to 'hide' an entire calendar. We don't yet have this functionality.
+            for (EKCalendar *cal in self.activeCalendars) {
+                if ([cal.calendarIdentifier isEqualToString:category.calendar.calendarIdentifier]) {
+                    NSMutableArray *tempArray = [self.activeCalendars mutableCopy];
+                    [tempArray removeObject:cal];
+                    self.activeCalendars = [tempArray copy];
+                    break;
+                }
+            }
+        } else {
+            TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
+            for (TSCategory *cat in storedCat.subCategories) {
+                if ([cat isEqual:category]) {
+                    // remove category.
+                    [storedCat.subCategories removeObject:cat];
+                    break;
+                }
             }
         }
-    } else {
-        TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
-        for (TSCategory *cat in storedCat.subCategories) {
-            if ([cat isEqual:category]) {
-                // remove category.
-                [storedCat.subCategories removeObject:cat];
-                break;
-            }
-        }
-    }
-    
-    [self saveData];
+        
+        [self saveData];    
+    });
 }
 
 - (TSCategory *)addNewCalendar:(TSCategory *)category {
@@ -458,35 +470,39 @@
 #pragma mark Persistence Methods
 -(void)saveData
 {
-    if (saveToFile) {
-        NSLog(@"Save data method called");
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSMutableData *saveData = [[NSMutableData alloc] init];
-        
-        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
-        [archiver encodeObject:self.allCategories forKey:@"categories"];
-        [archiver finishEncoding];
-        
-        [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
-    }
+    dispatch_async(backgroundQueue, ^{
+        if (saveToFile) {
+            NSLog(@"Save data method called");
+            NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                      NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSMutableData *saveData = [[NSMutableData alloc] init];
+            
+            NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:saveData];
+            [archiver encodeObject:self.allCategories forKey:@"categories"];
+            [archiver finishEncoding];
+            
+            [fileManager createFileAtPath:savePath contents:saveData attributes:nil];
+        }    
+    });
 }
 
 -(void)loadData
 {
-    NSLog(@"Load data method called");
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                              NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:savePath])
-    {
-        NSData *data = [fileManager contentsAtPath:savePath];
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        self.allCategories = [unarchiver decodeObjectForKey:@"categories"];
-    }
+//    dispatch_async(backgroundQueue, ^{
+        NSLog(@"Load data method called");
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *savePath = [rootPath stringByAppendingPathComponent:@"TSCategoryData"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:savePath])
+        {
+            NSData *data = [fileManager contentsAtPath:savePath];
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+            self.allCategories = [unarchiver decodeObjectForKey:@"categories"];
+        }
+//    });
 }
 #pragma mark Utility Methods
 - (TSCategory *)TSCategoryWithEKCalendar:(EKCalendar *)calendar {

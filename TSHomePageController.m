@@ -234,8 +234,8 @@
         event.color = cell.contentView.backgroundColor;
         event.calendarIdentifier = cell.category.calendar.calendarIdentifier;
         
-        //    event.calender // need to set this once we have a list of calendars; Create a TSCalendarStore model object which contains this array.
-        [dayViewController createEvent:event AtPoint:center withDuration:60*60];
+// need to set this once we have a list of calendars; Create a TSCalendarStore model object which contains this array.
+        [dayViewController createEvent:event AtCenterPoint:center withDuration:60*60];
     }
     
     [self cleanUpAfterDraggingEnded];

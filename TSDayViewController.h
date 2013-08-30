@@ -45,7 +45,7 @@
     BOOL viewVisible;
 }
 
--(void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
+-(void)createEvent:(GCCalendarEvent *)event AtCenterPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds;
 - (void)scrollToCurrentTime;
 - (void)reloadTodayView;
 

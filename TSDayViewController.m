@@ -97,9 +97,10 @@
 }
 
 #pragma mark functionality
-- (void)createEvent:(GCCalendarEvent *)event AtPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
+- (void)createEvent:(GCCalendarEvent *)event AtCenterPoint:(CGPoint)point withDuration:(NSTimeInterval)seconds {
     CGPoint newPoint = [self.view convertPoint:point toView:todayView];
     CGFloat yValue = newPoint.y;
+    yValue = yValue - (seconds / (60*60)) * (kHalfHourDiff);
     
     // Set the date of the created event.
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSUIntegerMax fromDate:todayView.date];

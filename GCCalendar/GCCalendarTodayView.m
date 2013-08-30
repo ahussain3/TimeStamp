@@ -58,15 +58,18 @@ typedef enum {
     }
 }
 - (void)reloadData {
-    self.date = [self.datasource dateToDisplay];
-    NSArray *newEvents = [self.datasource eventsToDisplay];
-    NSLog(@"New events to display: %@", newEvents);
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[GCCalendarTile class]]) {
             [view removeFromSuperview];
         }
     }
+    
+    self.date = [self.datasource dateToDisplay];
+    NSArray *newEvents = [self.datasource eventsToDisplay];
+    NSLog(@"New events to display: %@", newEvents);
+
     [self initializeTilesWithArray:newEvents];
+    [self setNeedsLayout];
 }
 - (void) initialize {
     self.userInteractionEnabled = YES;
@@ -395,8 +398,8 @@ typedef enum {
 
         if (dragState == TSDragStateUpDown) {
             CGFloat newY = [sender locationInView:self].y - offset.y;
-            if (newY < kTopLineBuffer) return;
-            if (newY + self.selectedTile.naturalFrame.size.height > kTopLineBuffer + (kHalfHourDiff * 24 * 2)) return;
+            newY = MAX(newY, kTopLineBuffer);
+            newY = MIN(newY, kTopLineBuffer + (kHalfHourDiff * 24 * 2) - self.selectedTile.naturalFrame.size.height);
             CGFloat snappedY = [self snappedYValueForYValue:newY];
             
             CGRect newNatFrame = CGRectMake(self.selectedTile.naturalFrame.origin.x,

@@ -130,8 +130,7 @@
     if (dayViewController) {
         [self updateNavBarWithDate:[NSDate date]];
         dayViewController.date = [NSDate date];
-        if ([[TSCalendarStore instance] eventsShouldReload] == YES) [dayViewController reloadTodayView];
-//        [dayViewController reloadTodayView];
+        [dayViewController reloadTodayView];
         [dayViewController scrollToCurrentTime];
     }
 }

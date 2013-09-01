@@ -24,6 +24,10 @@
 		C819730816E1BC1400EE65D2 /* TimeStamp_HomepageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C819730716E1BC1400EE65D2 /* TimeStamp_HomepageTests.m */; };
 		C81DED08177E652F00317312 /* TSMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DED07177E652F00317312 /* TSMainView.m */; };
 		C828E640176D5CBB000DA3CA /* UIColor+CalendarPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */; };
+		C83B5F0E17D38D32006F4BC7 /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C83B5F0D17D38D32006F4BC7 /* DMLazyScrollView.m */; };
+		C83B5F0F17D38D32006F4BC7 /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C83B5F0D17D38D32006F4BC7 /* DMLazyScrollView.m */; };
+		C83B5F1617D39612006F4BC7 /* TSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C83B5F1517D39612006F4BC7 /* TSMainViewController.m */; };
+		C83B5F1717D39612006F4BC7 /* TSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C83B5F1517D39612006F4BC7 /* TSMainViewController.m */; };
 		C85A785517792BF5004B088B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85A785417792BF5004B088B /* EventKit.framework */; };
 		C85A785717792BFC004B088B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85A785617792BFC004B088B /* EventKitUI.framework */; };
 		C88D652716FA52D400F356CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C88D652616FA52D400F356CE /* QuartzCore.framework */; };
@@ -115,6 +119,10 @@
 		C81DED07177E652F00317312 /* TSMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSMainView.m; path = "TimeStamp-Homepage/TSMainView.m"; sourceTree = "<group>"; };
 		C828E63E176D5CBB000DA3CA /* UIColor+CalendarPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+CalendarPalette.h"; path = "TimeStamp-Homepage/UIColor+CalendarPalette.h"; sourceTree = "<group>"; };
 		C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+CalendarPalette.m"; path = "TimeStamp-Homepage/UIColor+CalendarPalette.m"; sourceTree = "<group>"; };
+		C83B5F0C17D38D32006F4BC7 /* DMLazyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLazyScrollView.h; sourceTree = "<group>"; };
+		C83B5F0D17D38D32006F4BC7 /* DMLazyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLazyScrollView.m; sourceTree = "<group>"; };
+		C83B5F1417D39612006F4BC7 /* TSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMainViewController.h; sourceTree = "<group>"; };
+		C83B5F1517D39612006F4BC7 /* TSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMainViewController.m; sourceTree = "<group>"; };
 		C85A785417792BF5004B088B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		C85A785617792BFC004B088B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		C88D652616FA52D400F356CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -285,6 +293,8 @@
 		C8FF164D17A5D7030064BA83 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C83B5F1417D39612006F4BC7 /* TSMainViewController.h */,
+				C83B5F1517D39612006F4BC7 /* TSMainViewController.m */,
 				C8FF167A17A617620064BA83 /* TSHomePageController.h */,
 				C8FF167B17A617630064BA83 /* TSHomePageController.m */,
 				C8A6C7E317ADE44D0086FED4 /* TSDayViewController.h */,
@@ -352,6 +362,8 @@
 		C8FF165217A5D8DF0064BA83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C83B5F0C17D38D32006F4BC7 /* DMLazyScrollView.h */,
+				C83B5F0D17D38D32006F4BC7 /* DMLazyScrollView.m */,
 				C8FF166317A5DD160064BA83 /* MyAlertViewDelegate.h */,
 				C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */,
 				C8EA7E0817CC2F15009EED40 /* UIColor+MLPFlatColors.h */,
@@ -531,6 +543,8 @@
 				C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */,
 				C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */,
 				C8EA7E0A17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */,
+				C83B5F0E17D38D32006F4BC7 /* DMLazyScrollView.m in Sources */,
+				C83B5F1617D39612006F4BC7 /* TSMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +567,8 @@
 				C8A6C7DC17ADE3180086FED4 /* GCCalendarView.m in Sources */,
 				C8A6C7E617ADE44D0086FED4 /* TSDayViewController.m in Sources */,
 				C8EA7E0B17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */,
+				C83B5F0F17D38D32006F4BC7 /* DMLazyScrollView.m in Sources */,
+				C83B5F1717D39612006F4BC7 /* TSMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

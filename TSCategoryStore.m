@@ -347,27 +347,25 @@
     return nil;
 }
 - (void)addSubcategory:(NSString *)name AtPathLevel:(NSString *)path {
-    dispatch_async(backgroundQueue, ^{
-        NSLog(@"Searching for path: %@", path);
-        if ([name isEqualToString:@""]) return;
-        TSCategory *category = [self categoryForPath:path andCategory:nil];
-        if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
-            NSLog(@"Need to add a 'calendar' level category");
-            TSCategory *newCat = [[TSCategory alloc] init];
-            
-            newCat.title = name;
-            newCat.color = [UIColor randomFlatColor];
-            // For some reason it's not seeing that I have a UIColor category, so the below is done manually.
-            float h, s, b, a;
-            [newCat.color getHue:&h saturation:&s brightness:&b alpha:&a];
-            newCat.color = [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
-            [self addNewCalendar:newCat];
-        } else {
-            // Do some validation checks. Ensure that the category doesn't already exist.
-            [category addSubcategory:name];
-        }
-        [self saveData];    
-    });
+    NSLog(@"Searching for path: %@", path);
+    if ([name isEqualToString:@""]) return;
+    TSCategory *category = [self categoryForPath:path andCategory:nil];
+    if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
+        NSLog(@"Need to add a 'calendar' level category");
+        TSCategory *newCat = [[TSCategory alloc] init];
+        
+        newCat.title = name;
+        newCat.color = [UIColor randomFlatColor];
+        // For some reason it's not seeing that I have a UIColor category, so the below is done manually.
+        float h, s, b, a;
+        [newCat.color getHue:&h saturation:&s brightness:&b alpha:&a];
+        newCat.color = [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
+        [self addNewCalendar:newCat];
+    } else {
+        // Do some validation checks. Ensure that the category doesn't already exist.
+        [category addSubcategory:name];
+    }
+    [self saveData];    
 }
 - (void)exchangeCategoryAtIndex:(NSInteger)ind1 withIndex:(NSInteger)ind2 forPath:(NSString *)path {
     dispatch_async(backgroundQueue, ^{

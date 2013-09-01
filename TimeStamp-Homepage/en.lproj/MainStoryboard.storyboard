@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="A8s-DS-VGl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ZVa-ir-YAp">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -125,10 +125,62 @@
             </objects>
             <point key="canvasLocation" x="1021" y="655"/>
         </scene>
+        <!--Main View Controller-->
+        <scene sceneID="kkm-sg-hFo">
+            <objects>
+                <viewController storyboardIdentifier="mainController" id="ZVa-ir-YAp" customClass="TSMainViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RZC-pU-WDk">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="W5T-J7-Met" customClass="DMLazyScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bp3-p4-GR9">
+                                <rect key="frame" x="0.0" y="504" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Cals" id="PfY-WG-OQn">
+                                        <connections>
+                                            <action selector="goToSettingsScreen:" destination="ZVa-ir-YAp" id="9ky-E9-LZd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="lzT-wW-vNS"/>
+                                    <barButtonItem title="Home" id="7fJ-BF-BKf">
+                                        <connections>
+                                            <action selector="goToHome:" destination="ZVa-ir-YAp" id="ZkE-yN-HpU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Data" id="VND-Df-73u">
+                                        <connections>
+                                            <action selector="goToData:" destination="ZVa-ir-YAp" id="OS9-nK-bym"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7dP-nA-WZw"/>
+                                    <barButtonItem title="Today" id="NEu-gC-6xg">
+                                        <connections>
+                                            <action selector="goToToday:" destination="ZVa-ir-YAp" id="5K0-JW-tBS"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="lazyView" destination="W5T-J7-Met" id="Yak-9d-Gct"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IdP-Fv-FGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6" y="922"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uW9-dT-aKb">
             <objects>
-                <navigationController id="A8s-DS-VGl" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="homeController" id="A8s-DS-VGl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8fc-hX-NWg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -142,6 +194,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hX-5m-RdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="495" y="655"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="toc-3w-A37">
+            <objects>
+                <viewController storyboardIdentifier="dataController" id="wss-RG-va5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V2p-Oj-hMm">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Data Controller!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TmC-9B-pR8">
+                                <rect key="frame" x="100" y="122" width="120" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Sv-9E-UDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="495" y="1404"/>
         </scene>
         <!--List Table View Controller-->
         <scene sceneID="hdr-nv-lrh">
@@ -231,6 +306,9 @@
         <class className="ATSDragToReorderTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSDragToReorderTableViewController.h"/>
         </class>
+        <class className="DMLazyScrollView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DMLazyScrollView.h"/>
+        </class>
         <class className="GCCalendarView" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GCCalendarView.h"/>
         </class>
@@ -243,6 +321,8 @@
         <class className="TSHomePageController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
             <relationships>
+                <relationship kind="action" name="nextDay:"/>
+                <relationship kind="action" name="prevDay:"/>
                 <relationship kind="action" name="showCalChooser:"/>
                 <relationship kind="outlet" name="dismissKeyboardView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
@@ -255,6 +335,14 @@
                 <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="pathLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="view" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="TSMainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSMainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goToData:"/>
+                <relationship kind="action" name="goToHome:"/>
+                <relationship kind="outlet" name="lazyView" candidateClass="DMLazyScrollView"/>
             </relationships>
         </class>
     </classes>

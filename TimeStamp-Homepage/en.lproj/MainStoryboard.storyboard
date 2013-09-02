@@ -66,7 +66,7 @@
                                     <segue destination="kGr-Gl-f3f" kind="embed" identifier="listSegue" id="obD-oM-5RS"/>
                                 </connections>
                             </containerView>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9be-y9-QFO">
+                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9be-y9-QFO">
                                 <rect key="frame" x="84" y="455" width="80" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -96,7 +96,7 @@
                                     <action selector="goHome:" destination="pfT-D5-tbf" eventType="touchUpInside" id="aJz-eK-5Tz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4ZU-8W-TxN">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4ZU-8W-TxN">
                                 <rect key="frame" x="243" y="455" width="70" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -141,36 +141,15 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bp3-p4-GR9">
                                 <rect key="frame" x="0.0" y="504" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Cals" id="PfY-WG-OQn">
-                                        <connections>
-                                            <action selector="goToSettingsScreen:" destination="ZVa-ir-YAp" id="9ky-E9-LZd"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="lzT-wW-vNS"/>
-                                    <barButtonItem title="Home" id="7fJ-BF-BKf">
-                                        <connections>
-                                            <action selector="goToHome:" destination="ZVa-ir-YAp" id="ZkE-yN-HpU"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Data" id="VND-Df-73u">
-                                        <connections>
-                                            <action selector="goToData:" destination="ZVa-ir-YAp" id="OS9-nK-bym"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7dP-nA-WZw"/>
-                                    <barButtonItem title="Today" id="NEu-gC-6xg">
-                                        <connections>
-                                            <action selector="goToToday:" destination="ZVa-ir-YAp" id="5K0-JW-tBS"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <items/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="lazyView" destination="W5T-J7-Met" id="Yak-9d-Gct"/>
+                        <outlet property="toolbar" destination="bp3-p4-GR9" id="1pU-ci-8qL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IdP-Fv-FGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -302,50 +281,6 @@
         <image name="next_button.png" width="100" height="70"/>
         <image name="prev_button.png" width="100" height="70"/>
     </resources>
-    <classes>
-        <class className="ATSDragToReorderTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATSDragToReorderTableViewController.h"/>
-        </class>
-        <class className="DMLazyScrollView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DMLazyScrollView.h"/>
-        </class>
-        <class className="GCCalendarView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCCalendarView.h"/>
-        </class>
-        <class className="TSDayViewController" superclassName="GCCalendarView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSDayViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="calWrapperView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TSHomePageController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSHomePageController.h"/>
-            <relationships>
-                <relationship kind="action" name="nextDay:"/>
-                <relationship kind="action" name="prevDay:"/>
-                <relationship kind="action" name="showCalChooser:"/>
-                <relationship kind="outlet" name="dismissKeyboardView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="prevButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="TSListTableViewController" superclassName="ATSDragToReorderTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSListTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="pathLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="view" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="TSMainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TSMainViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goToData:"/>
-                <relationship kind="action" name="goToHome:"/>
-                <relationship kind="outlet" name="lazyView" candidateClass="DMLazyScrollView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

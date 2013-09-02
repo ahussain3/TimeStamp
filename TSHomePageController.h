@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EventKitUI/EventKitUI.h>
 #import "ATSDragToReorderTableViewController.h"
 
 @class TSDayViewController;
@@ -23,5 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @property (nonatomic, strong) UITableViewCell *draggedCell;
+
+- (void)scrollToCurrentTime:(id)sender;
+- (IBAction)showCalChooser:(id)sender;
 
 @end

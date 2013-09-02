@@ -11,5 +11,6 @@
 
 @interface TSMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet DMLazyScrollView *lazyView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @end

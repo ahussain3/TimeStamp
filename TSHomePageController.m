@@ -16,6 +16,7 @@
 #import "TSCategoryStore.h"
 #import "TSCalendarStore.h"
 #import "UIColor+CalendarPalette.h"
+#import "TotalHoursViewController.h"
 
 @interface TSHomePageController () {
     BOOL userIsDragging;
@@ -137,20 +138,6 @@
     if ([listController respondsToSelector:@selector(goHome:)]) [listController goHome:sender];
 }
 
-#pragma mark Show Calendar Chooser 
-- (IBAction)showCalChooser:(id)sender {
-    EKCalendarChooser *calChooser = [[EKCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
-//    [calChooser setEditing:YES];
-    calChooser.selectedCalendars = calStore.activeCalendars;
-    //    calChooser.selectedCalendars = self.tempSet;
-    calChooser.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    calChooser.showsCancelButton = YES;
-    calChooser.showsDoneButton = YES;
-    calChooser.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:calChooser];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
 #pragma mark EKCalendarChooserDelegate
 - (void)calendarChooserSelectionDidChange:(EKCalendarChooser *)calendarChooser {
     
@@ -183,6 +170,33 @@
     dayViewController.date = newDate;
     [dayViewController reloadTodayView];
 }
+
+#pragma mark Toolbar methods
+- (IBAction)switchScreens:(id)sender {
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//    UINavigationController *nav = [storyboard instantiateViewControllerWithIdentifier:@"dataNavController"];
+
+    TotalHoursViewController * tc = [[TotalHoursViewController alloc]initWithNibName:@"TotalHoursViewController" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tc];
+    nav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self presentViewController:nav animated:YES completion:^{
+    }];
+}
+
+- (IBAction)showCalChooser:(id)sender {
+    EKCalendarChooser *calChooser = [[EKCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
+    //    [calChooser setEditing:YES];
+    calChooser.selectedCalendars = calStore.activeCalendars;
+    //    calChooser.selectedCalendars = self.tempSet;
+    calChooser.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    calChooser.showsCancelButton = YES;
+    calChooser.showsDoneButton = YES;
+    calChooser.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:calChooser];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dealWithDraggedCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath {

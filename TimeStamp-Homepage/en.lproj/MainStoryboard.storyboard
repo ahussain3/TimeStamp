@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ZVa-ir-YAp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="A8s-DS-VGl">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <containerView multipleTouchEnabled="YES" contentMode="scaleToFill" id="pbp-c4-Z6s">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -52,7 +52,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" opaque="NO" alpha="0.60000000000000009" contentMode="scaleToFill" id="9NT-bD-k6f">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -60,7 +60,7 @@
                                 </accessibility>
                             </view>
                             <containerView contentMode="scaleToFill" id="DqG-Vj-q1x">
-                                <rect key="frame" x="5" y="0.0" width="100" height="568"/>
+                                <rect key="frame" x="5" y="0.0" width="100" height="524"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -87,6 +87,35 @@
                                     <action selector="scrollToCurrentTime:" destination="pfT-D5-tbf" eventType="touchUpInside" id="t0N-tn-Ckt"/>
                                 </connections>
                             </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Ns5-Ei-1tR" customClass="TSTabBar">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <items>
+                                    <barButtonItem title="Cals" id="HtB-v0-O4m">
+                                        <connections>
+                                            <action selector="goToSettingsScreen:" destination="ZVa-ir-YAp" id="pSe-MV-1e2"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Switch" id="5tn-Zr-Umy">
+                                        <connections>
+                                            <action selector="switchScreens:" destination="ZVa-ir-YAp" id="iV6-cj-f6m"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="a6N-Bk-xU6"/>
+                                    <barButtonItem title="Prev" id="CZ6-GE-CPe">
+                                        <connections>
+                                            <action selector="prevDay:" destination="ZVa-ir-YAp" id="aWx-FV-aa1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="w0f-KK-i4h"/>
+                                    <barButtonItem title="Next" id="21M-Wc-SOC">
+                                        <connections>
+                                            <action selector="nextDay:" destination="ZVa-ir-YAp" id="MUr-Wu-d1o"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -135,7 +164,7 @@
                                             <action selector="prevDay:" destination="ZVa-ir-YAp" id="dgw-ew-thF"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="65" style="plain" systemItem="fixedSpace" id="N3W-D5-ZgP"/>
+                                    <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="N3W-D5-ZgP"/>
                                     <barButtonItem title="Next" id="3oL-t4-JAT">
                                         <connections>
                                             <action selector="nextDay:" destination="ZVa-ir-YAp" id="hCk-7f-pap"/>
@@ -176,6 +205,7 @@
         <!--View Controller-->
         <scene sceneID="4QM-T2-2Wc">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jzg-GJ-aKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="P3H-ve-UPY" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1KC-4g-ZJ5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -183,13 +213,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jzg-GJ-aKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6" y="1692"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="toc-3w-A37">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Sv-9E-UDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="dataController" id="wss-RG-va5" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V2p-Oj-hMm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -206,7 +236,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Sv-9E-UDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="495" y="1404"/>
         </scene>
@@ -215,11 +244,11 @@
             <objects>
                 <viewController storyboardIdentifier="ListViewController" wantsFullScreenLayout="YES" id="zEi-cO-3gd" customClass="TSListTableViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LT7-NW-LNd">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jow-As-jo1">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="524"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -230,7 +259,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Bfi-rP-pFH"/>
                     <connections>
-                        <outlet property="view" destination="Jow-As-jo1" id="gvQ-Nk-9PQ"/>
+                        <outlet property="view" destination="Jow-As-jo1" id="ks5-4e-Iau"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzk-WG-E9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,11 +271,11 @@
             <objects>
                 <viewController id="rb3-w9-RmJ" customClass="TSDayViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Myr-15-Fvw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="redraw" id="Ggo-YK-f8e" userLabel="CalendarDayView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>

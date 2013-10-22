@@ -99,7 +99,6 @@
 		C8E4A59117C26FFB002504B0 /* down_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A58F17C26FFB002504B0 /* down_arrow.png */; };
 		C8E4A59217C26FFB002504B0 /* up_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8E4A59017C26FFB002504B0 /* up_arrow.png */; };
 		C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF167B17A617630064BA83 /* TSHomePageController.m */; };
-		C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */; };
 		C8EA7E0A17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */; };
 		C8EA7E0B17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */; };
 		C8EA7E0D17CC4F7F009EED40 /* prev_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C8EA7E0C17CC4F7F009EED40 /* prev_button.png */; };
@@ -247,8 +246,6 @@
 		C8B93BB617C127DB00759246 /* grey_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey_cross.png; sourceTree = "<group>"; };
 		C8E4A58F17C26FFB002504B0 /* down_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_arrow.png; sourceTree = "<group>"; };
 		C8E4A59017C26FFB002504B0 /* up_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up_arrow.png; sourceTree = "<group>"; };
-		C8EA7E0517CBD15F009EED40 /* TSCalendarChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCalendarChooser.h; sourceTree = "<group>"; };
-		C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCalendarChooser.m; sourceTree = "<group>"; };
 		C8EA7E0817CC2F15009EED40 /* UIColor+MLPFlatColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MLPFlatColors.h"; sourceTree = "<group>"; };
 		C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MLPFlatColors.m"; sourceTree = "<group>"; };
 		C8EA7E0C17CC4F7F009EED40 /* prev_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prev_button.png; path = "TimeStamp-Homepage/prev_button.png"; sourceTree = "<group>"; };
@@ -453,8 +450,6 @@
 				C8A6C7E417ADE44D0086FED4 /* TSDayViewController.m */,
 				C8FF167617A5E0DF0064BA83 /* TSListTableViewController.h */,
 				C8FF167717A5E0DF0064BA83 /* TSListTableViewController.m */,
-				C8EA7E0517CBD15F009EED40 /* TSCalendarChooser.h */,
-				C8EA7E0617CBD15F009EED40 /* TSCalendarChooser.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -718,7 +713,6 @@
 				C8A6C7E517ADE44D0086FED4 /* TSDayViewController.m in Sources */,
 				C8B93BB217BFD86500759246 /* TSAddNewTableViewCell.m in Sources */,
 				C8EA7E0417C944DD009EED40 /* TSHomePageController.m in Sources */,
-				C8EA7E0717CBD15F009EED40 /* TSCalendarChooser.m in Sources */,
 				C8EA7E0A17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */,
 				C83B5F0E17D38D32006F4BC7 /* DMLazyScrollView.m in Sources */,
 				C83B5F1617D39612006F4BC7 /* TSMainViewController.m in Sources */,

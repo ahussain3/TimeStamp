@@ -16,7 +16,6 @@
 #import "TSCategoryStore.h"
 #import "TSCalendarStore.h"
 #import "UIColor+CalendarPalette.h"
-#import "TSCalendarChooser.h"
 
 @interface TSHomePageController () {
     BOOL userIsDragging;
@@ -140,7 +139,7 @@
 
 #pragma mark Show Calendar Chooser 
 - (IBAction)showCalChooser:(id)sender {
-    TSCalendarChooser *calChooser = [[TSCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
+    EKCalendarChooser *calChooser = [[EKCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
 //    [calChooser setEditing:YES];
     calChooser.selectedCalendars = calStore.activeCalendars;
     //    calChooser.selectedCalendars = self.tempSet;

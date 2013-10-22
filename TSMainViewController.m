@@ -11,6 +11,8 @@
 #import "TSHomePageController.h"
 #import "TSCalendarStore.h"
 #import <EventKitUI/EventKitUI.h>
+#import "TotalHoursViewController.h"
+#import "EventViewController.h"
 
 @interface TSMainViewController () <DMLazyScrollViewDelegate, EKCalendarChooserDelegate>{
     TSCalendarStore *calStore;
@@ -42,9 +44,16 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     UINavigationController *controller1 = [storyboard instantiateViewControllerWithIdentifier:@"homeController"];
     homeController = (TSHomePageController *)controller1.topViewController;
-    dataController = [storyboard instantiateViewControllerWithIdentifier:@"dataController"];
+    
+    // Load data side of the app.
+    TotalHoursViewController * tc = [[TotalHoursViewController alloc]initWithNibName:@"TotalHoursViewController" bundle:nil];
+//    EventViewController *tc = [[EventViewController alloc] initWithNibName:@"EventViewController" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tc];
+    dataController = nav;
+    
+//    dataController = [storyboard instantiateViewControllerWithIdentifier:@"dataController"];
     viewControllerArray = [NSArray arrayWithObjects:controller1, dataController, nil];
-    [self initializeToolbar];
+//    [self initializeToolbar];
     
     // PREPARE LAZY VIEW
     self.lazyView.scrollEnabled = NO;
@@ -92,6 +101,13 @@
     UIBarButtonItem *flexible2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     [self.toolbar setItems:[NSArray arrayWithObjects:calsButton, flexible1, homeBarButton, dataBarButton, flexible2, todayButton, nil]];
+}
+- (IBAction)switchScreens:(id)sender {
+    if (self.lazyView.currentPage == 0) {
+        [self goToData:sender];
+    } else if (self.lazyView.currentPage == 1) {
+        [self goToHome:sender];
+    }
 }
 - (IBAction)goToHome:(id)sender {
     [self.lazyView setPage:0 transition:DMLazyScrollViewTransitionBackward animated:YES];

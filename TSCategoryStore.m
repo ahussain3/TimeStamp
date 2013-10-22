@@ -422,10 +422,10 @@
     EKSource* localSource=nil;
     for (EKSource* source in self.store.sources) {
         if (useICloudStorage) {
-            if(source.sourceType == EKSourceTypeCalDAV && [source.title isEqualToString:@"iCloud"]) {
+//            if(source.sourceType == EKSourceTypeCalDAV && [source.title isEqualToString:@"iCloud"]) {
                 localSource = source;
                 break;
-            }
+//            }
         } else {
             if (source.sourceType == EKSourceTypeLocal) {
                 localSource = source;

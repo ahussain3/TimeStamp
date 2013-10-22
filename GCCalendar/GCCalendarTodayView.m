@@ -453,9 +453,7 @@ typedef enum {
         CGFloat startYPosition = [sender locationInView:self].y - yOffset + tDragAreaHeight;
         
         // Ensure that the start date doesn't go later then end date
-        if (startYPosition > self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height - ((kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
-            return;
-        }
+        startYPosition = fminf(startYPosition, self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height - ((kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT)));
         
         startYPosition = [self snappedYValueForYValue:startYPosition];
         CGFloat height = (self.selectedTile.naturalFrame.origin.y + self.selectedTile.naturalFrame.size.height) - startYPosition;
@@ -490,9 +488,7 @@ typedef enum {
         CGFloat endYPosition = [sender locationInView:self].y - yOffset + CORNER_RADIUS * 2;
         
         // Ensure start and end times don't overlap
-        if (endYPosition < self.selectedTile.naturalFrame.origin.y + ((kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT))) {
-            return;
-        }
+        endYPosition = fmaxf(endYPosition, self.selectedTile.naturalFrame.origin.y + ((kHalfHourDiff * 2.0) / (60.0 / SNAP_TO_MINUTE_INCREMENT)));
         
         endYPosition = [self snappedYValueForYValue:endYPosition];
         

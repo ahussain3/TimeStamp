@@ -8,6 +8,7 @@
 
 #import "TSAppDelegate.h"
 #import "UIColor+CalendarPalette.h"
+#import "TSTabBar.h"
 
 @implementation TSAppDelegate
 
@@ -17,8 +18,10 @@
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor colorFromHexString:@"#282E5C"]];
+    [[TSTabBar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [[TSTabBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#eeeeee"]];
     [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#eeeeee"]];
+    [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#666666"]];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
     {
@@ -31,6 +34,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         // This is the first launch ever
         NSLog(@"This is the first time the app has ever launched");
+        
     }
     
     return YES;

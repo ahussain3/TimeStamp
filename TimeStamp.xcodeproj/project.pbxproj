@@ -34,8 +34,41 @@
 		C83B5F1E17D3A626006F4BC7 /* gear_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C83B5F1917D3A626006F4BC7 /* gear_icon_blue.png */; };
 		C83B5F1F17D3A626006F4BC7 /* data_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C83B5F1A17D3A626006F4BC7 /* data_icon_blue.png */; };
 		C83B5F2017D3A626006F4BC7 /* data_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C83B5F1A17D3A626006F4BC7 /* data_icon_blue.png */; };
+		C83BC71E17EE948400A556EC /* TSTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C83BC71D17EE948400A556EC /* TSTutorialViewController.m */; };
 		C85A785517792BF5004B088B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85A785417792BF5004B088B /* EventKit.framework */; };
 		C85A785717792BFC004B088B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85A785617792BFC004B088B /* EventKitUI.framework */; };
+		C86D492117E5553900401CF3 /* ClassEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D48ED17E5553900401CF3 /* ClassEventCell.m */; };
+		C86D492217E5553900401CF3 /* ClassEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D48EE17E5553900401CF3 /* ClassEventCell.xib */; };
+		C86D492317E5553900401CF3 /* ColumnGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D48F017E5553900401CF3 /* ColumnGraphView.m */; };
+		C86D492417E5553900401CF3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C86D48F117E5553900401CF3 /* Default-568h@2x.png */; };
+		C86D492517E5553900401CF3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C86D48F217E5553900401CF3 /* Default.png */; };
+		C86D492617E5553900401CF3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C86D48F317E5553900401CF3 /* Default@2x.png */; };
+		C86D492717E5553900401CF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C86D48F417E5553900401CF3 /* InfoPlist.strings */; };
+		C86D492817E5553900401CF3 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D48F717E5553900401CF3 /* EventCell.m */; };
+		C86D492917E5553900401CF3 /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D48F817E5553900401CF3 /* EventCell.xib */; };
+		C86D492A17E5553900401CF3 /* EventKitData.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D48FA17E5553900401CF3 /* EventKitData.m */; };
+		C86D492B17E5553900401CF3 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D48FC17E5553900401CF3 /* EventViewController.m */; };
+		C86D492C17E5553900401CF3 /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D48FD17E5553900401CF3 /* EventViewController.xib */; };
+		C86D492D17E5553900401CF3 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D48FF17E5553900401CF3 /* GraphViewController.m */; };
+		C86D492E17E5553900401CF3 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D490017E5553900401CF3 /* GraphViewController.xib */; };
+		C86D492F17E5553900401CF3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C86D490117E5553900401CF3 /* Icon.png */; };
+		C86D493017E5553900401CF3 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C86D490217E5553900401CF3 /* Icon@2x.png */; };
+		C86D493217E5553900401CF3 /* MySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D490517E5553900401CF3 /* MySingleton.m */; };
+		C86D493317E5553900401CF3 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D490717E5553900401CF3 /* PieChartView.m */; };
+		C86D493417E5553900401CF3 /* SingleCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D490917E5553900401CF3 /* SingleCalendarViewController.m */; };
+		C86D493517E5553900401CF3 /* SingleCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D490A17E5553900401CF3 /* SingleCalendarViewController.xib */; };
+		C86D493617E5553900401CF3 /* TableHeaderToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D490C17E5553900401CF3 /* TableHeaderToolBar.m */; };
+		C86D493717E5553900401CF3 /* TimePeriodToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D490E17E5553900401CF3 /* TimePeriodToolbar.m */; };
+		C86D493917E5553900401CF3 /* TotalHourCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D491217E5553900401CF3 /* TotalHourCell.m */; };
+		C86D493A17E5553900401CF3 /* TotalHourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D491317E5553900401CF3 /* TotalHourCell.xib */; };
+		C86D493B17E5553900401CF3 /* TotalHoursViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D491517E5553900401CF3 /* TotalHoursViewController.m */; };
+		C86D493C17E5553900401CF3 /* TotalHoursViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D491617E5553900401CF3 /* TotalHoursViewController.xib */; };
+		C86D493D17E5553900401CF3 /* TrendGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D491817E5553900401CF3 /* TrendGraphView.m */; };
+		C86D493E17E5553900401CF3 /* TrendGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D491A17E5553900401CF3 /* TrendGraphViewController.m */; };
+		C86D493F17E5553900401CF3 /* TrendGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C86D491B17E5553900401CF3 /* TrendGraphViewController.xib */; };
+		C86D494017E5553900401CF3 /* TSCalendarSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D491D17E5553900401CF3 /* TSCalendarSegment.m */; };
+		C86D494117E5553900401CF3 /* UtilityMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D491F17E5553900401CF3 /* UtilityMethods.m */; };
+		C86D494417E5590E00401CF3 /* TSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C86D494317E5590D00401CF3 /* TSTabBar.m */; };
 		C88D652716FA52D400F356CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C88D652616FA52D400F356CE /* QuartzCore.framework */; };
 		C8A6C7CF17ADE3180086FED4 /* Calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6C7BC17ADE3180086FED4 /* Calendar.png */; };
 		C8A6C7D017ADE3180086FED4 /* Calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6C7BC17ADE3180086FED4 /* Calendar.png */; };
@@ -101,23 +134,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C81972D316E1BC1400EE65D2 /* TimeStamp-Homepage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TimeStamp-Homepage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C81972D316E1BC1400EE65D2 /* TimeStamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeStamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81972D616E1BC1400EE65D2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C81972D816E1BC1400EE65D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C81972DA16E1BC1400EE65D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C81972DE16E1BC1400EE65D2 /* TimeStamp-Homepage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TimeStamp-Homepage-Info.plist"; path = "TimeStamp-Homepage/TimeStamp-Homepage-Info.plist"; sourceTree = "<group>"; };
+		C81972DE16E1BC1400EE65D2 /* TimeStamp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TimeStamp-Info.plist"; path = "TimeStamp-Homepage/TimeStamp-Info.plist"; sourceTree = "<group>"; };
 		C81972E016E1BC1400EE65D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C81972E216E1BC1400EE65D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "TimeStamp-Homepage/main.m"; sourceTree = "<group>"; };
-		C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TimeStamp-Homepage-Prefix.pch"; path = "TimeStamp-Homepage/TimeStamp-Homepage-Prefix.pch"; sourceTree = "<group>"; };
+		C81972E416E1BC1400EE65D2 /* TimeStamp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TimeStamp-Prefix.pch"; path = "TimeStamp-Homepage/TimeStamp-Prefix.pch"; sourceTree = "<group>"; };
 		C81972E516E1BC1400EE65D2 /* TSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSAppDelegate.h; path = "TimeStamp-Homepage/TSAppDelegate.h"; sourceTree = "<group>"; };
 		C81972E616E1BC1400EE65D2 /* TSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TSAppDelegate.m; path = "TimeStamp-Homepage/TSAppDelegate.m"; sourceTree = "<group>"; };
 		C81972E816E1BC1400EE65D2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "TimeStamp-Homepage/Default.png"; sourceTree = "<group>"; };
 		C81972EA16E1BC1400EE65D2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "TimeStamp-Homepage/Default@2x.png"; sourceTree = "<group>"; };
 		C81972EC16E1BC1400EE65D2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "TimeStamp-Homepage/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C81972EF16E1BC1400EE65D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		C81972F916E1BC1400EE65D2 /* TimeStamp-HomepageTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TimeStamp-HomepageTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C81972F916E1BC1400EE65D2 /* TimeStampTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeStampTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81972FA16E1BC1400EE65D2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		C819730216E1BC1400EE65D2 /* TimeStamp-HomepageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeStamp-HomepageTests-Info.plist"; sourceTree = "<group>"; };
+		C819730216E1BC1400EE65D2 /* TimeStampTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeStampTests-Info.plist"; sourceTree = "<group>"; };
 		C819730416E1BC1400EE65D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C819730616E1BC1400EE65D2 /* TimeStamp_HomepageTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeStamp_HomepageTests.h; sourceTree = "<group>"; };
 		C819730716E1BC1400EE65D2 /* TimeStamp_HomepageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeStamp_HomepageTests.m; sourceTree = "<group>"; };
@@ -132,8 +165,60 @@
 		C83B5F1817D3A626006F4BC7 /* home_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_icon_blue.png; sourceTree = "<group>"; };
 		C83B5F1917D3A626006F4BC7 /* gear_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear_icon_blue.png; sourceTree = "<group>"; };
 		C83B5F1A17D3A626006F4BC7 /* data_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = data_icon_blue.png; sourceTree = "<group>"; };
+		C83BC71C17EE948400A556EC /* TSTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTutorialViewController.h; sourceTree = "<group>"; };
+		C83BC71D17EE948400A556EC /* TSTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTutorialViewController.m; sourceTree = "<group>"; };
 		C85A785417792BF5004B088B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		C85A785617792BFC004B088B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		C86D48EC17E5553900401CF3 /* ClassEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassEventCell.h; sourceTree = "<group>"; };
+		C86D48ED17E5553900401CF3 /* ClassEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassEventCell.m; sourceTree = "<group>"; };
+		C86D48EE17E5553900401CF3 /* ClassEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClassEventCell.xib; sourceTree = "<group>"; };
+		C86D48EF17E5553900401CF3 /* ColumnGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColumnGraphView.h; sourceTree = "<group>"; };
+		C86D48F017E5553900401CF3 /* ColumnGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColumnGraphView.m; sourceTree = "<group>"; };
+		C86D48F117E5553900401CF3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C86D48F217E5553900401CF3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C86D48F317E5553900401CF3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C86D48F517E5553900401CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C86D48F617E5553900401CF3 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
+		C86D48F717E5553900401CF3 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		C86D48F817E5553900401CF3 /* EventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
+		C86D48F917E5553900401CF3 /* EventKitData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventKitData.h; sourceTree = "<group>"; };
+		C86D48FA17E5553900401CF3 /* EventKitData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventKitData.m; sourceTree = "<group>"; };
+		C86D48FB17E5553900401CF3 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
+		C86D48FC17E5553900401CF3 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		C86D48FD17E5553900401CF3 /* EventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
+		C86D48FE17E5553900401CF3 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		C86D48FF17E5553900401CF3 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		C86D490017E5553900401CF3 /* GraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphViewController.xib; sourceTree = "<group>"; };
+		C86D490117E5553900401CF3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		C86D490217E5553900401CF3 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		C86D490417E5553900401CF3 /* MySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySingleton.h; sourceTree = "<group>"; };
+		C86D490517E5553900401CF3 /* MySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySingleton.m; sourceTree = "<group>"; };
+		C86D490617E5553900401CF3 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartView.h; sourceTree = "<group>"; };
+		C86D490717E5553900401CF3 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
+		C86D490817E5553900401CF3 /* SingleCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleCalendarViewController.h; sourceTree = "<group>"; };
+		C86D490917E5553900401CF3 /* SingleCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleCalendarViewController.m; sourceTree = "<group>"; };
+		C86D490A17E5553900401CF3 /* SingleCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SingleCalendarViewController.xib; sourceTree = "<group>"; };
+		C86D490B17E5553900401CF3 /* TableHeaderToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableHeaderToolBar.h; sourceTree = "<group>"; };
+		C86D490C17E5553900401CF3 /* TableHeaderToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderToolBar.m; sourceTree = "<group>"; };
+		C86D490D17E5553900401CF3 /* TimePeriodToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePeriodToolbar.h; sourceTree = "<group>"; };
+		C86D490E17E5553900401CF3 /* TimePeriodToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePeriodToolbar.m; sourceTree = "<group>"; };
+		C86D491117E5553900401CF3 /* TotalHourCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalHourCell.h; sourceTree = "<group>"; };
+		C86D491217E5553900401CF3 /* TotalHourCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalHourCell.m; sourceTree = "<group>"; };
+		C86D491317E5553900401CF3 /* TotalHourCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TotalHourCell.xib; sourceTree = "<group>"; };
+		C86D491417E5553900401CF3 /* TotalHoursViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalHoursViewController.h; sourceTree = "<group>"; };
+		C86D491517E5553900401CF3 /* TotalHoursViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalHoursViewController.m; sourceTree = "<group>"; };
+		C86D491617E5553900401CF3 /* TotalHoursViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TotalHoursViewController.xib; sourceTree = "<group>"; };
+		C86D491717E5553900401CF3 /* TrendGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendGraphView.h; sourceTree = "<group>"; };
+		C86D491817E5553900401CF3 /* TrendGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendGraphView.m; sourceTree = "<group>"; };
+		C86D491917E5553900401CF3 /* TrendGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendGraphViewController.h; sourceTree = "<group>"; };
+		C86D491A17E5553900401CF3 /* TrendGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendGraphViewController.m; sourceTree = "<group>"; };
+		C86D491B17E5553900401CF3 /* TrendGraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrendGraphViewController.xib; sourceTree = "<group>"; };
+		C86D491C17E5553900401CF3 /* TSCalendarSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCalendarSegment.h; sourceTree = "<group>"; };
+		C86D491D17E5553900401CF3 /* TSCalendarSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCalendarSegment.m; sourceTree = "<group>"; };
+		C86D491E17E5553900401CF3 /* UtilityMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityMethods.h; sourceTree = "<group>"; };
+		C86D491F17E5553900401CF3 /* UtilityMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityMethods.m; sourceTree = "<group>"; };
+		C86D494217E5590D00401CF3 /* TSTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabBar.h; sourceTree = "<group>"; };
+		C86D494317E5590D00401CF3 /* TSTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTabBar.m; sourceTree = "<group>"; };
 		C88D652616FA52D400F356CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C8A6C7BC17ADE3180086FED4 /* Calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calendar.png; sourceTree = "<group>"; };
 		C8A6C7BE17ADE3180086FED4 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/GCCalendar.strings; sourceTree = "<group>"; };
@@ -218,6 +303,7 @@
 		C81972CA16E1BC1400EE65D2 = {
 			isa = PBXGroup;
 			children = (
+				C86D48E917E5553900401CF3 /* CalendarTracker */,
 				C81972EE16E1BC1400EE65D2 /* MainStoryboard.storyboard */,
 				C8FF165117A5D8D30064BA83 /* App Delegate */,
 				C8FF166F17A5DD410064BA83 /* Categories */,
@@ -236,8 +322,8 @@
 		C81972D416E1BC1400EE65D2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C81972D316E1BC1400EE65D2 /* TimeStamp-Homepage.app */,
-				C81972F916E1BC1400EE65D2 /* TimeStamp-HomepageTests.octest */,
+				C81972D316E1BC1400EE65D2 /* TimeStamp.app */,
+				C81972F916E1BC1400EE65D2 /* TimeStampTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,10 +355,65 @@
 		C819730116E1BC1400EE65D2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C819730216E1BC1400EE65D2 /* TimeStamp-HomepageTests-Info.plist */,
+				C819730216E1BC1400EE65D2 /* TimeStampTests-Info.plist */,
 				C819730316E1BC1400EE65D2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C86D48E917E5553900401CF3 /* CalendarTracker */ = {
+			isa = PBXGroup;
+			children = (
+				C86D48EC17E5553900401CF3 /* ClassEventCell.h */,
+				C86D48ED17E5553900401CF3 /* ClassEventCell.m */,
+				C86D48EE17E5553900401CF3 /* ClassEventCell.xib */,
+				C86D48EF17E5553900401CF3 /* ColumnGraphView.h */,
+				C86D48F017E5553900401CF3 /* ColumnGraphView.m */,
+				C86D48F117E5553900401CF3 /* Default-568h@2x.png */,
+				C86D48F217E5553900401CF3 /* Default.png */,
+				C86D48F317E5553900401CF3 /* Default@2x.png */,
+				C86D48F417E5553900401CF3 /* InfoPlist.strings */,
+				C86D48F617E5553900401CF3 /* EventCell.h */,
+				C86D48F717E5553900401CF3 /* EventCell.m */,
+				C86D48F817E5553900401CF3 /* EventCell.xib */,
+				C86D48F917E5553900401CF3 /* EventKitData.h */,
+				C86D48FA17E5553900401CF3 /* EventKitData.m */,
+				C86D48FB17E5553900401CF3 /* EventViewController.h */,
+				C86D48FC17E5553900401CF3 /* EventViewController.m */,
+				C86D48FD17E5553900401CF3 /* EventViewController.xib */,
+				C86D48FE17E5553900401CF3 /* GraphViewController.h */,
+				C86D48FF17E5553900401CF3 /* GraphViewController.m */,
+				C86D490017E5553900401CF3 /* GraphViewController.xib */,
+				C86D490117E5553900401CF3 /* Icon.png */,
+				C86D490217E5553900401CF3 /* Icon@2x.png */,
+				C86D490417E5553900401CF3 /* MySingleton.h */,
+				C86D490517E5553900401CF3 /* MySingleton.m */,
+				C86D490617E5553900401CF3 /* PieChartView.h */,
+				C86D490717E5553900401CF3 /* PieChartView.m */,
+				C86D490817E5553900401CF3 /* SingleCalendarViewController.h */,
+				C86D490917E5553900401CF3 /* SingleCalendarViewController.m */,
+				C86D490A17E5553900401CF3 /* SingleCalendarViewController.xib */,
+				C86D490B17E5553900401CF3 /* TableHeaderToolBar.h */,
+				C86D490C17E5553900401CF3 /* TableHeaderToolBar.m */,
+				C86D490D17E5553900401CF3 /* TimePeriodToolbar.h */,
+				C86D490E17E5553900401CF3 /* TimePeriodToolbar.m */,
+				C86D491117E5553900401CF3 /* TotalHourCell.h */,
+				C86D491217E5553900401CF3 /* TotalHourCell.m */,
+				C86D491317E5553900401CF3 /* TotalHourCell.xib */,
+				C86D491417E5553900401CF3 /* TotalHoursViewController.h */,
+				C86D491517E5553900401CF3 /* TotalHoursViewController.m */,
+				C86D491617E5553900401CF3 /* TotalHoursViewController.xib */,
+				C86D491717E5553900401CF3 /* TrendGraphView.h */,
+				C86D491817E5553900401CF3 /* TrendGraphView.m */,
+				C86D491917E5553900401CF3 /* TrendGraphViewController.h */,
+				C86D491A17E5553900401CF3 /* TrendGraphViewController.m */,
+				C86D491B17E5553900401CF3 /* TrendGraphViewController.xib */,
+				C86D491C17E5553900401CF3 /* TSCalendarSegment.h */,
+				C86D491D17E5553900401CF3 /* TSCalendarSegment.m */,
+				C86D491E17E5553900401CF3 /* UtilityMethods.h */,
+				C86D491F17E5553900401CF3 /* UtilityMethods.m */,
+			);
+			path = CalendarTracker;
 			sourceTree = "<group>";
 		};
 		C8A6C7BB17ADE3180086FED4 /* GCCalendar */ = {
@@ -304,6 +445,8 @@
 			children = (
 				C83B5F1417D39612006F4BC7 /* TSMainViewController.h */,
 				C83B5F1517D39612006F4BC7 /* TSMainViewController.m */,
+				C83BC71C17EE948400A556EC /* TSTutorialViewController.h */,
+				C83BC71D17EE948400A556EC /* TSTutorialViewController.m */,
 				C8FF167A17A617620064BA83 /* TSHomePageController.h */,
 				C8FF167B17A617630064BA83 /* TSHomePageController.m */,
 				C8A6C7E317ADE44D0086FED4 /* TSDayViewController.h */,
@@ -332,6 +475,8 @@
 		C8FF164F17A5D8B50064BA83 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C86D494217E5590D00401CF3 /* TSTabBar.h */,
+				C86D494317E5590D00401CF3 /* TSTabBar.m */,
 				C81DED06177E652F00317312 /* TSMainView.h */,
 				C81DED07177E652F00317312 /* TSMainView.m */,
 				C8FF165F17A5DCFC0064BA83 /* TSListTableViewCell.h */,
@@ -384,10 +529,10 @@
 				C8FF166617A5DD160064BA83 /* TSSlidableCell.m */,
 				C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */,
 				C8FF166817A5DD160064BA83 /* ATSDragToReorderTableViewController.m */,
-				C81972DE16E1BC1400EE65D2 /* TimeStamp-Homepage-Info.plist */,
+				C81972DE16E1BC1400EE65D2 /* TimeStamp-Info.plist */,
 				C81972DF16E1BC1400EE65D2 /* InfoPlist.strings */,
 				C81972E216E1BC1400EE65D2 /* main.m */,
-				C81972E416E1BC1400EE65D2 /* TimeStamp-Homepage-Prefix.pch */,
+				C81972E416E1BC1400EE65D2 /* TimeStamp-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -404,9 +549,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C81972D216E1BC1400EE65D2 /* TimeStamp-Homepage */ = {
+		C81972D216E1BC1400EE65D2 /* TimeStamp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C819730B16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStamp-Homepage" */;
+			buildConfigurationList = C819730B16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStamp" */;
 			buildPhases = (
 				C81972CF16E1BC1400EE65D2 /* Sources */,
 				C81972D016E1BC1400EE65D2 /* Frameworks */,
@@ -416,14 +561,14 @@
 			);
 			dependencies = (
 			);
-			name = "TimeStamp-Homepage";
+			name = TimeStamp;
 			productName = "TimeStamp-Homepage";
-			productReference = C81972D316E1BC1400EE65D2 /* TimeStamp-Homepage.app */;
+			productReference = C81972D316E1BC1400EE65D2 /* TimeStamp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C81972F816E1BC1400EE65D2 /* TimeStamp-HomepageTests */ = {
+		C81972F816E1BC1400EE65D2 /* TimeStampTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C819730E16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStamp-HomepageTests" */;
+			buildConfigurationList = C819730E16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStampTests" */;
 			buildPhases = (
 				C81972F416E1BC1400EE65D2 /* Sources */,
 				C81972F516E1BC1400EE65D2 /* Frameworks */,
@@ -435,9 +580,9 @@
 			dependencies = (
 				C81972FF16E1BC1400EE65D2 /* PBXTargetDependency */,
 			);
-			name = "TimeStamp-HomepageTests";
+			name = TimeStampTests;
 			productName = "TimeStamp-HomepageTests";
-			productReference = C81972F916E1BC1400EE65D2 /* TimeStamp-HomepageTests.octest */;
+			productReference = C81972F916E1BC1400EE65D2 /* TimeStampTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -450,7 +595,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Awais Hussain";
 			};
-			buildConfigurationList = C81972CE16E1BC1400EE65D2 /* Build configuration list for PBXProject "TimeStamp-Homepage" */;
+			buildConfigurationList = C81972CE16E1BC1400EE65D2 /* Build configuration list for PBXProject "TimeStamp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -464,8 +609,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C81972D216E1BC1400EE65D2 /* TimeStamp-Homepage */,
-				C81972F816E1BC1400EE65D2 /* TimeStamp-HomepageTests */,
+				C81972D216E1BC1400EE65D2 /* TimeStamp */,
+				C81972F816E1BC1400EE65D2 /* TimeStampTests */,
 			);
 		};
 /* End PBXProject section */
@@ -495,6 +640,20 @@
 				C83B5F1B17D3A626006F4BC7 /* home_icon_blue.png in Resources */,
 				C83B5F1D17D3A626006F4BC7 /* gear_icon_blue.png in Resources */,
 				C83B5F1F17D3A626006F4BC7 /* data_icon_blue.png in Resources */,
+				C86D492217E5553900401CF3 /* ClassEventCell.xib in Resources */,
+				C86D492417E5553900401CF3 /* Default-568h@2x.png in Resources */,
+				C86D492517E5553900401CF3 /* Default.png in Resources */,
+				C86D492617E5553900401CF3 /* Default@2x.png in Resources */,
+				C86D492717E5553900401CF3 /* InfoPlist.strings in Resources */,
+				C86D492917E5553900401CF3 /* EventCell.xib in Resources */,
+				C86D492C17E5553900401CF3 /* EventViewController.xib in Resources */,
+				C86D492E17E5553900401CF3 /* GraphViewController.xib in Resources */,
+				C86D492F17E5553900401CF3 /* Icon.png in Resources */,
+				C86D493017E5553900401CF3 /* Icon@2x.png in Resources */,
+				C86D493517E5553900401CF3 /* SingleCalendarViewController.xib in Resources */,
+				C86D493A17E5553900401CF3 /* TotalHourCell.xib in Resources */,
+				C86D493C17E5553900401CF3 /* TotalHoursViewController.xib in Resources */,
+				C86D493F17E5553900401CF3 /* TrendGraphViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +722,25 @@
 				C8EA7E0A17CC2F15009EED40 /* UIColor+MLPFlatColors.m in Sources */,
 				C83B5F0E17D38D32006F4BC7 /* DMLazyScrollView.m in Sources */,
 				C83B5F1617D39612006F4BC7 /* TSMainViewController.m in Sources */,
+				C86D492117E5553900401CF3 /* ClassEventCell.m in Sources */,
+				C86D492317E5553900401CF3 /* ColumnGraphView.m in Sources */,
+				C86D492817E5553900401CF3 /* EventCell.m in Sources */,
+				C86D492A17E5553900401CF3 /* EventKitData.m in Sources */,
+				C86D492B17E5553900401CF3 /* EventViewController.m in Sources */,
+				C86D492D17E5553900401CF3 /* GraphViewController.m in Sources */,
+				C86D493217E5553900401CF3 /* MySingleton.m in Sources */,
+				C86D493317E5553900401CF3 /* PieChartView.m in Sources */,
+				C86D493417E5553900401CF3 /* SingleCalendarViewController.m in Sources */,
+				C86D493617E5553900401CF3 /* TableHeaderToolBar.m in Sources */,
+				C86D493717E5553900401CF3 /* TimePeriodToolbar.m in Sources */,
+				C86D493917E5553900401CF3 /* TotalHourCell.m in Sources */,
+				C86D493B17E5553900401CF3 /* TotalHoursViewController.m in Sources */,
+				C86D493D17E5553900401CF3 /* TrendGraphView.m in Sources */,
+				C86D493E17E5553900401CF3 /* TrendGraphViewController.m in Sources */,
+				C86D494017E5553900401CF3 /* TSCalendarSegment.m in Sources */,
+				C86D494117E5553900401CF3 /* UtilityMethods.m in Sources */,
+				C86D494417E5590E00401CF3 /* TSTabBar.m in Sources */,
+				C83BC71E17EE948400A556EC /* TSTutorialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,7 +773,7 @@
 /* Begin PBXTargetDependency section */
 		C81972FF16E1BC1400EE65D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C81972D216E1BC1400EE65D2 /* TimeStamp-Homepage */;
+			target = C81972D216E1BC1400EE65D2 /* TimeStamp */;
 			targetProxy = C81972FE16E1BC1400EE65D2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -623,6 +801,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				C819730416E1BC1400EE65D2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C86D48F417E5553900401CF3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C86D48F517E5553900401CF3 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -700,9 +886,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TimeStamp-Homepage/TimeStamp-Homepage-Prefix.pch";
-				INFOPLIST_FILE = "TimeStamp-Homepage/TimeStamp-Homepage-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "TimeStamp-Homepage/TimeStamp-Prefix.pch";
+				INFOPLIST_FILE = "TimeStamp-Homepage/TimeStamp-Info.plist";
+				PRODUCT_NAME = TimeStamp;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -712,9 +898,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TimeStamp-Homepage/TimeStamp-Homepage-Prefix.pch";
-				INFOPLIST_FILE = "TimeStamp-Homepage/TimeStamp-Homepage-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "TimeStamp-Homepage/TimeStamp-Prefix.pch";
+				INFOPLIST_FILE = "TimeStamp-Homepage/TimeStamp-Info.plist";
+				PRODUCT_NAME = TimeStamp;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -730,8 +916,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeStamp-Homepage/TimeStamp-Homepage-Prefix.pch";
-				INFOPLIST_FILE = "TimeStamp-HomepageTests/TimeStamp-HomepageTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "TimeStamp-HomepageTests/TimeStampTests-Info.plist";
+				PRODUCT_NAME = TimeStampTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -748,8 +934,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeStamp-Homepage/TimeStamp-Homepage-Prefix.pch";
-				INFOPLIST_FILE = "TimeStamp-HomepageTests/TimeStamp-HomepageTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "TimeStamp-HomepageTests/TimeStampTests-Info.plist";
+				PRODUCT_NAME = TimeStampTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -758,7 +944,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C81972CE16E1BC1400EE65D2 /* Build configuration list for PBXProject "TimeStamp-Homepage" */ = {
+		C81972CE16E1BC1400EE65D2 /* Build configuration list for PBXProject "TimeStamp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C819730916E1BC1400EE65D2 /* Debug */,
@@ -767,7 +953,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C819730B16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStamp-Homepage" */ = {
+		C819730B16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStamp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C819730C16E1BC1400EE65D2 /* Debug */,
@@ -776,7 +962,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C819730E16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStamp-HomepageTests" */ = {
+		C819730E16E1BC1400EE65D2 /* Build configuration list for PBXNativeTarget "TimeStampTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C819730F16E1BC1400EE65D2 /* Debug */,

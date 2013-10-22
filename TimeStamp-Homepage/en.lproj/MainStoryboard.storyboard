@@ -77,16 +77,6 @@
                                     <action selector="showCalChooser:" destination="pfT-D5-tbf" eventType="touchUpInside" id="oiu-yR-1z5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5HC-L5-MYJ">
-                                <rect key="frame" x="7" y="519" width="70" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" title="Home">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goHome:" destination="pfT-D5-tbf" eventType="touchUpInside" id="aJz-eK-5Tz"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4ZU-8W-TxN">
                                 <rect key="frame" x="243" y="519" width="70" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
@@ -134,16 +124,21 @@
                                             <action selector="goToSettingsScreen:" destination="ZVa-ir-YAp" id="7w2-qY-G1c"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ocn-Ob-e24"/>
                                     <barButtonItem title="Switch" id="JGi-2g-Iuv">
                                         <connections>
                                             <action selector="switchScreens:" destination="ZVa-ir-YAp" id="47Y-Bv-WvL"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="wIK-9q-tTe"/>
-                                    <barButtonItem title="Today" id="ZaE-Ul-TDA">
+                                    <barButtonItem title="Prev" id="4Ly-Ey-0j6">
                                         <connections>
-                                            <action selector="goToToday:" destination="ZVa-ir-YAp" id="6au-Ai-vMF"/>
+                                            <action selector="prevDay:" destination="ZVa-ir-YAp" id="dgw-ew-thF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="65" style="plain" systemItem="fixedSpace" id="N3W-D5-ZgP"/>
+                                    <barButtonItem title="Next" id="3oL-t4-JAT">
+                                        <connections>
+                                            <action selector="nextDay:" destination="ZVa-ir-YAp" id="hCk-7f-pap"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -236,7 +231,7 @@
                     <navigationItem key="navigationItem" id="Bfi-rP-pFH"/>
                     <connections>
                         <outlet property="tableView" destination="Jow-As-jo1" id="SMC-rr-cOd"/>
-                        <outlet property="view" destination="Jow-As-jo1" id="rPM-Pv-btS"/>
+                        <outlet property="view" destination="Jow-As-jo1" id="nNa-Ol-6YP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzk-WG-E9r" userLabel="First Responder" sceneMemberID="firstResponder"/>

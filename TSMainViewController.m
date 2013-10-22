@@ -112,6 +112,12 @@
 - (IBAction)goToHome:(id)sender {
     [self.lazyView setPage:0 transition:DMLazyScrollViewTransitionBackward animated:YES];
 }
+- (IBAction)prevDay:(id)sender {
+    [homeController prevDay:sender];
+}
+- (IBAction)nextDay:(id)sender {
+    [homeController nextDay:sender];
+}
 - (IBAction)goToData:(id)sender {
     [self.lazyView setPage:1 transition:DMLazyScrollViewTransitionForward animated:YES];
 }

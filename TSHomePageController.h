@@ -27,5 +27,7 @@
 
 - (void)scrollToCurrentTime:(id)sender;
 - (IBAction)showCalChooser:(id)sender;
+- (IBAction)prevDay:(id)sender;
+- (IBAction)nextDay:(id)sender;
 
 @end

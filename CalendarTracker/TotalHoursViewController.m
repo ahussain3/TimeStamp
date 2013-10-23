@@ -33,6 +33,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self initializeDates];
     }
     return self;
 }
@@ -61,6 +62,7 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"Calendars";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Graph" style:UIBarButtonItemStyleBordered target:self action:@selector(graphButtonPressed:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(todayButtonPressed:)];
     self.timeBar.delegate = self;
     self.dateBar.delegate = self;
 }
@@ -180,11 +182,16 @@
     return 1;
 }
 
+#pragma mark Nav Bar Methods
 -(IBAction)graphButtonPressed:(id)sender
 {
     GraphViewController* newController = [[GraphViewController alloc]init];
     newController.previousController = self;
     [self.navigationController pushViewController:newController animated:YES];
+}
+-(IBAction)todayButtonPressed:(id)sender {
+    self.singleton.activeDate = [NSDate date];
+    [self update];
 }
 #pragma mark Toolbar Methods
 - (IBAction)switchScreens:(id)sender {

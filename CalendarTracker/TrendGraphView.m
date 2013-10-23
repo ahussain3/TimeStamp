@@ -217,6 +217,10 @@
     }
     
 }
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 
 
 @end

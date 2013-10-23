@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="dateBar" destination="64" id="83"/>
                 <outlet property="tableView" destination="32" id="44"/>
+                <outlet property="timeBar" destination="GHN-y2-YOm" id="65t-sc-6Wm"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -85,7 +86,7 @@
                                 </segments>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="segmentControlPressed:" destination="GHN-y2-YOm" eventType="valueChanged" id="AC1-oJ-l3H"/>
+                                    <action selector="segmentControlPressed:" destination="GHN-y2-YOm" eventType="valueChanged" id="dOr-aA-c2P"/>
                                 </connections>
                             </segmentedControl>
                         </barButtonItem>

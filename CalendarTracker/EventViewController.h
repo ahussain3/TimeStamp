@@ -29,4 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet TableHeaderToolBar *dateBar;
 @property (weak, nonatomic) IBOutlet TimePeriodToolbar * timeBar;
+
+-(void)initializeDates;
+
 @end

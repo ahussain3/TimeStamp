@@ -117,4 +117,11 @@
 {
     [self.navigationController popViewControllerAnimated:YES];  
 }
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 @end

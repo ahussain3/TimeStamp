@@ -52,7 +52,7 @@
     self.timeBar.delegate = self;
     self.dateBar.delegate = self;
     self.navigationItem.title = self.calSegment.title;
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Graph" style:UIBarButtonItemStyleBordered target:self action:@selector(graphButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Graph" style:UIBarButtonItemStyleBordered target:self action:@selector(graphButtonPressed:)];
     [self update];
 }
 

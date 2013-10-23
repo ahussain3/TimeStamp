@@ -204,6 +204,11 @@
     [self update];
 }
 
+#pragma mark Toolbar Methods
+- (IBAction)switchScreens:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+}
+
 -(void)TimePeriodToolbarValueChanged:(TimePeriodToolbar *)timeBar value:(int)val
 {
     self.singleton.timePeriod = val+1;

@@ -105,13 +105,13 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="a6N-Bk-xU6"/>
                                     <barButtonItem title="Prev" id="CZ6-GE-CPe">
                                         <connections>
-                                            <action selector="prevDay:" destination="ZVa-ir-YAp" id="aWx-FV-aa1"/>
+                                            <action selector="prevDay:" destination="pfT-D5-tbf" id="do1-gj-xXr"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="w0f-KK-i4h"/>
                                     <barButtonItem title="Next" id="21M-Wc-SOC">
                                         <connections>
-                                            <action selector="nextDay:" destination="ZVa-ir-YAp" id="MUr-Wu-d1o"/>
+                                            <action selector="nextDay:" destination="pfT-D5-tbf" id="zm0-cR-45b"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -247,7 +247,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Bfi-rP-pFH"/>
                     <connections>
-                        <outlet property="view" destination="Jow-As-jo1" id="y4m-et-ZGH"/>
+                        <outlet property="view" destination="Jow-As-jo1" id="vV9-ni-Ych"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzk-WG-E9r" userLabel="First Responder" sceneMemberID="firstResponder"/>

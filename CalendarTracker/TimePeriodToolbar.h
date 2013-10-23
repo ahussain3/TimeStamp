@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UtilityMethods.h"
 #import "MySingleton.h"
+#import "TSTabBar.h"
 
 @class TimePeriodToolbar;
 
@@ -17,7 +18,7 @@
 -(void)update;
 @end
 
-@interface TimePeriodToolbar : UIToolbar
+@interface TimePeriodToolbar : TSTabBar
 @property (strong, nonatomic) MySingleton *singleton;
 - (IBAction)segmentControlPressed:(id)sender;
 @property(nonatomic,weak) IBOutlet id <TimePeriodToolbarDelegate> delegate;

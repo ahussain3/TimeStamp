@@ -247,6 +247,9 @@
 {
     return self.calSegment.color;
 }
+- (IBAction)switchScreens:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+}
 
 -(void)TimePeriodToolbarValueChanged:(TimePeriodToolbar *)timeBar value:(int)val
 {

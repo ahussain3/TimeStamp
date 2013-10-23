@@ -179,7 +179,6 @@
     TotalHoursViewController * tc = [[TotalHoursViewController alloc]initWithNibName:@"TotalHoursViewController" bundle:nil];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tc];
     nav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
     [self presentViewController:nav animated:YES completion:^{
     }];
 }

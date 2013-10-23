@@ -13,6 +13,7 @@
 #import "GraphViewController.h"
 #import "SingleCalendarViewController.h"
 #import "TableHeaderToolBar.h"
+#import "TSCalendarStore.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface TotalHoursViewController ()
@@ -184,6 +185,10 @@
     GraphViewController* newController = [[GraphViewController alloc]init];
     newController.previousController = self;
     [self.navigationController pushViewController:newController animated:YES];
+}
+#pragma mark Toolbar Methods
+- (IBAction)switchScreens:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 -(NSDictionary *)valuesForBars

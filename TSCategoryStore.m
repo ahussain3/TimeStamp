@@ -74,6 +74,12 @@
     }
     return _store;
 }
+- (NSMutableArray *)allCategories {
+    if(!_allCategories) {
+        _allCategories = [[NSMutableArray alloc] init];
+    }
+    return  _allCategories;
+}
 - (void)setActiveCalendars:(NSSet *)activeCalendars {
     [[TSCalendarStore instance] setActiveCalendars:activeCalendars];
 }

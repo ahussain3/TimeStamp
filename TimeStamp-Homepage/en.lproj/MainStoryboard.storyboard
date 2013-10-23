@@ -247,7 +247,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Bfi-rP-pFH"/>
                     <connections>
-                        <outlet property="view" destination="Jow-As-jo1" id="vV9-ni-Ych"/>
+                        <outlet property="view" destination="Jow-As-jo1" id="zIi-mw-Kdo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzk-WG-E9r" userLabel="First Responder" sceneMemberID="firstResponder"/>

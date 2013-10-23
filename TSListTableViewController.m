@@ -66,6 +66,8 @@
     categoryArray = [[model dataForPath:self.path] mutableCopy];
     rootCategory = [model categoryForPath:self.path];
     
+    NSLog(@"Reload Data called with elements: %@", categoryArray);
+    
     if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
 //        self.pathLabel.hidden = YES;
     } else {

@@ -66,7 +66,7 @@ typedef enum {
     
     self.date = [self.datasource dateToDisplay];
     NSArray *newEvents = [self.datasource eventsToDisplay];
-    NSLog(@"New events to display: %@", newEvents);
+//    NSLog(@"New events to display: %@", newEvents);
 
     [self initializeTilesWithArray:newEvents];
     [self setNeedsLayout];

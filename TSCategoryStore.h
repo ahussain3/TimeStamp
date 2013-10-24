@@ -15,6 +15,8 @@
 
 + (TSCategoryStore *) instance;
 
+- (void)importDefaultCategories;
+
 // returns an array of TSCategoryBox objects at a given level of the hierarchy.
 - (NSArray *)dataForPath:(NSString *)path;
 - (TSCategory *)categoryForPath:(NSString *)path;

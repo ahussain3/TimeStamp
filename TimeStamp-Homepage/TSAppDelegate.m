@@ -9,12 +9,18 @@
 #import "TSAppDelegate.h"
 #import "UIColor+CalendarPalette.h"
 #import "TSTabBar.h"
+//#import "Flurry.h"
 
 @implementation TSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+//    [Flurry setCrashReportingEnabled:YES];
+    //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
+//    [Flurry startSession:@"KGV97JVBH5CGNF57H2RM"];
+    //your code
+    
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor colorFromHexString:@"#282E5C"]];

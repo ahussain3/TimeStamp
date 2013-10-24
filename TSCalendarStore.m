@@ -38,20 +38,24 @@
 
 - (void)setup {
     backgroundQueue = dispatch_queue_create("com.timestamp.calQueue", NULL);
-    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+        [self requestCalAccess];
+    }
+}
+- (void)requestCalAccess {
     if (self.store == nil) {
         self.store = [[EKEventStore alloc] init];
         if([self.store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
             // iOS 6 and later
             [self.store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
                 if (granted) {
-                    //NSLog(@"Events calendar accessed");
+                    NSLog(@"Events calendar accessed");
                     //---- codes here when user allow your app to access theirs' calendar.
                 } else
                 {
                     //NSLog(@"Failed to access events calendar");
                     //----- codes here when user NOT allow your app to access the calendar.
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Calendar access failed" message:@"This app is not especially useful without calendar access - go to Settings to grant permission :)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Calendar access failed" message:@"TimeStamp integrates with your existing calendar and so is not especially useful without calendar access - go to Settings > Privacy > Calendars to grant permission :)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
                     [alert show];
                 }
             }];

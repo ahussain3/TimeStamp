@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TSHomePageController.h"
 
 @interface TSTutorialViewController : UIViewController
+
+@property (nonatomic, strong) TSHomePageController *homeController;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 

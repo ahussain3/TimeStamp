@@ -17,6 +17,7 @@
 #import "TSCalendarStore.h"
 #import "UIColor+CalendarPalette.h"
 #import "TotalHoursViewController.h"
+#import "TSTutorialViewController.h"
 
 @interface TSHomePageController () {
     BOOL userIsDragging;
@@ -48,8 +49,7 @@
     dragGestureRecognizer.delegate = self;
     calStore = [TSCalendarStore instance];
     
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
-    if (FALSE)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
     {
         // app already launched
         NSLog(@"App has launched once already");
@@ -62,8 +62,9 @@
         NSLog(@"This is the first time the app has ever launched");
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        UIViewController *tutController = [storyboard instantiateViewControllerWithIdentifier:@"tutorialController"];
+        TSTutorialViewController *tutController = [storyboard instantiateViewControllerWithIdentifier:@"tutorialController"];
         tutController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        tutController.homeController = self;
 //        [self showCalChooser:nil];
         [self presentViewController:tutController animated:YES completion:^{}];
     }
@@ -165,10 +166,10 @@
 
 - (void)calendarChooserDidFinish:(EKCalendarChooser *)calendarChooser {
     [calendarChooser dismissViewControllerAnimated:YES completion:^{
-        if ([calStore.activeCalendars isEqualToSet:calendarChooser.selectedCalendars]) return;
+//        if ([calStore.activeCalendars isEqualToSet:calendarChooser.selectedCalendars]) return;
         [calStore setActiveCalendars:calendarChooser.selectedCalendars];
         [dayViewController reloadTodayView];
-        [listController reloadData];
+        [listController reloadData]; // On first launch, list controller has not been set up.
     }];
 }
 

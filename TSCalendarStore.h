@@ -19,6 +19,7 @@
 
 // Singleton methods
 + (TSCalendarStore *)instance;
+- (void)requestCalAccess;
 
 // data methods
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date;

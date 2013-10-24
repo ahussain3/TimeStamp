@@ -23,20 +23,6 @@
     [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#666666"]];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
-    {
-        // app already launched
-        NSLog(@"App has launched once already");
-    }
-    else
-    {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        // This is the first launch ever
-        NSLog(@"This is the first time the app has ever launched");
-        
-    }
-    
     return YES;
 }
 							

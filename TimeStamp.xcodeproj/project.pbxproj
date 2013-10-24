@@ -518,8 +518,6 @@
 				C83B5F0D17D38D32006F4BC7 /* DMLazyScrollView.m */,
 				C8FF166317A5DD160064BA83 /* MyAlertViewDelegate.h */,
 				C8FF166417A5DD160064BA83 /* MyAlertViewDelegate.m */,
-				C8EA7E0817CC2F15009EED40 /* UIColor+MLPFlatColors.h */,
-				C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */,
 				C8FF166517A5DD160064BA83 /* TSSlidableCell.h */,
 				C8FF166617A5DD160064BA83 /* TSSlidableCell.m */,
 				C8FF166717A5DD160064BA83 /* ATSDragToReorderTableViewController.h */,
@@ -535,6 +533,8 @@
 		C8FF166F17A5DD410064BA83 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C8EA7E0817CC2F15009EED40 /* UIColor+MLPFlatColors.h */,
+				C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */,
 				C828E63E176D5CBB000DA3CA /* UIColor+CalendarPalette.h */,
 				C828E63F176D5CBB000DA3CA /* UIColor+CalendarPalette.m */,
 			);

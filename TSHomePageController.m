@@ -47,6 +47,26 @@
     [self.view addGestureRecognizer:dragGestureRecognizer];
     dragGestureRecognizer.delegate = self;
     calStore = [TSCalendarStore instance];
+    
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
+    if (FALSE)
+    {
+        // app already launched
+        NSLog(@"App has launched once already");
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        // This is the first launch ever
+        NSLog(@"This is the first time the app has ever launched");
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIViewController *tutController = [storyboard instantiateViewControllerWithIdentifier:@"tutorialController"];
+        tutController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//        [self showCalChooser:nil];
+        [self presentViewController:tutController animated:YES completion:^{}];
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -64,8 +64,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <items>
-                        <barButtonItem title="Cals" id="KuI-sC-MhI"/>
-                        <barButtonItem title="Switch" id="edR-O1-diG">
+                        <barButtonItem title="&lt; Back" id="edR-O1-diG">
                             <connections>
                                 <action selector="switchScreens:" destination="-1" id="WZ6-LI-rbx"/>
                             </connections>

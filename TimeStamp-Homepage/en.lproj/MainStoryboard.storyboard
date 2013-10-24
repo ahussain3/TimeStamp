@@ -97,19 +97,19 @@
                                             <action selector="showCalChooser:" destination="pfT-D5-tbf" id="h1E-eo-BWM"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Switch" id="5tn-Zr-Umy">
+                                    <barButtonItem title="Data" id="5tn-Zr-Umy">
                                         <connections>
                                             <action selector="switchScreens:" destination="pfT-D5-tbf" id="jfw-Bt-QlZ"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="a6N-Bk-xU6"/>
-                                    <barButtonItem title="Prev" id="CZ6-GE-CPe">
+                                    <barButtonItem title="Prev Day" id="CZ6-GE-CPe">
                                         <connections>
                                             <action selector="prevDay:" destination="pfT-D5-tbf" id="do1-gj-xXr"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="w0f-KK-i4h"/>
-                                    <barButtonItem title="Next" id="21M-Wc-SOC">
+                                    <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="w0f-KK-i4h"/>
+                                    <barButtonItem title="Next Day" id="21M-Wc-SOC">
                                         <connections>
                                             <action selector="nextDay:" destination="pfT-D5-tbf" id="zm0-cR-45b"/>
                                         </connections>
@@ -202,6 +202,34 @@
             </objects>
             <point key="canvasLocation" x="495" y="655"/>
         </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="STj-R4-SA0">
+            <objects>
+                <viewController storyboardIdentifier="tutorialController" id="K4c-az-4yv" customClass="TSTutorialViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3s3-au-OUC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" id="BLX-Vx-EJf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="epb-yI-353">
+                                <rect key="frame" x="140" y="494" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageControl" destination="epb-yI-353" id="S2a-Hf-CkQ"/>
+                        <outlet property="scrollView" destination="BLX-Vx-EJf" id="ymP-GB-Vuu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Do4-Bg-dUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="495" y="2066"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="toc-3w-A37">
             <objects>
@@ -247,7 +275,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Bfi-rP-pFH"/>
                     <connections>
-                        <outlet property="view" destination="Jow-As-jo1" id="zIi-mw-Kdo"/>
+                        <outlet property="view" destination="Jow-As-jo1" id="6A5-zT-sVg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzk-WG-E9r" userLabel="First Responder" sceneMemberID="firstResponder"/>

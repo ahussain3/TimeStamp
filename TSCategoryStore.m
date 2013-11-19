@@ -35,6 +35,7 @@
 - (id) initSingleton
 {
     backgroundQueue = dispatch_queue_create("com.timestamp.bgqueue", NULL);
+    NSLog(@"FUNC called: initSingleton");
     
     int loadDataFrom = 3;
     if ((self = [super init]))
@@ -165,43 +166,75 @@
     return catArray;
 }
 - (void)syncStoredDataWithGCalData {
+    NSLog(@"FUNC called: syncStoredDataWithGCalData");
 //    dispatch_async(backgroundQueue, ^{
-        // get all calendars
-        NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
-        NSMutableArray *existingCategories = [[NSMutableArray alloc] initWithCapacity:calendars.count];
+    // get all calendars
+    NSArray *calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
+    NSMutableArray *existingCategories = [[NSMutableArray alloc] initWithCapacity:calendars.count];
+    
+    NSLog(@"Calendars from EKCal are:");
+    for (EKCalendar *cal in calendars) {
+        NSLog(@"%@", cal.title);
+    }
+    
+    NSLog(@"Categories stored in phone are:");
+    for (TSCategory *cat in self.allCategories) {
+        NSLog(@"%@", cat.title);
+    }
         
-        BOOL catExists;
-        for (EKCalendar *cal in calendars) {
-            if (cal.allowsContentModifications) {
-                for (TSCategory *cat in self.allCategories) {
-                    catExists = FALSE;
-                    if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
-                        catExists = TRUE;
-                        [existingCategories addObject:cat];
-                        break;
-                    }
-                }
-                // We have a new gCal calendar that doesn't have a TS equivalent.
-                if (!catExists) {
-                    TSCategory *newCategory = [self TSCategoryWithEKCalendar:cal];
-                    newCategory.level = 0;
-                    newCategory.path = ROOT_CATEGORY_PATH;
-                    [existingCategories addObject:newCategory];
-                    [self.allCategories addObject:newCategory];
-                    
+    BOOL catExists;
+    for (EKCalendar *cal in calendars) {
+        if (cal.allowsContentModifications) {
+            for (TSCategory *cat in self.allCategories) {
+                catExists = FALSE;
+                if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+                    catExists = TRUE;
+                    [existingCategories addObject:cat];
+                    break;
                 }
             }
+            // We have a new gCal calendar that doesn't have a TS equivalent.
+            if (!catExists) {
+                NSLog(@"New gCal cal that doesn't have TS equivalent: %@", cal.title);
+                TSCategory *newCategory = [self TSCategoryWithEKCalendar:cal];
+                newCategory.level = 0;
+                newCategory.path = ROOT_CATEGORY_PATH;
+                [existingCategories addObject:newCategory];
+                [self.allCategories addObject:newCategory];
+            }
         }
-        
+    }
+
+    NSLog(@"Existing categories (which are also in GCal are:");
+    for (TSCategory *cat in existingCategories) {
+        NSLog(@"%@", cat.title);
+    }
+    
         // Remove excess categories from allCategories.
         NSMutableArray *remove = [[NSMutableArray alloc] init];
         for (TSCategory *cat in self.allCategories) {
             if (![existingCategories containsObject:cat]) {
+                NSLog(@"Removed object: %@", cat.title);
                 [remove addObject:cat];
             }
         }
         [self.allCategories removeObjectsInArray:remove];
         NSLog(@"Finished syncing calendars");
+
+    NSLog(@"UPDATED: Calendars from EKCal are:");
+    for (EKCalendar *cal in calendars) {
+        NSLog(@"%@", cal.title);
+    }
+    
+    NSLog(@"UPDATED: Categories stored in phone are:");
+    for (TSCategory *cat in self.allCategories) {
+        NSLog(@"%@", cat.title);
+    }
+    NSLog(@"UPDATED: Active categories are:");
+    for (TSCategory *cat in self.activeCalendars) {
+        NSLog(@"%@", cat.title);
+    }
+    
 //    });
 }
 
@@ -449,6 +482,14 @@
             if (source.sourceType == EKSourceTypeLocal) {
                 localSource = source;
             }
+        }
+    }
+    
+    // Check that the calendar doesn't already exist.
+    for (EKCalendar *cal in [self.store calendarsForEntityType:EKEntityTypeEvent]) {
+        if ([cal.title isEqualToString:category.title]) {
+            return nil;
+            NSLog(@"FAILED: Trying to create a calendar with a name that already exists");
         }
     }
     

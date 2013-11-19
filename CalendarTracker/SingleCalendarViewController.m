@@ -52,7 +52,9 @@
     self.timeBar.delegate = self;
     self.dateBar.delegate = self;
     self.navigationItem.title = self.calSegment.title;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Graph" style:UIBarButtonItemStyleBordered target:self action:@selector(graphButtonPressed:)];
+    UIBarButtonItem *graphBtn = [[UIBarButtonItem alloc]initWithTitle:@"Graph" style:UIBarButtonItemStyleBordered target:self action:@selector(graphButtonPressed:)];
+    [graphBtn setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = graphBtn;
     [self update];
 }
 

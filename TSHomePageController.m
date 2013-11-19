@@ -25,6 +25,7 @@
 }
 @property (weak, nonatomic) IBOutlet UIView *dismissKeyboardView;
 @property (strong, nonatomic) NSSet *tempSet;
+@property (nonatomic) BOOL calChooserChanged;
 
 @end
 
@@ -161,12 +162,20 @@
 
 #pragma mark EKCalendarChooserDelegate
 - (void)calendarChooserSelectionDidChange:(EKCalendarChooser *)calendarChooser {
-    
+//    self.calChooserChanged = YES;
+    NSLog(@"Active Calendars from Chooser: %@", calendarChooser.selectedCalendars);
 }
 
 - (void)calendarChooserDidFinish:(EKCalendarChooser *)calendarChooser {
+    NSLog(@"Active Calendars from Chooser: %@", calendarChooser.selectedCalendars);
+
     [calendarChooser dismissViewControllerAnimated:YES completion:^{
-//        if ([calStore.activeCalendars isEqualToSet:calendarChooser.selectedCalendars]) return;
+        if ([calStore.activeCalendars isEqualToSet:calendarChooser.selectedCalendars]) return;
+//        if(self.calChooserChanged) {
+//            [[TSCategoryStore instance] syncStoredDataWithGCalData];
+//            self.calChooserChanged = NO;
+//        }
+        NSLog(@"Active Calendars from Chooser: %@", calendarChooser.selectedCalendars);
         [calStore setActiveCalendars:calendarChooser.selectedCalendars];
         [dayViewController reloadTodayView];
         [listController reloadData]; // On first launch, list controller has not been set up.
@@ -207,7 +216,7 @@
 - (IBAction)showCalChooser:(id)sender {
     EKCalendarChooser *calChooser = [[EKCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
     //    [calChooser setEditing:YES];
-    calChooser.selectedCalendars = calStore.activeCalendars;
+    calChooser.selectedCalendars = (calStore.activeCalendars) ? calStore.activeCalendars : [NSSet set];
     //    calChooser.selectedCalendars = self.tempSet;
     calChooser.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     calChooser.showsCancelButton = YES;
@@ -216,7 +225,6 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:calChooser];
     [self presentViewController:nav animated:YES completion:nil];
 }
-
 
 #pragma mark - ATSDragToReorderTableViewControllerDelegate methods
 - (void)dealWithDraggedCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath {

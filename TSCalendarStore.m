@@ -41,6 +41,7 @@
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         [self requestCalAccess];
     }
+    self.calsDirty = YES;
 }
 - (void)requestCalAccess {
     if (self.store == nil) {
@@ -73,10 +74,12 @@
         
         [[NSUserDefaults standardUserDefaults] setObject:[calDict copy] forKey:CAL_STORAGE_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.calsDirty = YES;
     }
 }
 - (NSSet *)activeCalendars {
-    self.calsDirty = YES;
+//    self.calsDirty = YES;
     if (self.calsDirty) {
         NSMutableArray *calArray = [[NSMutableArray alloc] init];
         NSDictionary *calDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:CAL_STORAGE_KEY];

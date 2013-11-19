@@ -65,8 +65,11 @@
     // Populate local array.
     categoryArray = [[model dataForPath:self.path] mutableCopy];
     rootCategory = [model categoryForPath:self.path];
-    
-    NSLog(@"Reload Data called with elements: %@", categoryArray);
+
+    NSLog(@"ReloadListData: New Set of Categories:");
+    for (TSCategory *cat in categoryArray) {
+        NSLog(@"%@", cat.title);
+    }
     
     if ([self.path isEqualToString:ROOT_CATEGORY_PATH]) {
 //        self.pathLabel.hidden = YES;

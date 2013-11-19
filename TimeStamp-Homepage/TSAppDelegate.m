@@ -23,6 +23,12 @@
     
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                UITextAttributeTextColor: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                UITextAttributeTextShadowColor: [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],
+                UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
+                UITextAttributeFont: [UIFont fontWithName:@"Helvetica-Bold" size:0.0],
+    }];
     [[UIBarButtonItem appearance] setTintColor:[UIColor colorFromHexString:@"#282E5C"]];
     [[TSTabBar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [[TSTabBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#eeeeee"]];

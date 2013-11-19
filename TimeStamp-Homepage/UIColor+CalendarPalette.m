@@ -47,7 +47,6 @@
         return [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
     }
     return nil;
-
 }
 
 @end

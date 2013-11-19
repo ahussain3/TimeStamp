@@ -11,8 +11,8 @@
 #import <dispatch/dispatch.h>
 #import "TSCalendarStore.h"
 #import "TSCategory.h"
-#import "UIColor+CalendarPalette.h"
 #import "UIColor+MLPFlatColors.h"
+#import "UIColor+CalendarPalette.h"
 
 @interface TSCategoryStore () {
     BOOL saveToFile;
@@ -89,15 +89,22 @@
 }
 - (NSMutableArray *)categoryArray {
     // Check to ensure that each category has a corresponding entry in the active calendars list.
+    NSLog(@"BUILDING CATEGORY ARRAY FROM: allCategories:");
+    for (EKCalendar *cal in self.allCategories) {
+        NSLog(@"%@", cal.title);
+    }
+    NSLog(@"BUILDING CATEGORY ARRAY FROM: activeCalendars: %@", self.activeCalendars);
+    
     NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:_categoryArray.count];
     for (TSCategory *cat in self.allCategories) {
         for (EKCalendar *cal in self.activeCalendars) {
-            if ([cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+            if ([cal.title isEqualToString:cat.calendar.title]) {
                 [tempArray addObject:cat];
                 break;
             }
         }
     }
+    NSLog(@"BUILDING CATEGORY ARRAY FROM: returned array: %@", tempArray);
     return tempArray;
 }
 + (TSCategoryStore *) instance
@@ -189,6 +196,9 @@
                 catExists = FALSE;
                 if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
                     catExists = TRUE;
+                    cat.calendar = cal;
+                    cat.title = cal.title;
+                    cat.color = [self prettyColorFromUIColor:[UIColor colorWithCGColor:cal.CGColor]];
                     [existingCategories addObject:cat];
                     break;
                 }
@@ -234,8 +244,15 @@
     for (TSCategory *cat in self.activeCalendars) {
         NSLog(@"%@", cat.title);
     }
-    
-//    });
+}
+
+- (UIColor *)prettyColorFromUIColor:(UIColor *)color {
+// Hacky solution. For some reason UIColor+ColorPalette category not being recognized.
+    float h, s, b, a;
+    if ([color getHue:&h saturation:&s brightness:&b alpha:&a]) {
+        return [UIColor colorWithHue:h saturation:MIN(s, 0.6) brightness:b alpha:a];
+    }
+    return nil;
 }
 
 - (void)importDefaultCategories {

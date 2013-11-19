@@ -113,7 +113,22 @@
     CGContextSetLineWidth(context, PLOTTED_LINE_WIDTH);
     CGContextSetFillColorWithColor(context, [[self.datasource colorForCalendarWithTrendGraphView:self] colorWithAlphaComponent:ALPHA].CGColor);
     CGContextBeginPath(context);
-
+    
+    // Display "No Data" if there is no data to display
+#define TEXT_WIDTH 100
+#define TEXT_HEIGHT 50
+    if([pointValues allKeys].count <2) {
+        UILabel *noData = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x + (rect.size.width / 2) - (TEXT_WIDTH/2), rect.origin.y + (rect.size.height / 2) - (TEXT_HEIGHT/2), TEXT_WIDTH, TEXT_HEIGHT)];
+        noData.text = @"No Data";
+        noData.textAlignment = NSTextAlignmentCenter;
+        noData.font = [UIFont boldSystemFontOfSize:25.0];
+        noData.backgroundColor = [UIColor clearColor];
+        noData.textColor = [UIColor grayColor];
+        [self.labels addObject:noData];
+        [self addSubview:noData];
+        return;
+    }
+    
     int ii = 0;
     // draw line connecting points
     for (NSDate *date in points) {
@@ -176,7 +191,6 @@
         
         jj ++;
     }
-
     // Draw Horizontal Axis
     CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
     CGContextSetLineWidth(context, AXIS_LINE_WIDTH);
@@ -201,21 +215,6 @@
         [self.labels addObject:dayLabel];
         kk++;
     }
-    
-    // Display "No Data" if there is no data to display
-#define TEXT_WIDTH 100
-#define TEXT_HEIGHT 50
-    if([pointValues allKeys].count <2) {
-        UILabel *noData = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x + (rect.size.width / 2) - (TEXT_WIDTH/2), rect.origin.y + (rect.size.height / 2) - (TEXT_HEIGHT/2), TEXT_WIDTH, TEXT_HEIGHT)];
-        noData.text = @"No Data";
-        noData.textAlignment = NSTextAlignmentCenter;
-        noData.font = [UIFont boldSystemFontOfSize:25.0];
-        noData.backgroundColor = [UIColor clearColor];
-        noData.textColor = [UIColor grayColor];
-        [self.labels addObject:noData];
-        [self addSubview:noData];
-    }
-    
 }
 - (NSUInteger)supportedInterfaceOrientations
 {

@@ -291,20 +291,20 @@
     
     TSCategory *sleep = [[TSCategory alloc] init];
     sleep.title = @"Sleep";
-    sleep.color = [UIColor colorFromHexString:@"414750"];
+    sleep.color = [self prettyColorFromUIColor:[UIColor colorFromHexString:@"414750"]];
     sleep.path = ROOT_CATEGORY_PATH;
     [sleep addSubcategory:@"Sleep"];
     [sleep addSubcategory:@"Nap"];
 
     TSCategory * class = [[TSCategory alloc]init];
     class.title = @"Classes";
-    class.color = [UIColor flatBlueColor];
+    class.color = [self prettyColorFromUIColor:[UIColor flatBlueColor]];
     class.path = ROOT_CATEGORY_PATH;
     [class addSubcategory:@"Physics"];
     
     TSCategory * school = [[TSCategory alloc]init];
     school.title = @"Study";
-    school.color = [UIColor flatYellowColor];
+    school.color = [self prettyColorFromUIColor:[UIColor flatYellowColor]];
     school.path = ROOT_CATEGORY_PATH;
     [school addSubcategory:@"Class"];
     [school addSubcategory:@"Studying"];
@@ -312,14 +312,14 @@
     
     TSCategory *social = [[TSCategory alloc] init];
     social.title = @"Social";
-    social.color = [UIColor flatOrangeColor];
+    social.color = [self prettyColorFromUIColor:[UIColor flatOrangeColor]];
     social.path = ROOT_CATEGORY_PATH;
     [social addSubcategory:@"Hanging Out"];
     [social addSubcategory:@"Partying"];
     
     TSCategory *food = [[TSCategory alloc] init];
     food.title = @"Food";
-    food.color = [UIColor colorFromHexString:@"a78143"];
+    food.color = [self prettyColorFromUIColor:[UIColor colorFromHexString:@"a78143"]];
     food.path = ROOT_CATEGORY_PATH;
     [food addSubcategory:@"Breakfast"];
     [food addSubcategory:@"Lunch"];
@@ -328,7 +328,7 @@
     
     TSCategory *travel = [[TSCategory alloc] init];
     travel.title = @"Travel";
-    travel.color = [UIColor colorFromHexString:@"2f3876"];
+    travel.color = [self prettyColorFromUIColor:[UIColor colorFromHexString:@"2f3876"]];
     travel.path = ROOT_CATEGORY_PATH;
     [travel addSubcategory:@"Walking"];
     [travel addSubcategory:@"To Class"];
@@ -337,7 +337,7 @@
     
     TSCategory * sport = [[TSCategory alloc]init];
     sport.title = @"Fitness";
-    sport.color = [UIColor colorFromHexString:@"6ba743"];
+    sport.color = [self prettyColorFromUIColor:[UIColor colorFromHexString:@"6ba743"]];
     sport.path = ROOT_CATEGORY_PATH;
     [sport addSubcategory:@"Gym"];
     [sport addSubcategory:@"Sport"];
@@ -345,7 +345,7 @@
     
     TSCategory * procras = [[TSCategory alloc]init];
     procras.title = @"Wasted Time";
-    procras.color = [UIColor colorFromHexString:@"722f76"];
+    procras.color = [self prettyColorFromUIColor:[UIColor colorFromHexString:@"722f76"]];
     procras.path = ROOT_CATEGORY_PATH;
     [procras addSubcategory:@"Internet"];
     [procras addSubcategory:@"Tired"];
@@ -353,7 +353,7 @@
     TSCategory *misc = [[TSCategory alloc] init];
     misc.path = ROOT_CATEGORY_PATH;
     misc.title = @"Miscellaneous";
-    misc.color = [UIColor colorFromHexString:@"4a80b9"];
+    misc.color = [self prettyColorFromUIColor:[UIColor colorFromHexString:@"4a80b9"]];
     [procras addSubcategory:@"Internet"];
     
     catArray = [NSMutableArray arrayWithObjects:procras, travel,misc, sport, food, social, school, class, sleep, nil];

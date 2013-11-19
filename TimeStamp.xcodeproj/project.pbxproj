@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C8174781183BCB4A0042C431 /* libHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8174780183BCB490042C431 /* libHeap.a */; };
+		C8174782183BCBB70042C431 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8883A1A18190C7200D7806A /* SystemConfiguration.framework */; };
 		C81972D716E1BC1400EE65D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81972D616E1BC1400EE65D2 /* UIKit.framework */; };
 		C81972D916E1BC1400EE65D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81972D816E1BC1400EE65D2 /* Foundation.framework */; };
 		C81972DB16E1BC1400EE65D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81972DA16E1BC1400EE65D2 /* CoreGraphics.framework */; };
@@ -140,6 +142,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C817477F183BCB490042C431 /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
+		C8174780183BCB490042C431 /* libHeap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libHeap.a; sourceTree = "<group>"; };
 		C81972D316E1BC1400EE65D2 /* TimeStamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeStamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81972D616E1BC1400EE65D2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C81972D816E1BC1400EE65D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -292,10 +296,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8174782183BCBB70042C431 /* SystemConfiguration.framework in Frameworks */,
 				C85A785717792BFC004B088B /* EventKitUI.framework in Frameworks */,
 				C85A785517792BF5004B088B /* EventKit.framework in Frameworks */,
 				C88D652716FA52D400F356CE /* QuartzCore.framework in Frameworks */,
 				C81972D716E1BC1400EE65D2 /* UIKit.framework in Frameworks */,
+				C8174781183BCB4A0042C431 /* libHeap.a in Frameworks */,
 				C81972D916E1BC1400EE65D2 /* Foundation.framework in Frameworks */,
 				C81972DB16E1BC1400EE65D2 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -317,6 +323,8 @@
 		C81972CA16E1BC1400EE65D2 = {
 			isa = PBXGroup;
 			children = (
+				C817477F183BCB490042C431 /* Heap.h */,
+				C8174780183BCB490042C431 /* libHeap.a */,
 				C86D48E917E5553900401CF3 /* CalendarTracker */,
 				C81972EE16E1BC1400EE65D2 /* MainStoryboard.storyboard */,
 				C8FF165117A5D8D30064BA83 /* App Delegate */,
@@ -886,6 +894,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -912,6 +924,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -933,6 +949,7 @@
 					"/Users/awaishussain/Developer/TimeStamp-Homepage/Flurry-iOS-4.3.0/Flurry",
 					"/Users/awaishussain/Developer/TimeStamp-Homepage/Flurry-iOS-4.3.0/FlurryAds",
 					"/Users/awaishussain/Developer/TimeStamp-Homepage/Flurry",
+					"/Users/awaishussain/Developer/TimeStamp-Homepage",
 				);
 				PRODUCT_NAME = TimeStamp;
 				PROVISIONING_PROFILE = "";
@@ -957,6 +974,7 @@
 					"/Users/awaishussain/Developer/TimeStamp-Homepage/Flurry-iOS-4.3.0/Flurry",
 					"/Users/awaishussain/Developer/TimeStamp-Homepage/Flurry-iOS-4.3.0/FlurryAds",
 					"/Users/awaishussain/Developer/TimeStamp-Homepage/Flurry",
+					"/Users/awaishussain/Developer/TimeStamp-Homepage",
 				);
 				PRODUCT_NAME = TimeStamp;
 				PROVISIONING_PROFILE = "";

@@ -62,6 +62,8 @@
 {
     [super viewWillAppear:animated];
     self.timeBar.segmentedControl.selectedSegmentIndex = self.singleton.timePeriod - 1;
+    if([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        [self setEdgesForExtendedLayout:UIRectEdgeBottom];
     [self update];
 }
 

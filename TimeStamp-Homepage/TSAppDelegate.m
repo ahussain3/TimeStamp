@@ -9,6 +9,7 @@
 #import "TSAppDelegate.h"
 #import "UIColor+CalendarPalette.h"
 #import "TSTabBar.h"
+#import "Heap.h"
 //#import "Flurry.h"
 
 @implementation TSAppDelegate
@@ -20,6 +21,11 @@
     //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
 //    [Flurry startSession:@"KGV97JVBH5CGNF57H2RM"];
     //your code
+    
+    // Override point for customization after application launch.
+    [[Heap sharedInstance] setAppId:@"2473989496"];
+    
+    /* Other launch code goes here */
     
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
@@ -34,6 +40,7 @@
     [[TSTabBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#eeeeee"]];
     [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#666666"]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     return YES;
 }

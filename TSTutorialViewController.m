@@ -121,6 +121,7 @@
     [containerView addSubview:tut7];
     
     containerView.backgroundColor = [UIColor colorFromHexString:@"d9d6d1"];
+    self.view.backgroundColor = [UIColor colorFromHexString:@"d9d6d1"];
     [self.scrollView addSubview:containerView];
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;

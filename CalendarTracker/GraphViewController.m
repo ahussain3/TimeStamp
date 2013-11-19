@@ -47,7 +47,6 @@
     
     // Do any additional setup after loading the view from its nib.
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -68,6 +67,9 @@
     [self.pieChartView setNeedsDisplay];
     self.pieChartView.dataSource = self.previousController;
 
+    if([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        [self setEdgesForExtendedLayout:UIRectEdgeBottom];
+    
     [self resetTimePeriod];
 }
 

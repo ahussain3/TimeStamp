@@ -55,6 +55,8 @@
     if (!self.singleton.activeDate) {
         [self initializeDates];
     }
+    if([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        [self setEdgesForExtendedLayout:UIRectEdgeBottom];
     self.timeBar.segmentedControl.selectedSegmentIndex = self.singleton.timePeriod - 1;
     [self update];
 }

@@ -76,10 +76,14 @@ typedef enum {
     if (slideState == TSSlideStateDormant) {
         CGFloat theta =  (180 / M_PI) * atanf(translation.y / translation.x);
         if (fabsf(theta) > 20.0) {
-            tableView.scrollEnabled = YES;
+            if ([tableView respondsToSelector:@selector(setScrollEnabled:)]) {
+                tableView.scrollEnabled = YES;
+            }
             return;
         } else {
+            if ([tableView respondsToSelector:@selector(setScrollEnabled:)]) {
             tableView.scrollEnabled = NO;
+            }
         }
     }
     
@@ -132,7 +136,9 @@ typedef enum {
         }];
         
         slideState = TSSlideStateDormant;
-        tableView.scrollEnabled = YES;
+        if ([tableView respondsToSelector:@selector(setScrollEnabled:)]) {
+            tableView.scrollEnabled = YES;
+        }
     }
 }
 

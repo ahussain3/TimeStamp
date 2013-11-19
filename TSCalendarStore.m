@@ -92,7 +92,6 @@
             if (calendar) [calArray addObject:calendar];
         }
         _activeCalendars = [NSSet setWithArray:calArray];
-        NSLog(@"Load active calendars as: %@", _activeCalendars);
     }
     return _activeCalendars;
 }

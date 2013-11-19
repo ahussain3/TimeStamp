@@ -128,7 +128,7 @@
             self.selectedView.hidden = NO;
             self.startTimeDragView.hidden = YES;
             self.endTimeDragView.hidden = YES;
-            titleLabel.textColor = [UIColor colorFromHexString:@"#eeeeee"];
+            titleLabel.textColor = [UIColor whiteColor];
 //            descriptionLabel.textColor = [UIColor colorFromHexString:@"eeeeee"];
         }
         [self setNeedsLayout];

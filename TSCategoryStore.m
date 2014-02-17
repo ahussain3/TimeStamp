@@ -35,35 +35,12 @@
     backgroundQueue = dispatch_queue_create("com.timestamp.bgqueue", NULL);
     NSLog(@"FUNC called: initSingleton");
     
-    int loadDataFrom = 3;
-    if ((self = [super init]))
-    {
-        // Initialization code here.
-        if (loadDataFrom == 0) {
-            // Load from calendar
-            saveToFile = YES;
-            self.allCategories = [self loadCalendarData];
-        } else if (loadDataFrom == 1) {
-            // Load from encoder (saved data)
-            saveToFile = YES;
-            [self loadData];
-        } else if (loadDataFrom == 2){
-            // Load custom data (with subcategories)
-            saveToFile = YES;
-            [self loadData];
-            [self importDefaultCalendars];
-        } else if (loadDataFrom == 3) {
-            saveToFile = YES;
-            [self loadData];
-            [self syncStoredDataWithGCalData];
-        } else if (loadDataFrom == 4) {
-            // Usually only run this on first launch
-            [self loadData];
-            [self importDefaultCalendars];
-            [self syncStoredDataWithGCalData];
-        }
-        [self saveData];
-    }
+    saveToFile = YES;
+    [self loadData];
+    [self syncStoredDataWithGCalData];
+//    [self importDefaultCalendars];
+    [self saveData];
+    
     return self;
 }
 
@@ -90,7 +67,9 @@
             }
         }
     }
+    [self saveData];
 }
+
 - (NSSet *)activeCalendars {
     NSMutableSet *active = [[NSMutableSet alloc] init];
     for (TSCategory *cat in self.allCategories) {
@@ -158,28 +137,10 @@
 
 }
 
-- (NSMutableArray *)loadCalendarData {
-    NSMutableArray *catArray = [[NSMutableArray alloc] init];
-    
-    // retrieve only active calendars
-    NSArray *calendars = [self.activeCalendars allObjects];
-    
-    // Convert EKCalendars to TSCatgories.
-    for (EKCalendar *cal in calendars) {
-        if (!cal.allowsContentModifications || [cal.title isEqualToString:@"jeremynixon@college.harvard.edu"]) {
-            // Remove calendars that do not allow editing
-            NSLog(@"Error, calendar: %@ cannot be modfied", cal);
-        } else {
-            NSLog(@"Calendar added: %@", cal);
-            TSCategory *cat = [self TSCategoryWithEKCalendar:cal];
-            [catArray addObject:cat];
-            cat.level = 0;
-            cat.path = ROOT_CATEGORY_PATH;
-            cat.active = YES;
-        }
+- (void)makeAllCategoriesActive {
+    for (TSCategory *cat in self.allCategories) {
+        cat.active = YES;
     }
-    
-    return catArray;
 }
 - (void)syncStoredDataWithGCalData {
     NSLog(@"FUNC called: syncStoredDataWithGCalData");

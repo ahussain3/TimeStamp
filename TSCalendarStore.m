@@ -116,8 +116,6 @@
 - (NSArray *)allCalendarEventsForDate:(NSDate *)date {
     // retrieve all calendars
     NSArray *calendars = [self.activeCalendars allObjects];
-#warning Eventually we should remove the line below.
-//    if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
     
     // This array will store all the events from all calendars.
     NSMutableArray *eventArray = [[NSMutableArray alloc] init];

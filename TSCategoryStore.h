@@ -17,6 +17,7 @@
 
 - (void)importDefaultCategories;
 - (void)syncStoredDataWithGCalData;
+- (void)makeAllCategoriesActive;
 
 // returns an array of TSCategoryBox objects at a given level of the hierarchy.
 - (NSArray *)dataForPath:(NSString *)path;

@@ -69,7 +69,12 @@ typedef enum {
 }
 
 - (void)slideGestureHandler:(UIPanGestureRecognizer *)sender {
-    UITableView *tableView = (UITableView *)self.superview.superview;
+    UITableView *tableView;
+    if ([self.superview isKindOfClass:[UITableView class]]) {
+        tableView = (UITableView *)self.superview;
+    } else {
+        tableView = (UITableView *)self.superview.superview;
+    }
     CGPoint translation = [sender translationInView:self];
     
     // Remove interference with scrollView pan gesture recognizer

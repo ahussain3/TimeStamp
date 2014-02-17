@@ -205,10 +205,10 @@
             </objects>
             <point key="canvasLocation" x="495" y="655"/>
         </scene>
-        <!--Tutorial View Controller-->
+        <!--Tutorial View Controller - tutorialVC-->
         <scene sceneID="STj-R4-SA0">
             <objects>
-                <viewController storyboardIdentifier="tutorialController" id="K4c-az-4yv" customClass="TSTutorialViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tutorialController" title="tutorialVC" id="K4c-az-4yv" customClass="TSTutorialViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3s3-au-OUC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

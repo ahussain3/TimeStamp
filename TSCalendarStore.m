@@ -10,6 +10,7 @@
 #import <EventKit/EventKit.h>
 #import <dispatch/dispatch.h>
 #import "GCCalendarEvent.h"
+#import "TSCategoryStore.h"
 
 @interface TSCalendarStore () {
     BOOL updateICalRecord;
@@ -64,35 +65,16 @@
     }
 }
 - (void)setActiveCalendars:(NSSet *)activeCalendars {
-    if (activeCalendars != _activeCalendars) {
+    if (activeCalendars != _activeCalendars ) {
         _activeCalendars = activeCalendars;
-        
-        NSMutableDictionary *calDict = [[NSMutableDictionary alloc] initWithCapacity:activeCalendars.count];
-        for (EKCalendar *cal in activeCalendars) {
-            [calDict setObject:cal.calendarIdentifier forKey:cal.title];
-        }
-        
-        [[NSUserDefaults standardUserDefaults] setObject:[calDict copy] forKey:CAL_STORAGE_KEY];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        self.calsDirty = YES;
-        
-        NSLog(@"Set active calendars to: %@", activeCalendars);
+        [[TSCategoryStore instance] setActiveCalendars:activeCalendars];
     }
+    return;
 }
+
 - (NSSet *)activeCalendars {
-//    self.calsDirty = YES;
-    if (self.calsDirty) {
-        NSMutableArray *calArray = [[NSMutableArray alloc] init];
-        NSDictionary *calDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:CAL_STORAGE_KEY];
-        NSArray *allKeys = [calDict allKeys];
-        for (NSString *key in allKeys) {
-            NSString *calID = [calDict valueForKey:key];
-            EKCalendar *calendar = [self.store calendarWithIdentifier:calID];
-            if (calendar) [calArray addObject:calendar];
-        }
-        _activeCalendars = [NSSet setWithArray:calArray];
-    }
+    _activeCalendars = [TSCategoryStore instance].activeCalendars;
+    NSLog(@"Active calendars are: %@", _activeCalendars.description);
     return _activeCalendars;
 }
 + (TSCalendarStore *) instance

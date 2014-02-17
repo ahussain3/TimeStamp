@@ -114,6 +114,7 @@
 		C8EA7E0E17CC4F7F009EED40 /* prev_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C8EA7E0C17CC4F7F009EED40 /* prev_button.png */; };
 		C8EA7E1017CC524A009EED40 /* next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C8EA7E0F17CC524A009EED40 /* next_button.png */; };
 		C8EA7E1117CC524A009EED40 /* next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C8EA7E0F17CC524A009EED40 /* next_button.png */; };
+		C8F5BCF8189CAD73004335CD /* TSHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F5BCF7189CAD72004335CD /* TSHelpers.m */; };
 		C8FF165B17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165C17A5DA440064BA83 /* TSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165817A5DA440064BA83 /* TSCategory.m */; };
 		C8FF165D17A5DA440064BA83 /* TSCategoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FF165A17A5DA440064BA83 /* TSCategoryStore.m */; };
@@ -271,6 +272,8 @@
 		C8EA7E0917CC2F15009EED40 /* UIColor+MLPFlatColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MLPFlatColors.m"; sourceTree = "<group>"; };
 		C8EA7E0C17CC4F7F009EED40 /* prev_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prev_button.png; path = "TimeStamp-Homepage/prev_button.png"; sourceTree = "<group>"; };
 		C8EA7E0F17CC524A009EED40 /* next_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = next_button.png; path = "TimeStamp-Homepage/next_button.png"; sourceTree = "<group>"; };
+		C8F5BCF6189CAD72004335CD /* TSHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSHelpers.h; sourceTree = "<group>"; };
+		C8F5BCF7189CAD72004335CD /* TSHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSHelpers.m; sourceTree = "<group>"; };
 		C8FF165717A5DA440064BA83 /* TSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategory.h; sourceTree = "<group>"; };
 		C8FF165817A5DA440064BA83 /* TSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCategory.m; sourceTree = "<group>"; };
 		C8FF165917A5DA440064BA83 /* TSCategoryStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCategoryStore.h; sourceTree = "<group>"; };
@@ -330,6 +333,7 @@
 				C8FF165117A5D8D30064BA83 /* App Delegate */,
 				C8FF166F17A5DD410064BA83 /* Categories */,
 				C8FF164D17A5D7030064BA83 /* Controllers */,
+				C8F5BCF5189CAD4B004335CD /* Helpers */,
 				C8FF164E17A5D89D0064BA83 /* Models */,
 				C8FF164F17A5D8B50064BA83 /* Views */,
 				C8FF165017A5D8C30064BA83 /* Resources */,
@@ -461,6 +465,15 @@
 				C8A6C7CE17ADE3180086FED4 /* GCGlobalSettings.h */,
 			);
 			path = GCCalendar;
+			sourceTree = "<group>";
+		};
+		C8F5BCF5189CAD4B004335CD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C8F5BCF6189CAD72004335CD /* TSHelpers.h */,
+				C8F5BCF7189CAD72004335CD /* TSHelpers.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		C8FF164D17A5D7030064BA83 /* Controllers */ = {
@@ -771,6 +784,7 @@
 				C86D492D17E5553900401CF3 /* GraphViewController.m in Sources */,
 				C86D493217E5553900401CF3 /* MySingleton.m in Sources */,
 				C86D493317E5553900401CF3 /* PieChartView.m in Sources */,
+				C8F5BCF8189CAD73004335CD /* TSHelpers.m in Sources */,
 				C86D493417E5553900401CF3 /* SingleCalendarViewController.m in Sources */,
 				C86D493617E5553900401CF3 /* TableHeaderToolBar.m in Sources */,
 				C86D493717E5553900401CF3 /* TimePeriodToolbar.m in Sources */,

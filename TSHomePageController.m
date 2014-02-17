@@ -147,8 +147,6 @@
     self.title = string;
 }
 - (void)scrollToCurrentTime:(id)sender {
-//    self.nextButton.hidden = !self.nextButton.hidden;
-//    self.prevButton.hidden = !self.prevButton.hidden;
     if (dayViewController) {
         [self updateNavBarWithDate:[NSDate date]];
         dayViewController.date = [NSDate date];
@@ -163,7 +161,6 @@
 #pragma mark EKCalendarChooserDelegate
 - (void)calendarChooserSelectionDidChange:(EKCalendarChooser *)calendarChooser {
 //    self.calChooserChanged = YES;
-    NSLog(@"Active Calendars from Chooser: %@", calendarChooser.selectedCalendars);
 }
 
 - (void)calendarChooserDidFinish:(EKCalendarChooser *)calendarChooser {
@@ -211,6 +208,12 @@
     nav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:nav animated:YES completion:^{
     }];
+}
+
+- (void)showCalChooserOnStartup {
+    [self showCalChooser:self];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (IBAction)showCalChooser:(id)sender {

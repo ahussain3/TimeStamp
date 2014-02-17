@@ -17,16 +17,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-//    [Flurry setCrashReportingEnabled:YES];
-    //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
-//    [Flurry startSession:@"KGV97JVBH5CGNF57H2RM"];
-    //your code
-    
-    // Override point for customization after application launch.
     [[Heap sharedInstance] setAppId:@"2473989496"];
     
     /* Other launch code goes here */
-    
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -41,6 +34,29 @@
     [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#666666"]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+    // Simlulate first run every time
+//    [TSHelpers makeFirstRun];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+	UIViewController* rootViewController = nil;
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+
+	if ([TSHelpers isFirstRun]) {
+        NSLog(@"This is the first run:");
+		rootViewController = [sb instantiateViewControllerWithIdentifier:@"tutorialController"];
+	}
+	else {
+		rootViewController = [sb instantiateViewControllerWithIdentifier:@"homeController"];
+	}
+    
+	self.window.rootViewController = rootViewController;
+    
+    NSLog(@"%@", rootViewController);
+    [self.window makeKeyAndVisible];
+    
+    [TSHelpers registerDefaults];
     
     return YES;
 }

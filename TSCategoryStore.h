@@ -22,6 +22,9 @@
 - (NSArray *)dataForPath:(NSString *)path;
 - (TSCategory *)categoryForPath:(NSString *)path;
 
+// Set of EKCalendar objects representing 'unhidden' calendars
+@property (nonatomic, strong) NSSet *activeCalendars;
+
 // CRUD functions
 // Path should colon separated, for example "ROOT:Sleep:Nap:"
 - (TSCategory *)addNewCalendar:(TSCategory *)category;

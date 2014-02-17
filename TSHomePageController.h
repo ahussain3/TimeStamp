@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UITableViewCell *draggedCell;
 
 - (void)scrollToCurrentTime:(id)sender;
+- (void)showCalChooserOnStartup;
 - (IBAction)showCalChooser:(id)sender;
 - (IBAction)prevDay:(id)sender;
 - (IBAction)nextDay:(id)sender;

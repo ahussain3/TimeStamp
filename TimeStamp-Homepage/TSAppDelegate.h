@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TSTutorialViewController.h"
+#import "TSHomePageController.h"
+#import "TSHelpers.h"
 
 @interface TSAppDelegate : UIResponder <UIApplicationDelegate>
 

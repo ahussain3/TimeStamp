@@ -27,6 +27,7 @@
         self.level = [decoder decodeIntegerForKey:@"level"];
         self.color = [decoder decodeObjectForKey:@"color"];
         self.subCategories = [decoder decodeObjectForKey:@"subCategories"];
+        self.active = [decoder decodeBoolForKey:@"active"];
     }
     return self;
 }
@@ -41,6 +42,7 @@
     [encoder encodeInt:self.level forKey:@"level"];
     [encoder encodeObject:self.color forKey:@"color"];
     [encoder encodeObject:self.subCategories forKey:@"subCategories"];
+    [encoder encodeBool:self.active forKey:@"active"];
 }
 
 - (void)addSubcategory:(NSString *)name {
@@ -53,6 +55,7 @@
     subCategory.calendar = self.calendar;
     subCategory.level = self.level + 1;
     subCategory.color = self.color;
+    subCategory.active = self.active;
     subCategory.path = [self.path stringByAppendingFormat:@":%@", self.title];
     
     [self.subCategories insertObject:subCategory atIndex:0];

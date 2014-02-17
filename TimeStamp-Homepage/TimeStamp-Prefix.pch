@@ -33,9 +33,6 @@
 #define kHalfHourDiff 32.0
 #define kTodayViewHeight 1556
 
-#define CAL_STORAGE_KEY @"activeCalendars"
-
-
 
 
 

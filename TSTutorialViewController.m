@@ -88,7 +88,7 @@
     UIImage *sel = [UIImage imageNamed:@"GetStarted_Sel"];
     [welcomeBtn setBackgroundImage:start forState:UIControlStateNormal];
     [welcomeBtn setBackgroundImage:sel forState:UIControlStateHighlighted];
-    [welcomeBtn addTarget:self action:@selector(showCalChooser:) forControlEvents:UIControlEventTouchUpInside];
+    [welcomeBtn addTarget:self action:@selector(getStarted:) forControlEvents:UIControlEventTouchUpInside];
     [welcomeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [tut7 addSubview:welcomeBtn];
     
@@ -103,8 +103,8 @@
     [tut7 addSubview:label];
     
     onOff = [[UISwitch alloc] initWithFrame:CGRectZero];
-    onOff.center = CGPointMake(self.view.bounds.size.width / 2, 375);
     onOff.bounds = CGRectMake(0, 0, 79, 54);
+    onOff.center = CGPointMake(self.view.bounds.size.width / 2, 375);
     onOff.onTintColor = [UIColor colorFromHexString:@"#3D478C"];
     onOff.on = YES;
     [tut7 addSubview:onOff];
@@ -168,6 +168,40 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+- (void)getStarted:(id)sender {
+    // Get permission to use calendars
+    [[TSCalendarStore instance] requestCalAccess];
+    
+    // Do necessary imports/synchronization here.
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UINavigationController *nav = [sb instantiateViewControllerWithIdentifier:@"homeController"];
+    nav.modalPresentationCapturesStatusBarAppearance = YES;
+    nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:nav animated:NO completion:^{}];
+
+    /*
+    // Get permission to use calendars
+    [[TSCalendarStore instance] requestCalAccess];
+    
+    // Import Default Calendars
+    if (onOff.on) {
+        [[TSCategoryStore instance] importDefaultCategories];
+    }
+    */
+    
+    /*
+    // Show cal chooser
+    NSLog(@"Show Cal Chooser to get started!");
+    [self dismissViewControllerAnimated:YES completion:^{
+        // On home page controller, call show cal chooser
+        [self.homeController showCalChooser:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
+    */
 }
 
 @end

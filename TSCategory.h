@@ -29,6 +29,9 @@
 // Color associated with the category
 @property (nonatomic, strong) UIColor *color;
 
+// Whether or not the category is currently shown
+@property (nonatomic) BOOL active;
+
 // Array of TSCategoryBox views. These are the next level of the hierarchy.
 @property (nonatomic, strong) NSMutableArray *subCategories;
 

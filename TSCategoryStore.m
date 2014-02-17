@@ -18,8 +18,6 @@
     BOOL saveToFile;
     dispatch_queue_t backgroundQueue;
 }
-// Set of EKCalendar objects representing 'unhidden' calendars
-@property (nonatomic, strong) NSSet *activeCalendars;
 // Store of all the categories and subcategories ever created (hidden and unhidden).
 @property (nonatomic, strong) NSMutableArray *allCategories;
 // This is the curated list of only unhidden categories. Use active calendars to derive this list.
@@ -82,28 +80,40 @@
     return  _allCategories;
 }
 - (void)setActiveCalendars:(NSSet *)activeCalendars {
-    [[TSCalendarStore instance] setActiveCalendars:activeCalendars];
-}
-- (NSSet *)activeCalendars {
-    return [[TSCalendarStore instance] activeCalendars];
-}
-- (NSMutableArray *)categoryArray {
-    // Check to ensure that each category has a corresponding entry in the active calendars list.
-    NSLog(@"BUILDING CATEGORY ARRAY FROM: allCategories:");
-    for (EKCalendar *cal in self.allCategories) {
-        NSLog(@"%@", cal.title);
-    }
-    NSLog(@"BUILDING CATEGORY ARRAY FROM: activeCalendars: %@", self.activeCalendars);
-    
-    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:_categoryArray.count];
     for (TSCategory *cat in self.allCategories) {
-        for (EKCalendar *cal in self.activeCalendars) {
-            if ([cal.title isEqualToString:cat.calendar.title]) {
-                [tempArray addObject:cat];
+        cat.active = NO;
+        
+        for (EKCalendar *cal in activeCalendars) {
+            if ([cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier] || [cal.title isEqualToString:cat.calendar.title]) {
+                cat.active = YES;
                 break;
             }
         }
     }
+}
+- (NSSet *)activeCalendars {
+    NSMutableSet *active = [[NSMutableSet alloc] init];
+    for (TSCategory *cat in self.allCategories) {
+        if (cat.active) {
+            [active addObject:cat.calendar];
+        }
+    }
+    return active.copy;
+}
+- (NSMutableArray *)categoryArray {
+    // Check to ensure that each category has a corresponding entry in the active calendars list.
+    NSLog(@"BUILDING CATEGORY ARRAY FROM: allCategories:");
+        for (EKCalendar *cal in self.allCategories) {
+            NSLog(@"%@", cal.title);
+    }
+    
+    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:self.allCategories.count];
+    for (TSCategory *cat in self.allCategories) {
+        if (cat.active) {
+            [tempArray addObject:cat];
+        }
+    }
+
     NSLog(@"BUILDING CATEGORY ARRAY FROM: returned array: %@", tempArray);
     return tempArray;
 }
@@ -153,8 +163,6 @@
     
     // retrieve only active calendars
     NSArray *calendars = [self.activeCalendars allObjects];
-#warning Eventually we should remove the line below.
-    if (calendars.count == 0) calendars = [self.store calendarsForEntityType:EKEntityTypeEvent];
     
     // Convert EKCalendars to TSCatgories.
     for (EKCalendar *cal in calendars) {
@@ -167,6 +175,7 @@
             [catArray addObject:cat];
             cat.level = 0;
             cat.path = ROOT_CATEGORY_PATH;
+            cat.active = YES;
         }
     }
     
@@ -274,9 +283,7 @@
                 catExistsAlready = TRUE;
                 defCat.calendar = stoCat.calendar;
                 // Make stoCat an active calendar.
-                NSMutableSet *tempSet = [self.activeCalendars mutableCopy];
-                [tempSet addObject:stoCat.calendar];
-                self.activeCalendars = tempSet;
+                stoCat.active = YES;
                 break;
             }
         }
@@ -286,6 +293,7 @@
         }
     }
 }
+
 - (NSMutableArray *)getDefaultCalendars {
     NSMutableArray *catArray = [[NSMutableArray alloc] init];
     
@@ -456,14 +464,7 @@
     dispatch_async(backgroundQueue, ^{
         if ([path isEqualToString:ROOT_CATEGORY_PATH]) {
             // Have to 'hide' an entire calendar. We don't yet have this functionality.
-            for (EKCalendar *cal in self.activeCalendars) {
-                if ([cal.calendarIdentifier isEqualToString:category.calendar.calendarIdentifier]) {
-                    NSMutableArray *tempArray = [self.activeCalendars mutableCopy];
-                    [tempArray removeObject:cal];
-                    self.activeCalendars = [tempArray copy];
-                    break;
-                }
-            }
+            category.active = NO;
         } else {
             TSCategory *storedCat = [self categoryForPath:path andCategory:nil];
             for (TSCategory *cat in storedCat.subCategories) {
@@ -529,13 +530,10 @@
     TSCategory *cat = [self TSCategoryWithEKCalendar:calendar];
     cat.level = 0;
     cat.path = ROOT_CATEGORY_PATH;
+    cat.active = YES;
     
     // Let the database know.
     [self.allCategories insertObject:cat atIndex:0];
-    // Make calendar active
-    NSMutableSet *temp = [self.activeCalendars mutableCopy];
-    [temp addObject:calendar];
-    self.activeCalendars = temp;
     
     return cat;
 }

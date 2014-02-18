@@ -14,6 +14,7 @@
 #import "TSSlidableCell.h"
 #import "MyAlertViewDelegate.h"
 #import "UIColor+CalendarPalette.h"
+#import "UINavigationController+Retro.h"
 
 @interface TSListTableViewController ()
 
@@ -31,11 +32,6 @@
     }
     return self;
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -196,7 +192,7 @@
     nextController.path = [self.path stringByAppendingFormat:@":%@",selectedCategory.title];
     nextController.dragDelegate = self.dragDelegate;
     
-    [self.navigationController pushViewController:nextController animated:YES];
+    [self.navigationController pushViewControllerRetro:nextController];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -257,7 +253,7 @@
 }
 
 - (void)goBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerRetro];
 }
 
 - (void)goHome:(id)sender {

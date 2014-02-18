@@ -36,7 +36,7 @@
     [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#666666"]];
     
     // Simlulate first run every time
-    [TSHelpers makeFirstRun];
+//    [TSHelpers makeFirstRun];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

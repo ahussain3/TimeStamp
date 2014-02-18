@@ -13,6 +13,7 @@
 #import <EventKitUI/EventKitUI.h>
 #import "TotalHoursViewController.h"
 #import "EventViewController.h"
+#import "TSCalendarChooser.h"
 
 @interface TSMainViewController () <DMLazyScrollViewDelegate, EKCalendarChooserDelegate>{
     TSCalendarStore *calStore;
@@ -122,7 +123,7 @@
     [self.lazyView setPage:1 transition:DMLazyScrollViewTransitionForward animated:YES];
 }
 - (IBAction)goToSettingsScreen:(id)sender {
-    EKCalendarChooser *calChooser = [[EKCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
+    TSCalendarChooser *calChooser = [[TSCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
     //    [calChooser setEditing:YES];
     calChooser.selectedCalendars = calStore.activeCalendars;
     //    calChooser.selectedCalendars = self.tempSet;

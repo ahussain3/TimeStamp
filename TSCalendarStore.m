@@ -39,9 +39,7 @@
 
 - (void)setup {
     backgroundQueue = dispatch_queue_create("com.timestamp.calQueue", NULL);
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
-        [self requestCalAccess];
-    }
+    [self requestCalAccess];
     self.calsDirty = YES;
 }
 - (void)requestCalAccess {

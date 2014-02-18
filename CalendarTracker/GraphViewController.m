@@ -9,6 +9,8 @@
 #import "GraphViewController.h"
 #import "ColumnGraphView.h"
 #import "TotalHoursViewController.h"
+#import "UIColor+CalendarPalette.h"
+
 @interface GraphViewController ()
 
 @end
@@ -39,6 +41,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    if ([[ver objectAtIndex:0] intValue] >= 7) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexString:@"#3D478C"];
+        self.navigationController.navigationBar.translucent = NO;
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor colorFromHexString:@"#3D478C"];
+    }
+    
     UIBarButtonItem *customBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"                     style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                         action:@selector(goBack:)];

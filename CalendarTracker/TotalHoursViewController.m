@@ -14,6 +14,7 @@
 #import "SingleCalendarViewController.h"
 #import "TableHeaderToolBar.h"
 #import "TSCalendarStore.h"
+#import "UIColor+CalendarPalette.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface TotalHoursViewController ()
@@ -60,6 +61,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    if ([[ver objectAtIndex:0] intValue] >= 7) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexString:@"#3D478C"];
+        self.navigationController.navigationBar.translucent = NO;
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor colorFromHexString:@"#3D478C"];
+    }
+    
     self.navigationItem.title = @"Calendars";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Graph" style:UIBarButtonItemStyleBordered target:self action:@selector(graphButtonPressed:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(todayButtonPressed:)];

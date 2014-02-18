@@ -12,6 +12,7 @@
 #import "TSCalendarSegment.h"
 #import "TotalHoursViewController.h"
 #import "TrendGraphViewController.h"
+#import "UIColor+CalendarPalette.h"
 #import <QuartzCore/QuartzCore.h>
 @interface SingleCalendarViewController ()
 
@@ -47,6 +48,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    if ([[ver objectAtIndex:0] intValue] >= 7) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexString:@"#3D478C"];
+        self.navigationController.navigationBar.translucent = NO;
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor colorFromHexString:@"#3D478C"];
+    }
+    
     if(!_store)
     _store = [[EventKitData alloc]init];
     self.timeBar.delegate = self;

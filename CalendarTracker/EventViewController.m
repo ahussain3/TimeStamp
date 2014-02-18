@@ -10,6 +10,7 @@
 #import "EventCell.h"
 #import "EventKitData.h"
 #import "TotalHoursViewController.h"
+#import "UIColor+CalendarPalette.h"
 
 @interface EventViewController ()
 
@@ -39,6 +40,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    if ([[ver objectAtIndex:0] intValue] >= 7) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexString:@"#3D478C"];
+        self.navigationController.navigationBar.translucent = NO;
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor colorFromHexString:@"#3D478C"];
+    }
+    
     self.navigationItem.title = @"All Events";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Calendars" style:UIBarButtonItemStyleBordered target:self action:@selector(calendarButtonClicked:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(goToToday:)];

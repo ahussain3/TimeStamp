@@ -22,6 +22,7 @@
     /* Other launch code goes here */
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorFromHexString:@"#3D478C"]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                 UITextAttributeTextColor: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
                 UITextAttributeTextShadowColor: [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],
@@ -33,7 +34,6 @@
     [[TSTabBar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#eeeeee"]];
     [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundColor:[UIColor colorFromHexString:@"#666666"]];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     // Simlulate first run every time
     [TSHelpers makeFirstRun];
@@ -48,6 +48,8 @@
 		rootViewController = [sb instantiateViewControllerWithIdentifier:@"tutorialController"];
 	}
 	else {
+        // Do necessary imports/synchronization here.
+        [TSHelpers syncCalendarsAndShit];
 		rootViewController = [sb instantiateViewControllerWithIdentifier:@"homeController"];
 	}
     
@@ -57,7 +59,6 @@
     [self.window makeKeyAndVisible];
     
     [TSHelpers registerDefaults];
-    [TSHelpers syncCalendarsAndShit];
     
     return YES;
 }

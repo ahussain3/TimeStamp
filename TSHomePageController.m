@@ -18,6 +18,7 @@
 #import "UIColor+CalendarPalette.h"
 #import "TotalHoursViewController.h"
 #import "TSTutorialViewController.h"
+#import "TSCalendarChooser.h"
 
 @interface TSHomePageController () {
     BOOL userIsDragging;
@@ -45,10 +46,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    if ([[ver objectAtIndex:0] intValue] >= 7) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexString:@"#3D478C"];
+        self.navigationController.navigationBar.translucent = NO;
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor colorFromHexString:@"#3D478C"];
+    }
+    
     dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondToCellDragged:)];
     [self.view addGestureRecognizer:dragGestureRecognizer];
     dragGestureRecognizer.delegate = self;
     calStore = [TSCalendarStore instance];
+
     
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
 //    {
@@ -210,14 +220,8 @@
     }];
 }
 
-- (void)showCalChooserOnStartup {
-    [self showCalChooser:self];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-}
-
 - (IBAction)showCalChooser:(id)sender {
-    EKCalendarChooser *calChooser = [[EKCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
+    TSCalendarChooser *calChooser = [[TSCalendarChooser alloc] initWithSelectionStyle:EKCalendarChooserSelectionStyleMultiple displayStyle:EKCalendarChooserDisplayAllCalendars eventStore:[calStore store]];
     //    [calChooser setEditing:YES];
     calChooser.selectedCalendars = (calStore.activeCalendars) ? calStore.activeCalendars : [NSSet set];
     //    calChooser.selectedCalendars = self.tempSet;

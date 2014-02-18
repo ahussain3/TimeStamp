@@ -17,7 +17,7 @@
 
 @interface TSTutorialViewController () <UIScrollViewDelegate> {
     UIView *containerView;
-    UISwitch *onOff;
+    UISegmentedControl *onOff;
     UIButton *welcomeBtn;
     UIActivityIndicatorView *activityIndicator;
 }
@@ -111,11 +111,11 @@
     label.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0];
     [tut7 addSubview:label];
     
-    onOff = [[UISwitch alloc] initWithFrame:CGRectZero];
-    onOff.bounds = CGRectMake(0, 0, 60, 54);
+    onOff = [[UISegmentedControl alloc] initWithItems:@[@"Yes",@"No"]];
+    onOff.bounds = CGRectMake(0, 0, 120, 44);
     onOff.center = CGPointMake(tut7.bounds.size.width / 2, 375);
-    onOff.onTintColor = [UIColor colorFromHexString:@"#3D478C"];
-    onOff.on = YES;
+    onOff.tintColor = [UIColor colorFromHexString:@"#3D478C"];
+    onOff.selectedSegmentIndex = 0;
     [tut7 addSubview:onOff];
     
     containerView.frame = CGRectMake(0, 0, NUM_TUT_PAGES * width, height);
@@ -164,7 +164,7 @@
     [[TSCalendarStore instance] requestCalAccess];
     
     // Import Default Calendars
-    if (onOff.on) {
+    if (onOff.selectedSegmentIndex == 0) {
         [[TSCategoryStore instance] importDefaultCategories];
     }
     
@@ -182,33 +182,16 @@
     [activityIndicator startAnimating];
     activityIndicator.hidden = NO;
     welcomeBtn.hidden = YES;
- 
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(queue, ^{
-        
-        // import default calendars
-//        if (onOff.on) {
-//            [[TSCategoryStore instance] importDefaultCategories];
-//        }
-        
-        /*
-         // Show cal chooser
-         NSLog(@"Show Cal Chooser to get started!");
-         [self dismissViewControllerAnimated:YES completion:^{
-         // On home page controller, call show cal chooser
-         [self.homeController showCalChooser:nil];
-         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-         [alert show];
-         }];
-         */
-    
-    });
     
     // Get permission to use calendars
     [[TSCalendarStore instance] requestCalAccess];
 
     // Do necessary imports/synchronization here.
     [TSHelpers syncCalendarsAndShit];
+    // import default calendars
+    if (onOff.selectedSegmentIndex == 0) {
+        [[TSCategoryStore instance] importDefaultCategories];
+    }
     [[TSCategoryStore instance] makeAllCategoriesActive];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];

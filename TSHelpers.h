@@ -13,5 +13,5 @@
 + (void)registerDefaults;
 + (BOOL)isFirstRun;
 + (void)makeFirstRun;
-
++ (void)syncCalendarsAndShit;
 @end

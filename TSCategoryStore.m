@@ -162,9 +162,13 @@
     BOOL catExists;
     for (EKCalendar *cal in calendars) {
         if (cal.allowsContentModifications) {
+            catExists = FALSE;
             for (TSCategory *cat in self.allCategories) {
-                catExists = FALSE;
                 if ([cal.title isEqualToString:cat.title] || [cal.title isEqualToString:cat.calendar.title] || [cal.calendarIdentifier isEqualToString:cat.calendar.calendarIdentifier]) {
+                    NSLog(@"The calendar %@ ALREADY EXISTS!", cal.title);
+                    NSLog(@"compare titles %@ vs %@", cal.title, cat.title);
+                    NSLog(@"compare ids %@ vs %@", cal.calendarIdentifier, cat.calendar.calendarIdentifier);
+                    NSLog(@"compare other titles %@ vs %@", cal.title, cat.calendar.title);
                     catExists = TRUE;
                     cat.calendar = cal;
                     cat.title = cal.title;

@@ -50,25 +50,25 @@
     dragGestureRecognizer.delegate = self;
     calStore = [TSCalendarStore instance];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
-    {
-        // app already launched
-        NSLog(@"App has launched once already");
-    }
-    else
-    {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        // This is the first launch ever
-        NSLog(@"This is the first time the app has ever launched");
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        TSTutorialViewController *tutController = [storyboard instantiateViewControllerWithIdentifier:@"tutorialController"];
-        tutController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        tutController.homeController = self;
-//        [self showCalChooser:nil];
-        [self presentViewController:tutController animated:YES completion:^{}];
-    }
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
+//    {
+//        // app already launched
+//        NSLog(@"App has launched once already");
+//    }
+//    else
+//    {
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        // This is the first launch ever
+//        NSLog(@"This is the first time the app has ever launched");
+//        
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//        TSTutorialViewController *tutController = [storyboard instantiateViewControllerWithIdentifier:@"tutorialController"];
+//        tutController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//        tutController.homeController = self;
+////        [self showCalChooser:nil];
+//        [self presentViewController:tutController animated:YES completion:^{}];
+//    }
 }
 
 - (void)didReceiveMemoryWarning

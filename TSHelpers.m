@@ -7,6 +7,7 @@
 //
 
 #import "TSHelpers.h"
+#import "TSCategoryStore.h"
 
 @implementation TSHelpers
 
@@ -25,6 +26,10 @@
 + (void)makeFirstRun {
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"app.runBefore"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)syncCalendarsAndShit {
+    [[TSCategoryStore instance] syncStoredDataWithGCalData];
 }
 
 @end

@@ -11,12 +11,15 @@
 #import "UIColor+CalendarPalette.h"
 #import "TSCalendarStore.h"
 #import "TSCategoryStore.h"
+#import "TSHelpers.h"
 
 #define NUM_TUT_PAGES 8
 
 @interface TSTutorialViewController () <UIScrollViewDelegate> {
     UIView *containerView;
     UISwitch *onOff;
+    UIButton *welcomeBtn;
+    UIActivityIndicatorView *activityIndicator;
 }
 @end
 
@@ -73,7 +76,7 @@
     UIView *tut7 = [[UIView alloc] initWithFrame:CGRectMake(7 * width, 0, width, height)];
     [tut7 addSubview:tutIm7];
     
-    UIButton *welcomeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    welcomeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     welcomeBtn.center = CGPointMake(self.view.frame.size.width / 2, 175);
     welcomeBtn.bounds = CGRectMake(0, 0, 150, 150);
 //    [welcomeBtn setBackgroundColor:[UIColor colorFromHexString:@"#3D478C"]];
@@ -92,6 +95,12 @@
     [welcomeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [tut7 addSubview:welcomeBtn];
     
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.frame = welcomeBtn.frame;
+    activityIndicator.hidden = YES;
+    activityIndicator.color = [UIColor darkGrayColor];
+    [tut7 addSubview:activityIndicator];
+    
     UILabel *label = [[UILabel alloc] init];
     label.numberOfLines = 0;
     label.text = @"Include default categories? \n(recommended :)";
@@ -103,8 +112,8 @@
     [tut7 addSubview:label];
     
     onOff = [[UISwitch alloc] initWithFrame:CGRectZero];
-    onOff.bounds = CGRectMake(0, 0, 79, 54);
-    onOff.center = CGPointMake(self.view.bounds.size.width / 2, 375);
+    onOff.bounds = CGRectMake(0, 0, 60, 54);
+    onOff.center = CGPointMake(tut7.bounds.size.width / 2, 375);
     onOff.onTintColor = [UIColor colorFromHexString:@"#3D478C"];
     onOff.on = YES;
     [tut7 addSubview:onOff];
@@ -134,7 +143,6 @@
     self.scrollView.pagingEnabled = YES;
     self.scrollView.delegate = self;
     [self.scrollView  setContentSize:CGSizeMake(containerView.frame.size.width, containerView.frame.size.height)];
-    NSLog(@"Scroll View Size: (%f, %f)", self.scrollView.contentSize.width, self.scrollView.contentSize.height);
 }
 
 - (void)didReceiveMemoryWarning
@@ -171,37 +179,43 @@
 }
 
 - (void)getStarted:(id)sender {
+    [activityIndicator startAnimating];
+    activityIndicator.hidden = NO;
+    welcomeBtn.hidden = YES;
+ 
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(queue, ^{
+        
+        // import default calendars
+//        if (onOff.on) {
+//            [[TSCategoryStore instance] importDefaultCategories];
+//        }
+        
+        /*
+         // Show cal chooser
+         NSLog(@"Show Cal Chooser to get started!");
+         [self dismissViewControllerAnimated:YES completion:^{
+         // On home page controller, call show cal chooser
+         [self.homeController showCalChooser:nil];
+         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+         [alert show];
+         }];
+         */
+    
+    });
+    
     // Get permission to use calendars
     [[TSCalendarStore instance] requestCalAccess];
-    
+
     // Do necessary imports/synchronization here.
+    [TSHelpers syncCalendarsAndShit];
+    [[TSCategoryStore instance] makeAllCategoriesActive];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     UINavigationController *nav = [sb instantiateViewControllerWithIdentifier:@"homeController"];
     nav.modalPresentationCapturesStatusBarAppearance = YES;
     nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:nav animated:NO completion:^{}];
-
-    /*
-    // Get permission to use calendars
-    [[TSCalendarStore instance] requestCalAccess];
-    
-    // Import Default Calendars
-    if (onOff.on) {
-        [[TSCategoryStore instance] importDefaultCategories];
-    }
-    */
-    
-    /*
-    // Show cal chooser
-    NSLog(@"Show Cal Chooser to get started!");
-    [self dismissViewControllerAnimated:YES completion:^{
-        // On home page controller, call show cal chooser
-        [self.homeController showCalChooser:nil];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Calendars" message:@"Select which calendars you'd like to import into TimeStamp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }];
-    */
 }
 
 @end

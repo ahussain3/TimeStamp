@@ -6,8 +6,15 @@ The idea for the app came about after a exercise I had been doing tracking exact
 ![iCal data 1](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/ical_data.png)
 ![iCal data 2](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/ical_data_2.png)
 
+# The app
 The app then, was a way to make this data-logging process easier. Here is what the core UI looks like:
 ![UI gif](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/TimeStamp_Demo.gif)
+The GIF above shows how you can (all changes synced automatically with your iPhone's calendar):
+- create a new event
+- modifying an existing event
+- delete an event
+- shows off data entry without needing to type out the name of the event (much faster than using the Calendar app).
+
 
 We also had some interesting data reporting features:
 ![App photo 1](https://raw.githubusercontent.com/ahussain3/TimeStamp/blob/master/app_photo_1.jpg)

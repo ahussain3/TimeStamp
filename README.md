@@ -18,7 +18,7 @@ The GIF above shows how you can:
 
 
 We also had some interesting data reporting features:
-![App photo 1](https://raw.githubusercontent.com/ahussain3/TimeStamp/blob/master/app_photo.png)
+![App photo 1](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/app_photo.png)
 
 The app was approved to the the app store but we eventually had to retutn to university and were unable to keep up with updating it for new versions of iOS, so the project has since died. Nevertheless it was great fun to work on and taught me a lot about programming in Objective-C and Cocoa.
 ![App store picture](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/app_store.png)

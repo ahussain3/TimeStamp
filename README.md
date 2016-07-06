@@ -9,7 +9,8 @@ The idea for the app came about after a exercise I had been doing tracking exact
 # The app
 The app then, was a way to make this data-logging process easier. Here is what the core UI looks like:
 ![UI gif](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/TimeStamp_Demo.gif)
-The GIF above shows how you can (all changes synced automatically with your iPhone's calendar):
+
+The GIF above shows how you can:
 - create a new event
 - modifying an existing event
 - delete an event
@@ -17,8 +18,8 @@ The GIF above shows how you can (all changes synced automatically with your iPho
 
 
 We also had some interesting data reporting features:
-![App photo 1](https://raw.githubusercontent.com/ahussain3/TimeStamp/blob/master/app_photo_1.jpg)
-![App photo 2](https://raw.githubusercontent.com/ahussain3/TimeStamp/blob/master/app_photo_2.jpg)
+![App photo 1](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/app_photo_1.jpg)
+![App photo 2](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/app_photo_2.jpg)
 
 The app was approved to the the app store but we eventually had to retutn to university and were unable to keep up with updating it for new versions of iOS, so the project has since died. Nevertheless it was great fun to work on and taught me a lot about programming in Objective-C and Cocoa.
 ![App store picture](https://raw.githubusercontent.com/ahussain3/TimeStamp/master/app_store.png)
